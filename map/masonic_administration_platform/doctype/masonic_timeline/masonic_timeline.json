@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "MT-.####",
+ "creation": "2025-09-30 17:18:20.674805",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "details",
+  "date",
+  "additional_info"
+ ],
+ "fields": [
+  {
+   "fieldname": "details",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "label": "Date"
+  },
+  {
+   "fieldname": "additional_info",
+   "fieldtype": "Data",
+   "label": "Additional Information"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-17 16:18:25.590851",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Masonic Timeline",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -5,6 +5,14 @@ app_description = "Administration Platform"
 app_email = "mllaneta@ebizolution.com"
 app_license = "mit"
 
+
+
+doc_events = {
+	"Events": {
+		"on_update": "map.masonic_administration_platform.doctype.events.events.on_update"
+	}
+}
+
 # Apps
 # ------------------
 
