@@ -1,0 +1,69 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-10-30 17:35:59.509900",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "or_number",
+  "year",
+  "date_of_payment",
+  "amount",
+  "posted",
+  "user",
+  "lodge"
+ ],
+ "fields": [
+  {
+   "fieldname": "or_number",
+   "fieldtype": "Data",
+   "label": "OR Number"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Int",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "posted",
+   "fieldtype": "Data",
+   "label": "Posted"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Data",
+   "label": "Lodge"
+  },
+  {
+   "fieldname": "date_of_payment",
+   "fieldtype": "Date",
+   "label": "Date of Payment"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-30 18:25:48.143425",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Payment",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

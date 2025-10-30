@@ -1,7 +1,6 @@
 {
  "actions": [],
  "allow_import": 1,
- "allow_rename": 1,
  "creation": "2025-09-30 09:41:38.266829",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -58,8 +57,18 @@
   "emergency_contact_relation",
   "column_break_dicr",
   "emergency_contact_no",
+  "links_section",
+  "affiliation",
+  "recognitions",
+  "certificates",
+  "section_break_ggvq",
+  "documents",
+  "masonic_information_tab",
   "masonic_information_section",
   "masonic_rank",
+  "masonic_rank_year",
+  "masonic_rank_type",
+  "masonic_rank_remarks",
   "date_initiated",
   "date_passed",
   "date_raised",
@@ -74,14 +83,17 @@
   "column_break_mapn",
   "masonic_timeline",
   "other_lodges",
-  "links_section",
-  "affiliation",
-  "recognitions",
-  "certificates",
+  "events_tab",
   "events_section",
   "member_event",
-  "section_break_ggvq",
-  "documents"
+  "financial_status_tab",
+  "dues_status",
+  "column_break_imee",
+  "balance",
+  "column_break_xjcu",
+  "last_payment",
+  "section_break_oora",
+  "payment"
  ],
  "fields": [
   {
@@ -438,11 +450,9 @@
   },
   {
    "fieldname": "id_number",
-   "fieldtype": "Int",
+   "fieldtype": "Data",
    "label": "Member ID",
-   "non_negative": 1,
-   "reqd": 1,
-   "unique": 1
+   "non_negative": 1
   },
   {
    "fieldname": "imes_date",
@@ -474,12 +484,79 @@
    "fieldname": "lml",
    "fieldtype": "Data",
    "label": "LML"
+  },
+  {
+   "fieldname": "masonic_rank_year",
+   "fieldtype": "Data",
+   "label": "Masonic Rank Year"
+  },
+  {
+   "fieldname": "masonic_rank_type",
+   "fieldtype": "Data",
+   "label": "Masonic Rank Type"
+  },
+  {
+   "fieldname": "masonic_rank_remarks",
+   "fieldtype": "Small Text",
+   "label": "Masonic Rank Remarks"
+  },
+  {
+   "fieldname": "masonic_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Masonic Information"
+  },
+  {
+   "fieldname": "events_tab",
+   "fieldtype": "Tab Break",
+   "label": "Events"
+  },
+  {
+   "fieldname": "financial_status_tab",
+   "fieldtype": "Tab Break",
+   "label": "Financial Status"
+  },
+  {
+   "default": "Paid",
+   "fieldname": "dues_status",
+   "fieldtype": "Select",
+   "label": "Dues status",
+   "options": "Paid"
+  },
+  {
+   "fieldname": "column_break_imee",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Float",
+   "label": "Balance",
+   "precision": "1"
+  },
+  {
+   "fieldname": "column_break_xjcu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_payment",
+   "fieldtype": "Date",
+   "label": "Last Payment"
+  },
+  {
+   "fieldname": "section_break_oora",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment",
+   "fieldtype": "Table",
+   "label": "Payment",
+   "options": "Payment"
   }
  ],
  "grid_page_length": 50,
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-27 02:40:52.700521",
+ "modified": "2025-10-30 18:28:06.135671",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",
