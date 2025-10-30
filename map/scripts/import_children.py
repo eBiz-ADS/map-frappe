@@ -1,6 +1,24 @@
+from datetime import datetime
+
 import frappe
 import csv
 import os
+
+#to run:
+#bench execute map.scripts.import_children.run
+
+
+def normalize_date(date_str):
+    if not date_str or date_str.strip() == "":
+        return None
+    for fmt in ("%m/%d/%Y", "%d/%m/%Y", "%m-%d-%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(date_str.strip(), fmt).strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    # if no match, return as-is (or None)
+    return None
+
 
 def has_data(*values):
     """Return True if any value is non-empty."""
@@ -47,6 +65,27 @@ def process_csv(file_path):
                         "date": row.get("Date (Affiliation)", "").strip()
                     })
 
+
+                # --- Other Lodges ---
+                if has_data(
+                    row.get("Date of Payment (Payment)"),
+                    row.get("OR Number (Payment)"),
+                    row.get("Year (Payment)"),
+                    row.get("Lodge (Payment)"),
+                    row.get("Amount (Payment)"),
+                    row.get("Posted (Payment)"),
+                    row.get("User (Payment)")
+                ):
+                    parent_doc.append("payment", {
+                        "date_of_payment": normalize_date(row.get("Date of Payment (Payment)", "").strip()),
+                        "or_number": row.get("OR Number (Payment)", "").strip(),
+                        "year": row.get("Year (Payment)", "").strip(),
+                        "lodge": row.get("Lodge (Payment)", "").strip(),
+                        "amount": row.get("Amount (Payment)", "").strip(),
+                        "posted": row.get("Posted (Payment)", "").strip(),
+                        "user": row.get("User (Payment)", "").strip()
+                    })
+
                 parent_doc.save()
                 frappe.db.commit()
                 print(f"✅ Updated parent {parent_id}")
@@ -62,11 +101,12 @@ def run():
 
     # List of all CSV filenames
     files = [
-        "members_split_1.csv",
-        "members_split_2.csv",
-        "members_split_3.csv",
-        "members_split_4.csv",
-        "members_split_5.csv"
+        # "members_split_1.csv",
+        # "members_split_2.csv",
+        # "members_split_3.csv",
+        # "members_split_4.csv",
+        # "members_split_5.csv"
+        "filtered_payments.csv"
     ]
 
     for file_name in files:
