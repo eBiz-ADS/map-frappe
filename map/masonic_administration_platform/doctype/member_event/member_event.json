@@ -9,7 +9,9 @@
   "event",
   "event_name",
   "event_date",
-  "status"
+  "status",
+  "proof_of_payment",
+  "reference_id"
  ],
  "fields": [
   {
@@ -31,17 +33,28 @@
    "label": "Event Date"
   },
   {
+   "default": "Pending",
    "fieldname": "status",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Status",
    "options": "Attended\nDid not attend\nPending"
+  },
+  {
+   "fieldname": "proof_of_payment",
+   "fieldtype": "Attach",
+   "label": "Payment"
+  },
+  {
+   "fieldname": "reference_id",
+   "fieldtype": "Data",
+   "label": "Reference"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-03 16:31:19.781950",
+ "modified": "2025-11-11 13:01:04.643013",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Member Event",

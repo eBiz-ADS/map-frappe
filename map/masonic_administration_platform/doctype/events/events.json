@@ -1,12 +1,16 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:EVENT-{####}",
  "creation": "2025-09-30 17:43:05.475814",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "event_name",
   "date_time",
+  "location",
+  "lodge",
+  "district",
   "attendees",
   "status"
  ],
@@ -36,15 +40,31 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Ongoing\nUpcoming\nPostponed\nCancelled"
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Data",
+   "label": "Lodge"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-01 12:09:11.729294",
+ "modified": "2025-11-20 01:44:16.664456",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Events",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

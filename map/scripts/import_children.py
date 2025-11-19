@@ -41,7 +41,9 @@ def process_csv(file_path):
                 if has_data(row.get("Details (Masonic Timeline)"), row.get("Date (Masonic Timeline)")):
                     parent_doc.append("masonic_timeline", {
                         "details": row.get("Details (Masonic Timeline)", "").strip(),
-                        "date": row.get("Date (Masonic Timeline)", "").strip()
+                        "date": row.get("Date (Masonic Timeline)", "").strip(),
+                        "additional_info": row.get("Additional Information (Masonic Timeline)", "").strip(),
+                        "type": row.get("Type (Masonic Timeline)", "").strip()
                     })
 
                 # --- Other Lodges ---
@@ -106,7 +108,8 @@ def run():
         # "members_split_3.csv",
         # "members_split_4.csv",
         # "members_split_5.csv"
-        "filtered_payments.csv"
+        #"filtered_payments.csv"
+        "officers_import.csv"
     ]
 
     for file_name in files:

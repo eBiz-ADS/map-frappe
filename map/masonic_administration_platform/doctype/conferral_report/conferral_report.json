@@ -1,0 +1,146 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CONF-{####}",
+ "creation": "2025-11-14 11:05:09.293437",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "lodge",
+  "date",
+  "degree",
+  "issued_by",
+  "or_number",
+  "or_date",
+  "transmitted_date",
+  "petitioners",
+  "violation",
+  "worshipful_master",
+  "senior_warden",
+  "junior_warden",
+  "lodge_secretary",
+  "district_deputy_grand_master",
+  "district_grand_lecturer",
+  "grand_lodge_inspector"
+ ],
+ "fields": [
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Link",
+   "label": "Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "degree",
+   "fieldtype": "Data",
+   "label": "Degree"
+  },
+  {
+   "fieldname": "issued_by",
+   "fieldtype": "Link",
+   "label": "Issued By",
+   "options": "Members"
+  },
+  {
+   "fieldname": "or_number",
+   "fieldtype": "Data",
+   "label": "OR Number"
+  },
+  {
+   "fieldname": "or_date",
+   "fieldtype": "Date",
+   "label": "OR Date"
+  },
+  {
+   "fieldname": "transmitted_date",
+   "fieldtype": "Date",
+   "label": "Transmitted Date"
+  },
+  {
+   "fieldname": "violation",
+   "fieldtype": "Small Text",
+   "label": "Violation"
+  },
+  {
+   "fieldname": "worshipful_master",
+   "fieldtype": "Link",
+   "label": "Worshipful Master",
+   "options": "Members"
+  },
+  {
+   "fieldname": "senior_warden",
+   "fieldtype": "Link",
+   "label": "Senior Warden",
+   "options": "Members"
+  },
+  {
+   "fieldname": "junior_warden",
+   "fieldtype": "Link",
+   "label": "Junior Warden",
+   "options": "Members"
+  },
+  {
+   "fieldname": "lodge_secretary",
+   "fieldtype": "Link",
+   "label": "Lodge Secretary",
+   "options": "Members"
+  },
+  {
+   "fieldname": "district_deputy_grand_master",
+   "fieldtype": "Link",
+   "label": "District Deputy Grand Master",
+   "options": "Members"
+  },
+  {
+   "fieldname": "district_grand_lecturer",
+   "fieldtype": "Link",
+   "label": "District Grand Lecturer",
+   "options": "Members"
+  },
+  {
+   "fieldname": "grand_lodge_inspector",
+   "fieldtype": "Link",
+   "label": "Grand Lodge Inspector",
+   "options": "Members"
+  },
+  {
+   "fieldname": "petitioners",
+   "fieldtype": "Table",
+   "label": "Petitioners",
+   "options": "Petitioners Conferral Table"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-11-14 17:05:34.092410",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Conferral Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

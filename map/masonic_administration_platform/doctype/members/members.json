@@ -65,18 +65,19 @@
   "documents",
   "masonic_information_tab",
   "masonic_information_section",
-  "masonic_rank",
-  "masonic_rank_year",
-  "masonic_rank_type",
+  "position",
+  "position_year",
+  "position_type",
   "masonic_rank_remarks",
   "date_initiated",
   "date_passed",
   "date_raised",
   "id_number",
   "lml",
-  "lodge",
-  "rank_number",
   "district",
+  "lodge",
+  "proficiency",
+  "rank_number",
   "imes_date",
   "imes_remarks",
   "imes_graduation_year",
@@ -228,11 +229,6 @@
    "label": "Lodge"
   },
   {
-   "fieldname": "masonic_rank",
-   "fieldtype": "Data",
-   "label": "Masonic Rank"
-  },
-  {
    "fieldname": "rank_number",
    "fieldtype": "Int",
    "label": "Rank",
@@ -377,7 +373,8 @@
   },
   {
    "fieldname": "column_break_mlfg",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "label": "Kin Information"
   },
   {
    "fieldname": "kin",
@@ -486,16 +483,6 @@
    "label": "LML"
   },
   {
-   "fieldname": "masonic_rank_year",
-   "fieldtype": "Data",
-   "label": "Masonic Rank Year"
-  },
-  {
-   "fieldname": "masonic_rank_type",
-   "fieldtype": "Data",
-   "label": "Masonic Rank Type"
-  },
-  {
    "fieldname": "masonic_rank_remarks",
    "fieldtype": "Small Text",
    "label": "Masonic Rank Remarks"
@@ -550,13 +537,33 @@
    "fieldtype": "Table",
    "label": "Payment",
    "options": "Payment"
+  },
+  {
+   "fieldname": "proficiency",
+   "fieldtype": "Data",
+   "label": "Proficiency"
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Data",
+   "label": "Position"
+  },
+  {
+   "fieldname": "position_year",
+   "fieldtype": "Data",
+   "label": "Position Year"
+  },
+  {
+   "fieldname": "position_type",
+   "fieldtype": "Data",
+   "label": "Position Type"
   }
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-30 18:28:06.135671",
+ "modified": "2025-11-15 00:04:32.105506",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",

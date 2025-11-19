@@ -25,6 +25,8 @@ def on_update(doc, method=None):
 		if existing_row:
 			#existing_row.event_date = doc.date_time
 			existing_row.status = attendee.status
+			existing_row.proof_of_payment = attendee.proof_of_payment
+			existing_row.reference_id = attendee.reference_id
 			#existing_row.event_name = doc.event_name
 
 		else:
@@ -33,6 +35,8 @@ def on_update(doc, method=None):
 			#row.event_name = doc.event_name
 			#row.event_date = doc.date_time
 			row.status = attendee.status
+			row.proof_of_payment = attendee.proof_of_payment
+			row.reference_id = attendee.reference_id
 
 		member.save(ignore_permissions=True)
 

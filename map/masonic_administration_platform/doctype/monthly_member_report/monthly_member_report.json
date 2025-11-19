@@ -1,0 +1,231 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:MMR-{####}",
+ "creation": "2025-11-13 17:43:08.794173",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "district",
+  "lodge",
+  "date",
+  "stated_meeting",
+  "other_suspension",
+  "dropped_from_the_roll",
+  "worshipful_master",
+  "secretary",
+  "petitions",
+  "petition_for_degrees_received",
+  "petition_for_degrees_elected",
+  "petition_for",
+  "petitions_for_affiliation_received",
+  "petitions_for_affiliation_approved",
+  "petitions_for_affiliation_rejected",
+  "initiated",
+  "passed",
+  "raised",
+  "proficiency_exam",
+  "members_tab",
+  "affiliated",
+  "given_dimit",
+  "snpd",
+  "sna",
+  "imes_graduate",
+  "granted_life_membership",
+  "expelled",
+  "died"
+ ],
+ "fields": [
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Link",
+   "label": "Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "stated_meeting",
+   "fieldtype": "Data",
+   "label": "Stated Meeting"
+  },
+  {
+   "fieldname": "petition_for_degrees_received",
+   "fieldtype": "Table",
+   "label": "Petition for Degrees Received",
+   "options": "Petitions For Degrees Received"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "petition_for_degrees_elected",
+   "fieldtype": "Table",
+   "label": "Petitions For Degrees Elected",
+   "options": "Petitions For Degrees Rejected"
+  },
+  {
+   "fieldname": "petition_for",
+   "fieldtype": "Table",
+   "label": "Petitions For Degrees Rejected",
+   "options": "Petitions For Degrees Rejected"
+  },
+  {
+   "fieldname": "petitions_for_affiliation_received",
+   "fieldtype": "Table",
+   "label": "Petitions For Affiliation Received",
+   "options": "Petitions For Affiliation Received"
+  },
+  {
+   "fieldname": "petitions_for_affiliation_approved",
+   "fieldtype": "Table",
+   "label": "Petitions For Affiliation Approved",
+   "options": "Petitions For Affiliation Approved"
+  },
+  {
+   "fieldname": "petitions",
+   "fieldtype": "Tab Break",
+   "label": "Petitions"
+  },
+  {
+   "fieldname": "petitions_for_affiliation_rejected",
+   "fieldtype": "Table",
+   "label": "Petitions For Affiliation Rejected",
+   "options": "Petitions For Affiliation Rejected"
+  },
+  {
+   "fieldname": "members_tab",
+   "fieldtype": "Tab Break",
+   "label": "Members"
+  },
+  {
+   "fieldname": "affiliated",
+   "fieldtype": "Table",
+   "label": "Affiliated",
+   "options": "Affiliated MMR"
+  },
+  {
+   "fieldname": "given_dimit",
+   "fieldtype": "Table",
+   "label": "Given Dimit",
+   "options": "Given Dimit MMR"
+  },
+  {
+   "fieldname": "snpd",
+   "fieldtype": "Table",
+   "label": "SNPD",
+   "options": "SNPD MMR"
+  },
+  {
+   "fieldname": "sna",
+   "fieldtype": "Table",
+   "label": "SNA",
+   "options": "SNA MMR"
+  },
+  {
+   "fieldname": "initiated",
+   "fieldtype": "Table",
+   "label": "Initiated",
+   "options": "Initiated MMR"
+  },
+  {
+   "fieldname": "passed",
+   "fieldtype": "Table",
+   "label": "Passed",
+   "options": "Passed MMR"
+  },
+  {
+   "fieldname": "raised",
+   "fieldtype": "Table",
+   "label": "Raised",
+   "options": "Raised MMR"
+  },
+  {
+   "fieldname": "proficiency_exam",
+   "fieldtype": "Table",
+   "label": "Proficiency Exam",
+   "options": "Proficiency Exam MMR"
+  },
+  {
+   "fieldname": "imes_graduate",
+   "fieldtype": "Table",
+   "label": "IMES Graduate",
+   "options": "IMES Graduate MMR"
+  },
+  {
+   "fieldname": "granted_life_membership",
+   "fieldtype": "Table",
+   "label": "Granted Life Membership",
+   "options": "Granted Life Membership"
+  },
+  {
+   "fieldname": "expelled",
+   "fieldtype": "Table",
+   "label": "Expelled",
+   "options": "Expelled MMR"
+  },
+  {
+   "fieldname": "died",
+   "fieldtype": "Table",
+   "label": "Died",
+   "options": "Died MMR"
+  },
+  {
+   "fieldname": "other_suspension",
+   "fieldtype": "Table",
+   "label": "Other Suspension",
+   "options": "Other Suspension MMR"
+  },
+  {
+   "fieldname": "dropped_from_the_roll",
+   "fieldtype": "Table",
+   "label": "Dropped From the Roll",
+   "options": "Dropped From the Roll MMR"
+  },
+  {
+   "fieldname": "worshipful_master",
+   "fieldtype": "Link",
+   "label": "Worshipful Master",
+   "options": "Members"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Link",
+   "label": "Secretary",
+   "options": "Members"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-11-19 03:09:27.625056",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Monthly Member Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
