@@ -24,7 +24,7 @@ def count_records(filters_by_doctype=None):
 
     for doctype, items in filters_by_doctype.items():
         parent_table = f"`tab{doctype}`"
-
+        print("doctype: ", doctype)
         for item in items:
             name = item.get("name")
             parent_filters = item.get("filters", {})

@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-09 15:51:16.258526",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "petitioner",
+  "type",
+  "date_completed",
+  "lodge",
+  "status",
+  "lodge_name",
+  "petitioner_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nRaised"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_completed",
+   "fieldtype": "Date",
+   "label": "Date Completed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Link",
+   "label": "Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "FOR PUBLISH\nREJECTED"
+  },
+  {
+   "fetch_from": "lodge.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fetch_from": "petitioner.full_name",
+   "fieldname": "petitioner_name",
+   "fieldtype": "Data",
+   "label": "Petitioner Name",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-09 16:42:25.821048",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Petitioner for Circular 12",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

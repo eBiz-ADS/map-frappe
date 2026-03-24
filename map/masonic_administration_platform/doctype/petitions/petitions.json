@@ -1,0 +1,793 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:PET-{YYYY}-{###}",
+ "creation": "2025-12-02 14:21:25.570998",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "new_membership_section",
+  "type",
+  "status",
+  "new_lodge",
+  "new_lodge_name",
+  "new_lodge_no",
+  "control_no",
+  "current_membership_section",
+  "petitioner",
+  "petitioner_name",
+  "lodge",
+  "lodge_location",
+  "jurisdiction",
+  "membership_in_year",
+  "lodge_name",
+  "member",
+  "previous_membership_section",
+  "previous_jurisdiction",
+  "previous_lodge_name",
+  "previous_lodge",
+  "previous_lodge_location",
+  "previous_membership_in_year",
+  "date_and_location_section",
+  "dated_at",
+  "day",
+  "month",
+  "year",
+  "to_the_master_warden_and_brethren_of_section",
+  "lodge_name_1",
+  "lodge_number_1",
+  "masonic_origin_section",
+  "origin_lodge_name",
+  "origin_lodge_number",
+  "origin_jurisdiction",
+  "personal_information_tab",
+  "occupation",
+  "employed_as",
+  "employed_by",
+  "business_nature",
+  "business_location",
+  "residence_address",
+  "business_address",
+  "occupation_title",
+  "other_organization",
+  "religious_belief",
+  "immortality_of_the_soul",
+  "additional_personal_information_tab",
+  "date_of_birth",
+  "marital_status",
+  "beneficiary_name",
+  "beneficiary_address",
+  "address_section",
+  "town",
+  "city",
+  "country",
+  "tab_3_tab",
+  "recommendations_section",
+  "recommender_first_name",
+  "recommender_middle_initial",
+  "recommender_last_name",
+  "recommender_lodge_no",
+  "recommender_2_first_name",
+  "recommender_2_middle_initial",
+  "recommender_2_last_name",
+  "recommender_2_lodge_number",
+  "recommender",
+  "recommender_2",
+  "degree_information_tab",
+  "initiated",
+  "initiated_location",
+  "passed",
+  "passed_location",
+  "raised",
+  "raised_location",
+  "health_and_legal_restrictions_tab",
+  "sound_bodily_health",
+  "physical_legal_moral_restriction",
+  "adequate_provision",
+  "particular_physical_deformity",
+  "tab_6_tab",
+  "previous_petition_section",
+  "previous_petition",
+  "previous_petition_lodge",
+  "previous_petition_date",
+  "previous_petition_action",
+  "past_residence_and_occupation_tab",
+  "past_residence",
+  "past_occupation",
+  "past_residence_6m",
+  "signature_tab",
+  "po_address",
+  "form",
+  "applicant_full_body_picture",
+  "nbi_clearance",
+  "recommender_name",
+  "recommender_2_name",
+  "signed_form",
+  "data_privacy_consent",
+  "endorsement_letter",
+  "medical_certificate",
+  "remarks_tab",
+  "remarks",
+  "history_logs_tab",
+  "history_logs",
+  "dates_tab",
+  "presented",
+  "elected",
+  "entered_apprentice",
+  "fellow_craft",
+  "master_mason",
+  "affiliation_date",
+  "workflow_tab",
+  "date_received",
+  "received_by",
+  "payment_proof",
+  "amount_paid",
+  "or_number",
+  "transmitted_date",
+  "date_completed",
+  "or_receipt"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nPetition for Affiliation Membership"
+  },
+  {
+   "fieldname": "new_lodge",
+   "fieldtype": "Link",
+   "label": "New Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "new_lodge.lodge_no",
+   "fieldname": "new_lodge_no",
+   "fieldtype": "Data",
+   "label": "New Lodge Number"
+  },
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Data",
+   "label": "Lodge"
+  },
+  {
+   "fieldname": "new_membership_section",
+   "fieldtype": "Section Break",
+   "label": "New Membership"
+  },
+  {
+   "fetch_from": "new_lodge.lodge_name",
+   "fieldname": "new_lodge_name",
+   "fieldtype": "Data",
+   "label": "New Lodge Name"
+  },
+  {
+   "fieldname": "current_membership_section",
+   "fieldtype": "Section Break",
+   "label": "Current Membership"
+  },
+  {
+   "fieldname": "lodge_location",
+   "fieldtype": "Data",
+   "label": "Lodge Location"
+  },
+  {
+   "fieldname": "jurisdiction",
+   "fieldtype": "Data",
+   "label": "Jurisdiction"
+  },
+  {
+   "fieldname": "membership_in_year",
+   "fieldtype": "Data",
+   "label": "Membership in Year"
+  },
+  {
+   "fieldname": "previous_membership_section",
+   "fieldtype": "Section Break",
+   "label": "Previous Membership"
+  },
+  {
+   "fieldname": "previous_jurisdiction",
+   "fieldtype": "Data",
+   "label": "Previous Jurisdiction"
+  },
+  {
+   "fieldname": "previous_lodge",
+   "fieldtype": "Link",
+   "label": "Previous Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "previous_lodge.location",
+   "fieldname": "previous_lodge_location",
+   "fieldtype": "Data",
+   "label": "Previous Lodge Location"
+  },
+  {
+   "fieldname": "previous_membership_in_year",
+   "fieldtype": "Data",
+   "label": "Previous Membership in Year"
+  },
+  {
+   "fieldname": "date_and_location_section",
+   "fieldtype": "Section Break",
+   "label": "Date and Location"
+  },
+  {
+   "fieldname": "dated_at",
+   "fieldtype": "Data",
+   "label": "Dated At"
+  },
+  {
+   "fieldname": "day",
+   "fieldtype": "Data",
+   "label": "Day"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "personal_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Personal Information"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "employed_as",
+   "fieldtype": "Data",
+   "label": "Employed as"
+  },
+  {
+   "fieldname": "employed_by",
+   "fieldtype": "Data",
+   "label": "Employed by"
+  },
+  {
+   "fieldname": "business_nature",
+   "fieldtype": "Data",
+   "label": "Business Nature"
+  },
+  {
+   "fieldname": "business_location",
+   "fieldtype": "Data",
+   "label": "Business Location"
+  },
+  {
+   "fetch_from": "petitioner.address_1",
+   "fieldname": "residence_address",
+   "fieldtype": "Data",
+   "label": "Residence Address"
+  },
+  {
+   "fetch_from": "petitioner.company_address",
+   "fieldname": "business_address",
+   "fieldtype": "Data",
+   "label": "Business Address"
+  },
+  {
+   "fieldname": "tab_3_tab",
+   "fieldtype": "Tab Break",
+   "label": "Recommendations"
+  },
+  {
+   "fieldname": "recommendations_section",
+   "fieldtype": "Section Break",
+   "label": "Recommendations"
+  },
+  {
+   "fetch_from": "recommender.first_name",
+   "fieldname": "recommender_first_name",
+   "fieldtype": "Data",
+   "label": "Recommender First Name"
+  },
+  {
+   "fetch_from": "recommender.middle_name",
+   "fetch_if_empty": 1,
+   "fieldname": "recommender_middle_initial",
+   "fieldtype": "Data",
+   "label": "Recommender Middle Initial"
+  },
+  {
+   "fetch_from": "recommender.last_name",
+   "fieldname": "recommender_last_name",
+   "fieldtype": "Data",
+   "label": "Recommender Last Name"
+  },
+  {
+   "fieldname": "recommender_lodge_no",
+   "fieldtype": "Data",
+   "label": "Recommender Lodge Number"
+  },
+  {
+   "fetch_from": "recommender_2.first_name",
+   "fieldname": "recommender_2_first_name",
+   "fieldtype": "Data",
+   "label": "Recommender 2 First Name"
+  },
+  {
+   "fetch_from": "recommender_2.middle_name",
+   "fieldname": "recommender_2_middle_initial",
+   "fieldtype": "Data",
+   "label": "Recommender 2 Middle Initial"
+  },
+  {
+   "fetch_from": "recommender_2.last_name",
+   "fieldname": "recommender_2_last_name",
+   "fieldtype": "Data",
+   "label": "Recommender 2 Last Name"
+  },
+  {
+   "fieldname": "recommender_2_lodge_number",
+   "fieldtype": "Data",
+   "label": "Recommender 2 Lodge Number"
+  },
+  {
+   "fieldname": "degree_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Degree Information"
+  },
+  {
+   "fieldname": "initiated",
+   "fieldtype": "Data",
+   "label": "Initiated"
+  },
+  {
+   "fieldname": "initiated_location",
+   "fieldtype": "Data",
+   "label": "Initiated Location"
+  },
+  {
+   "fieldname": "passed",
+   "fieldtype": "Data",
+   "label": "Passed"
+  },
+  {
+   "fieldname": "passed_location",
+   "fieldtype": "Data",
+   "label": "Passed Location"
+  },
+  {
+   "fieldname": "raised",
+   "fieldtype": "Data",
+   "label": "Raised"
+  },
+  {
+   "fieldname": "raised_location",
+   "fieldtype": "Data",
+   "label": "Raised Location"
+  },
+  {
+   "default": "0",
+   "fieldname": "religious_belief",
+   "fieldtype": "Check",
+   "label": "Religious Belief"
+  },
+  {
+   "fieldname": "health_and_legal_restrictions_tab",
+   "fieldtype": "Tab Break",
+   "label": "Health and Legal Restrictions"
+  },
+  {
+   "default": "0",
+   "fieldname": "sound_bodily_health",
+   "fieldtype": "Check",
+   "label": "Sound Bodily Health"
+  },
+  {
+   "default": "0",
+   "fieldname": "physical_legal_moral_restriction",
+   "fieldtype": "Check",
+   "label": "Physical, legal, or Moral Restriction"
+  },
+  {
+   "fieldname": "particular_physical_deformity",
+   "fieldtype": "Data",
+   "label": "Particular Physical Deformity"
+  },
+  {
+   "fieldname": "tab_6_tab",
+   "fieldtype": "Tab Break",
+   "label": "Previous Petition"
+  },
+  {
+   "fieldname": "previous_petition_section",
+   "fieldtype": "Section Break",
+   "label": "Previous Petition"
+  },
+  {
+   "default": "0",
+   "fieldname": "previous_petition",
+   "fieldtype": "Data",
+   "label": "Previous Petition"
+  },
+  {
+   "fieldname": "previous_petition_lodge",
+   "fieldtype": "Data",
+   "label": "Previous Petition Lodge"
+  },
+  {
+   "fieldname": "previous_petition_action",
+   "fieldtype": "Data",
+   "label": "Previous Petition Action"
+  },
+  {
+   "fieldname": "previous_petition_date",
+   "fieldtype": "Date",
+   "label": "Previous Date Petition"
+  },
+  {
+   "fieldname": "past_residence_and_occupation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Past Residence and Occupation"
+  },
+  {
+   "fieldname": "past_occupation",
+   "fieldtype": "Table",
+   "label": "Past Occupation",
+   "options": "Past Occupation"
+  },
+  {
+   "fieldname": "signature_tab",
+   "fieldtype": "Tab Break",
+   "label": "Uploads"
+  },
+  {
+   "fieldname": "po_address",
+   "fieldtype": "Data",
+   "label": "P.O Address"
+  },
+  {
+   "fieldname": "applicant_full_body_picture",
+   "fieldtype": "Attach",
+   "label": "Applicant Full Body Picture"
+  },
+  {
+   "fieldname": "recommender_name",
+   "fieldtype": "Data",
+   "label": "Recommender Name"
+  },
+  {
+   "fieldname": "recommender_2_name",
+   "fieldtype": "Data",
+   "label": "Recommender 2 Name"
+  },
+  {
+   "fieldname": "signed_form",
+   "fieldtype": "Attach",
+   "label": "Signed Form"
+  },
+  {
+   "fieldname": "form",
+   "fieldtype": "Attach",
+   "label": "Form"
+  },
+  {
+   "fieldname": "remarks_tab",
+   "fieldtype": "Tab Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Table",
+   "label": "Remarks",
+   "options": "Remarks"
+  },
+  {
+   "fieldname": "past_residence",
+   "fieldtype": "Table",
+   "label": "Past Residence",
+   "options": "Past Residence"
+  },
+  {
+   "fieldname": "nbi_clearance",
+   "fieldtype": "Attach",
+   "label": "NBI Clearance"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "PENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
+  },
+  {
+   "fetch_from": "petitioner.full_name",
+   "fieldname": "petitioner_name",
+   "fieldtype": "Data",
+   "label": "Petitioner Name"
+  },
+  {
+   "fieldname": "additional_personal_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Additional Personal Information "
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "town",
+   "fieldtype": "Data",
+   "label": "Town"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "marital_status",
+   "fieldtype": "Data",
+   "label": "Marital Status"
+  },
+  {
+   "fieldname": "beneficiary_name",
+   "fieldtype": "Data",
+   "label": "Beneficiary Name"
+  },
+  {
+   "fieldname": "beneficiary_address",
+   "fieldtype": "Data",
+   "label": "Beneficiary Address"
+  },
+  {
+   "fieldname": "occupation_title",
+   "fieldtype": "Data",
+   "label": "Position/Title"
+  },
+  {
+   "default": "0",
+   "fieldname": "other_organization",
+   "fieldtype": "Data",
+   "label": "Other Organization"
+  },
+  {
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fieldname": "recommender",
+   "fieldtype": "Link",
+   "label": "Recommender",
+   "options": "Members"
+  },
+  {
+   "fieldname": "recommender_2",
+   "fieldtype": "Link",
+   "label": "Recommender 2",
+   "options": "Members"
+  },
+  {
+   "fieldname": "to_the_master_warden_and_brethren_of_section",
+   "fieldtype": "Section Break",
+   "label": "To the Master, Warden and Brethren of"
+  },
+  {
+   "fieldname": "lodge_name_1",
+   "fieldtype": "Data",
+   "label": "Lodge Name 1"
+  },
+  {
+   "fieldname": "lodge_number_1",
+   "fieldtype": "Data",
+   "label": "Lodge Number 1"
+  },
+  {
+   "fieldname": "history_logs_tab",
+   "fieldtype": "Tab Break",
+   "label": "History Logs"
+  },
+  {
+   "fieldname": "history_logs",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  },
+  {
+   "fieldname": "data_privacy_consent",
+   "fieldtype": "Attach",
+   "label": "Data Privacy Consent"
+  },
+  {
+   "fieldname": "endorsement_letter",
+   "fieldtype": "Attach",
+   "label": "Endorsement Letter"
+  },
+  {
+   "fieldname": "medical_certificate",
+   "fieldtype": "Attach",
+   "label": "Medical Certificate"
+  },
+  {
+   "fieldname": "past_residence_6m",
+   "fieldtype": "Table",
+   "label": "Past Residence for the last 6 months",
+   "options": "Past Residence 6M"
+  },
+  {
+   "fieldname": "dates_tab",
+   "fieldtype": "Tab Break",
+   "label": "Dates"
+  },
+  {
+   "fieldname": "presented",
+   "fieldtype": "Date",
+   "label": "Presented"
+  },
+  {
+   "fieldname": "elected",
+   "fieldtype": "Date",
+   "label": "Elected"
+  },
+  {
+   "fieldname": "entered_apprentice",
+   "fieldtype": "Date",
+   "label": "Entered Apprentice"
+  },
+  {
+   "fieldname": "fellow_craft",
+   "fieldtype": "Date",
+   "label": "Fellow Craft"
+  },
+  {
+   "fieldname": "master_mason",
+   "fieldtype": "Date",
+   "label": "Master Mason"
+  },
+  {
+   "fieldname": "affiliation_date",
+   "fieldtype": "Date",
+   "label": "Affiliation Date"
+  },
+  {
+   "fieldname": "workflow_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workflow"
+  },
+  {
+   "fieldname": "date_received",
+   "fieldtype": "Datetime",
+   "label": "Date Received"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "payment_proof",
+   "fieldtype": "Attach",
+   "label": "Payment Proof"
+  },
+  {
+   "fieldname": "amount_paid",
+   "fieldtype": "Data",
+   "label": "Amount Paid"
+  },
+  {
+   "fieldname": "or_number",
+   "fieldtype": "Data",
+   "label": "OR Number"
+  },
+  {
+   "fieldname": "transmitted_date",
+   "fieldtype": "Date",
+   "label": "Transmitted Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "immortality_of_the_soul",
+   "fieldtype": "Check",
+   "label": "Immortality of the Soul"
+  },
+  {
+   "fieldname": "masonic_origin_section",
+   "fieldtype": "Section Break",
+   "label": "Masonic Origin"
+  },
+  {
+   "fieldname": "origin_lodge_name",
+   "fieldtype": "Data",
+   "label": "Origin Lodge"
+  },
+  {
+   "fieldname": "origin_lodge_number",
+   "fieldtype": "Data",
+   "label": "Origin Lodge Number"
+  },
+  {
+   "default": "0",
+   "fieldname": "adequate_provision",
+   "fieldtype": "Check",
+   "label": "Adequate Provision"
+  },
+  {
+   "fieldname": "origin_jurisdiction",
+   "fieldtype": "Data",
+   "label": "Origin Jurisdiction"
+  },
+  {
+   "fieldname": "previous_lodge_name",
+   "fieldtype": "Data",
+   "label": "Previous Lodge Name"
+  },
+  {
+   "fieldname": "date_completed",
+   "fieldtype": "Date",
+   "label": "Date Completed"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Members"
+  },
+  {
+   "fieldname": "control_no",
+   "fieldtype": "Data",
+   "label": "Control Number"
+  },
+  {
+   "fieldname": "or_receipt",
+   "fieldtype": "Attach",
+   "label": "OR Receipt"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-05 11:49:45.453755",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Petitions",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

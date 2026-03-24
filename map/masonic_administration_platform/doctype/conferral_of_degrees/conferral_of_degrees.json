@@ -7,14 +7,16 @@
  "engine": "InnoDB",
  "field_order": [
   "candidate_name",
+  "full_name",
   "column_break_wrwu",
   "degree"
  ],
  "fields": [
   {
    "fieldname": "candidate_name",
-   "fieldtype": "Data",
-   "label": "Candidate Name"
+   "fieldtype": "Link",
+   "label": "Candidate Name",
+   "options": "Petitioners List"
   },
   {
    "fieldname": "column_break_wrwu",
@@ -25,13 +27,18 @@
    "fieldtype": "Select",
    "label": "Degree",
    "options": "Entered Apprentice\nFellowcraft\nMaster Mason"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-19 14:20:54.093853",
+ "modified": "2025-12-06 19:32:10.871304",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Conferral of Degrees",

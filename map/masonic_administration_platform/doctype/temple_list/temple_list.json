@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-20 11:20:05.847857",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "temple_name",
+  "temple_location"
+ ],
+ "fields": [
+  {
+   "fieldname": "temple_name",
+   "fieldtype": "Data",
+   "label": "Temple Name"
+  },
+  {
+   "fieldname": "temple_location",
+   "fieldtype": "Data",
+   "label": "Location"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-11-20 11:21:38.901657",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Temple List",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

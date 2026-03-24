@@ -7,14 +7,16 @@
  "engine": "InnoDB",
  "field_order": [
   "petitioner",
-  "full_name"
+  "full_name",
+  "petitioner_type",
+  "balloting_summary"
  ],
  "fields": [
   {
    "fieldname": "petitioner",
    "fieldtype": "Link",
    "label": "Petitioner",
-   "options": "Petitioners"
+   "options": "Petitioners List"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -22,13 +24,24 @@
    "fieldtype": "Data",
    "label": "Full Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "petitioner_type",
+   "fieldtype": "Select",
+   "label": "Petitioner Type",
+   "options": "Complete\nBalloting\nCirculated"
+  },
+  {
+   "fieldname": "balloting_summary",
+   "fieldtype": "Small Text",
+   "label": "Summary"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-14 16:30:36.038052",
+ "modified": "2026-02-04 11:45:14.328839",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Balloting",

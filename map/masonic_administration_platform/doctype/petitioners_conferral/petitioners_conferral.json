@@ -16,7 +16,7 @@
    "fieldname": "petitioner",
    "fieldtype": "Link",
    "label": "Petitioner",
-   "options": "Petitioners"
+   "options": "Petitioners List"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -35,7 +35,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-14 21:57:39.538370",
+ "modified": "2025-12-01 00:52:08.542713",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioners Conferral",

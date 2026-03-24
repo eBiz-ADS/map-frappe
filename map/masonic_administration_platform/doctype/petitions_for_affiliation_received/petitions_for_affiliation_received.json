@@ -17,7 +17,7 @@
    "fieldname": "petitioner",
    "fieldtype": "Link",
    "label": "Petitioner",
-   "options": "Petitioners"
+   "options": "Petitioners List"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -33,10 +33,12 @@
   },
   {
    "fieldname": "lodge",
-   "fieldtype": "Data",
-   "label": "Lodge "
+   "fieldtype": "Link",
+   "label": "Lodge ",
+   "options": "Lodge List"
   },
   {
+   "fetch_from": "lodge.location",
    "fieldname": "location",
    "fieldtype": "Data",
    "label": "Location"
@@ -46,7 +48,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-19 01:31:23.133724",
+ "modified": "2025-12-02 01:38:30.137417",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions For Affiliation Received",

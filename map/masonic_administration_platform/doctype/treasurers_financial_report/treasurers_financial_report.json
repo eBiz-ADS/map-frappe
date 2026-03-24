@@ -1,0 +1,365 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:TFR-{####}",
+ "creation": "2025-12-01 10:44:21.057105",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "lodge_no",
+  "lodge_name",
+  "month",
+  "year",
+  "period_from",
+  "period_to",
+  "total_cash_balance_per_inst_report_dated",
+  "receipt_from_secretary",
+  "total_to_date",
+  "general_fund_section",
+  "per_capita",
+  "deposit_fees",
+  "general_fund_subtotal",
+  "specific_purpose_fund_section",
+  "masonic_hospital_for_crippled_children",
+  "cabletow",
+  "youth",
+  "charity_fund",
+  "building",
+  "premium_on_acacia_insurance",
+  "almoners_fund",
+  "specific_purpose_subtotal",
+  "other_source_section",
+  "source_information",
+  "other_source_subtotal",
+  "financial_summary_section",
+  "total_accountability",
+  "total_cash_disbursements",
+  "annual_report_assessment_column",
+  "annual_report_assessment_ara_per_capita",
+  "annual_report_assessment_deposit_fees",
+  "annual_report_assessment_subtotal",
+  "cash_disbursement_column",
+  "premiums_on_acacia_insurance",
+  "salaries_and_wages",
+  "charity",
+  "cash_back_in_section",
+  "current",
+  "savings",
+  "investments_table",
+  "cash_back_in_subtotal",
+  "certified_true_and_correct",
+  "treasurer",
+  "audited_by",
+  "approved_by",
+  "status_section",
+  "status",
+  "section_break_dwuc",
+  "date_received",
+  "time_received",
+  "received_by",
+  "history_logs_section",
+  "history_logs_table"
+ ],
+ "fields": [
+  {
+   "fetch_from": "lodge_no.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fieldname": "lodge_no",
+   "fieldtype": "Link",
+   "label": "Lodge No.",
+   "options": "Lodge List"
+  },
+  {
+   "fieldname": "general_fund_section",
+   "fieldtype": "Section Break",
+   "label": "General Fund"
+  },
+  {
+   "fieldname": "per_capita",
+   "fieldtype": "Float",
+   "label": "Per Capita"
+  },
+  {
+   "fieldname": "deposit_fees",
+   "fieldtype": "Float",
+   "label": "Deposit Fees"
+  },
+  {
+   "fieldname": "specific_purpose_fund_section",
+   "fieldtype": "Section Break",
+   "label": "Specific Purpose Fund"
+  },
+  {
+   "fieldname": "masonic_hospital_for_crippled_children",
+   "fieldtype": "Float",
+   "label": "Masonic Hospital for Crippled Children"
+  },
+  {
+   "fieldname": "cabletow",
+   "fieldtype": "Float",
+   "label": "CABLETOW"
+  },
+  {
+   "fieldname": "youth",
+   "fieldtype": "Float",
+   "label": "Youth"
+  },
+  {
+   "fieldname": "charity_fund",
+   "fieldtype": "Float",
+   "label": "Charity Fund"
+  },
+  {
+   "fieldname": "building",
+   "fieldtype": "Float",
+   "label": "Building"
+  },
+  {
+   "fieldname": "premium_on_acacia_insurance",
+   "fieldtype": "Float",
+   "label": "Premium on Acacia Insurance"
+  },
+  {
+   "fieldname": "almoners_fund",
+   "fieldtype": "Float",
+   "label": "Almoner's Fund"
+  },
+  {
+   "fieldname": "other_source_section",
+   "fieldtype": "Section Break",
+   "label": "Other Source"
+  },
+  {
+   "fieldname": "source_information",
+   "fieldtype": "Table",
+   "label": "Source Information",
+   "options": "Other Source"
+  },
+  {
+   "fieldname": "general_fund_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-Total"
+  },
+  {
+   "fieldname": "specific_purpose_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-Total"
+  },
+  {
+   "fieldname": "other_source_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-Total"
+  },
+  {
+   "fieldname": "financial_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Financial Summary"
+  },
+  {
+   "fieldname": "total_accountability",
+   "fieldtype": "Float",
+   "label": "Total Accountability"
+  },
+  {
+   "fieldname": "total_cash_disbursements",
+   "fieldtype": "Float",
+   "label": "Total Cash Disbursements"
+  },
+  {
+   "fieldname": "current",
+   "fieldtype": "Float",
+   "label": "Current"
+  },
+  {
+   "fieldname": "savings",
+   "fieldtype": "Float",
+   "label": "Savings"
+  },
+  {
+   "fieldname": "investments_table",
+   "fieldtype": "Table",
+   "label": "Investments",
+   "options": "Investments"
+  },
+  {
+   "fieldname": "cash_back_in_section",
+   "fieldtype": "Section Break",
+   "label": "Cash Back In (end of month)"
+  },
+  {
+   "fieldname": "cash_back_in_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-total"
+  },
+  {
+   "fieldname": "certified_true_and_correct",
+   "fieldtype": "Section Break",
+   "label": "Certified True and Correct"
+  },
+  {
+   "fieldname": "treasurer",
+   "fieldtype": "Select",
+   "label": "Treasurer",
+   "options": "James\nDave\nJose"
+  },
+  {
+   "fieldname": "audited_by",
+   "fieldtype": "Select",
+   "label": "Audited by:",
+   "options": "Juan\nChu\nHen"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Select",
+   "label": "Approved by",
+   "options": "John\nClark\nLee"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "period_from",
+   "fieldtype": "Date",
+   "label": "Period from (day)"
+  },
+  {
+   "fieldname": "period_to",
+   "fieldtype": "Date",
+   "label": "Period to (day)"
+  },
+  {
+   "fieldname": "total_cash_balance_per_inst_report_dated",
+   "fieldtype": "Float",
+   "label": "Total Cash Balance per Inst. report dated"
+  },
+  {
+   "fieldname": "receipt_from_secretary",
+   "fieldtype": "Attach",
+   "label": "Receipt from Secretary"
+  },
+  {
+   "fieldname": "total_to_date",
+   "fieldtype": "Float",
+   "label": "Total to Date"
+  },
+  {
+   "fieldname": "annual_report_assessment_column",
+   "fieldtype": "Column Break",
+   "label": "Annual Report Assessment"
+  },
+  {
+   "fieldname": "annual_report_assessment_ara_per_capita",
+   "fieldtype": "Float",
+   "label": "Per Capita"
+  },
+  {
+   "fieldname": "annual_report_assessment_deposit_fees",
+   "fieldtype": "Float",
+   "label": "Deposit Fees"
+  },
+  {
+   "fieldname": "annual_report_assessment_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-Total"
+  },
+  {
+   "fieldname": "cash_disbursement_column",
+   "fieldtype": "Column Break",
+   "label": "Cash Disbursement"
+  },
+  {
+   "fieldname": "premiums_on_acacia_insurance",
+   "fieldtype": "Float",
+   "label": "Premiums on Acacia Insurance"
+  },
+  {
+   "fieldname": "salaries_and_wages",
+   "fieldtype": "Float",
+   "label": "Salaries and Wages"
+  },
+  {
+   "fieldname": "charity",
+   "fieldtype": "Float",
+   "label": "Charity"
+  },
+  {
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "section_break_dwuc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date_received",
+   "fieldtype": "Date",
+   "label": "Date Received"
+  },
+  {
+   "fieldname": "time_received",
+   "fieldtype": "Time",
+   "label": "Time Received"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "history_logs_section",
+   "fieldtype": "Section Break",
+   "label": "History Logs"
+  },
+  {
+   "fieldname": "history_logs_table",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-26 11:33:36.360486",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Treasurers Financial Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

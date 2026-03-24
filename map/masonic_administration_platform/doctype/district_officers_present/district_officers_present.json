@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-03 13:49:42.111172",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "district_officers_section",
+  "district_officer_full_name",
+  "district_officer_member"
+ ],
+ "fields": [
+  {
+   "fieldname": "district_officers_section",
+   "fieldtype": "Section Break",
+   "label": "District Officers"
+  },
+  {
+   "fetch_from": "member_key.full_name",
+   "fieldname": "district_officer_full_name",
+   "fieldtype": "Data",
+   "label": "District Officer Full Name"
+  },
+  {
+   "fieldname": "district_officer_member",
+   "fieldtype": "Link",
+   "label": "District Officer Member",
+   "options": "Members"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-03 14:14:23.226632",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "District Officers Present",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

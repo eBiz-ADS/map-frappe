@@ -66,7 +66,20 @@ def process_csv(file_path):
                         "affiliation": row.get("Affiliation (Affiliation)", "").strip(),
                         "date": row.get("Date (Affiliation)", "").strip()
                     })
-
+                
+                  # --- Other Lodges ---
+                if has_data(
+                    row.get("Date (Activities)"),
+                    row.get("Type (Activities)"),
+                    row.get("Action (Activities)"),
+                    row.get("Notes (Activities)")
+                ):
+                    parent_doc.append("activities", {
+                        "date": normalize_date(row.get("Date (Activities)", "").strip()),
+                        "type": row.get("Type (Activities)", "").strip(),
+                        "action": row.get("Action (Activities)", "").strip(),
+                        "notes": row.get("Notes (Activities)", "").strip()
+                    })
 
                 # --- Other Lodges ---
                 if has_data(
@@ -109,7 +122,8 @@ def run():
         # "members_split_4.csv",
         # "members_split_5.csv"
         #"filtered_payments.csv"
-        "officers_import.csv"
+        #"officers_import.csv"
+        "cleaned_activities.csv"
     ]
 
     for file_name in files:

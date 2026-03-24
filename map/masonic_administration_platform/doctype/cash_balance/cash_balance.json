@@ -1,0 +1,45 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-01 11:09:35.479005",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "total_cash_balance_per_inst_report_dated",
+  "receipt_from_secretary",
+  "total_to_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "total_cash_balance_per_inst_report_dated",
+   "fieldtype": "Float",
+   "label": "Total Cash Balance per Inst. report dated"
+  },
+  {
+   "fieldname": "receipt_from_secretary",
+   "fieldtype": "Attach",
+   "label": "Receipt from Secretary"
+  },
+  {
+   "fieldname": "total_to_date",
+   "fieldtype": "Float",
+   "label": "Total to Date"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-01 11:12:09.143566",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Cash Balance",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

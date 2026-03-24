@@ -1,6 +1,8 @@
 import frappe
 import base64
 import os
+from typing import List
+import json
 
 @frappe.whitelist()
 def get_member_files_events(member_id):
@@ -63,4 +65,3 @@ def get_member_events(member_id):
 	""", (member_id,), as_dict=True)
 
 	return { "member": member, "events": events}
-

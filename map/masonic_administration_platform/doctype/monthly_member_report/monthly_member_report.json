@@ -8,12 +8,20 @@
  "field_order": [
   "district",
   "lodge",
+  "lodge_name",
+  "lodge_no",
   "date",
   "stated_meeting",
   "other_suspension",
   "dropped_from_the_roll",
   "worshipful_master",
   "secretary",
+  "status",
+  "date_received",
+  "time_received",
+  "received_by",
+  "history_logs_table",
+  "date_published",
   "petitions",
   "petition_for_degrees_received",
   "petition_for_degrees_elected",
@@ -22,6 +30,7 @@
   "petitions_for_affiliation_approved",
   "petitions_for_affiliation_rejected",
   "initiated",
+  "restored",
   "passed",
   "raised",
   "proficiency_exam",
@@ -30,6 +39,7 @@
   "given_dimit",
   "snpd",
   "sna",
+  "sfc_suspended_for_a_cause",
   "imes_graduate",
   "granted_life_membership",
   "expelled",
@@ -60,14 +70,15 @@
   },
   {
    "fieldname": "district",
-   "fieldtype": "Data",
-   "label": "District"
+   "fieldtype": "Link",
+   "label": "District",
+   "options": "District"
   },
   {
    "fieldname": "petition_for_degrees_elected",
    "fieldtype": "Table",
    "label": "Petitions For Degrees Elected",
-   "options": "Petitions For Degrees Rejected"
+   "options": "Petitions For Degrees Elected"
   },
   {
    "fieldname": "petition_for",
@@ -118,13 +129,13 @@
   {
    "fieldname": "snpd",
    "fieldtype": "Table",
-   "label": "SNPD",
+   "label": "SNPD (Suspended for Non-Payment of Dues)",
    "options": "SNPD MMR"
   },
   {
    "fieldname": "sna",
    "fieldtype": "Table",
-   "label": "SNA",
+   "label": "SNA (Suspended for Non-Attendance)",
    "options": "SNA MMR"
   },
   {
@@ -198,12 +209,67 @@
    "fieldtype": "Link",
    "label": "Secretary",
    "options": "Members"
+  },
+  {
+   "fieldname": "sfc_suspended_for_a_cause",
+   "fieldtype": "Table",
+   "label": "SFC (Suspended for A Cause)",
+   "options": "SNA MMR"
+  },
+  {
+   "fieldname": "restored",
+   "fieldtype": "Table",
+   "label": "Restored",
+   "options": "Restored MMR"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "date_received",
+   "fieldtype": "Date",
+   "label": "Date Received"
+  },
+  {
+   "fieldname": "time_received",
+   "fieldtype": "Time",
+   "label": "Time Received"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "history_logs_table",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  },
+  {
+   "fetch_from": "lodge.lodge_no",
+   "fieldname": "lodge_no",
+   "fieldtype": "Data",
+   "label": "Lodge Number"
+  },
+  {
+   "fetch_from": "lodge.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fieldname": "date_published",
+   "fieldtype": "Data",
+   "label": "Date Published"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-19 03:09:27.625056",
+ "modified": "2026-02-23 11:29:37.097187",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Monthly Member Report",

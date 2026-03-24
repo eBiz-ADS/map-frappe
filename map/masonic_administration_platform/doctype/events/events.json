@@ -8,11 +8,13 @@
  "field_order": [
   "event_name",
   "date_time",
-  "location",
+  "venue",
   "lodge",
   "district",
+  "event_type",
   "attendees",
-  "status"
+  "status",
+  "poster"
  ],
  "fields": [
   {
@@ -43,16 +45,28 @@
   },
   {
    "fieldname": "lodge",
-   "fieldtype": "Data",
-   "label": "Lodge"
+   "fieldtype": "Table",
+   "label": "Lodge",
+   "options": "Invited Lodges for Events"
   },
   {
    "fieldname": "district",
-   "fieldtype": "Data",
-   "label": "District"
+   "fieldtype": "Table",
+   "label": "District",
+   "options": "Invited District for Events"
   },
   {
-   "fieldname": "location",
+   "fieldname": "event_type",
+   "fieldtype": "Data",
+   "label": "Event Type"
+  },
+  {
+   "fieldname": "poster",
+   "fieldtype": "Attach Image",
+   "label": "Poster"
+  },
+  {
+   "fieldname": "venue",
    "fieldtype": "Data",
    "label": "Location"
   }
@@ -60,7 +74,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-20 01:44:16.664456",
+ "modified": "2026-01-21 02:32:18.418783",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Events",

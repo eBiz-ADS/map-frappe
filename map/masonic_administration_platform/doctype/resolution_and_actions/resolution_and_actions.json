@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "actions",
-  "resolution_title"
+  "resolution_title",
+  "resolution_and_action_description"
  ],
  "fields": [
   {
@@ -20,13 +21,18 @@
    "fieldname": "resolution_title",
    "fieldtype": "Data",
    "label": "Resolution Title"
+  },
+  {
+   "fieldname": "resolution_and_action_description",
+   "fieldtype": "Small Text",
+   "label": "Description"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-19 11:44:03.570259",
+ "modified": "2025-12-04 09:31:48.896142",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Resolution and Actions",

@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-16 13:46:34.380931",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "lodge",
+  "lodge_no",
+  "lodge_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Link",
+   "label": "Lodge",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "lodge.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fetch_from": "lodge.lodge_no",
+   "fieldname": "lodge_no",
+   "fieldtype": "Data",
+   "label": "Lodge No."
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-14 04:33:13.640231",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Invited Lodges for Events",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

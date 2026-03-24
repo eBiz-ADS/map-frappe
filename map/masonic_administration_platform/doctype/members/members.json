@@ -16,6 +16,7 @@
   "contact_no",
   "website",
   "occupation",
+  "position",
   "education",
   "school",
   "overall_status",
@@ -34,6 +35,7 @@
   "company",
   "company_address",
   "cable_tow",
+  "nature_of_company",
   "column_break_eiub",
   "date_of_birth",
   "place_of_birth",
@@ -44,30 +46,40 @@
   "permanent_address",
   "permanent_province",
   "permanent_country",
+  "mailing_address",
+  "region",
+  "province",
+  "municitiies",
+  "barangay",
+  "street",
   "zip_code",
   "short_residence_address",
+  "mailing_region",
+  "mailing_province",
+  "mailing_municities",
+  "mailing_barangay",
+  "mailing_street",
+  "mailing_zip_code",
+  "mailing_short_residence_address",
   "column_break_mlfg",
   "kin",
   "kin_relation",
   "child_count",
   "child_names",
+  "profile_picture",
   "emergency_contact_section",
   "emergency_contact_name",
   "column_break_blit",
   "emergency_contact_relation",
   "column_break_dicr",
   "emergency_contact_no",
-  "links_section",
-  "affiliation",
-  "recognitions",
-  "certificates",
   "section_break_ggvq",
   "documents",
+  "kin_information_section",
+  "kin_table",
+  "children",
   "masonic_information_tab",
   "masonic_information_section",
-  "position",
-  "position_year",
-  "position_type",
   "masonic_rank_remarks",
   "date_initiated",
   "date_passed",
@@ -76,14 +88,24 @@
   "lml",
   "district",
   "lodge",
-  "proficiency",
+  "first_degree_proficiency",
+  "second_degree_proficiency",
+  "third_degree_proficiency",
   "rank_number",
   "imes_date",
   "imes_remarks",
   "imes_graduation_year",
+  "imes_basic_course",
+  "imes_immediate_course",
+  "imes_advanced_course",
   "column_break_mapn",
   "masonic_timeline",
   "other_lodges",
+  "other_organization",
+  "links_section",
+  "affiliation",
+  "recognitions",
+  "masonic_service_records",
   "events_tab",
   "events_section",
   "member_event",
@@ -94,7 +116,9 @@
   "column_break_xjcu",
   "last_payment",
   "section_break_oora",
-  "payment"
+  "payment",
+  "activities_tab",
+  "activities"
  ],
  "fields": [
   {
@@ -216,12 +240,6 @@
    "fieldtype": "Table",
    "label": "Recognitions",
    "options": "Recognitions"
-  },
-  {
-   "fieldname": "certificates",
-   "fieldtype": "Table",
-   "label": "Certificates",
-   "options": "Certifications"
   },
   {
    "fieldname": "lodge",
@@ -539,9 +557,26 @@
    "options": "Payment"
   },
   {
-   "fieldname": "proficiency",
+   "fieldname": "activities_tab",
+   "fieldtype": "Tab Break",
+   "label": "Activities Tab"
+  },
+  {
+   "fieldname": "activities",
+   "fieldtype": "Table",
+   "label": "Activities",
+   "options": "Activities"
+  },
+  {
+   "fieldname": "other_organization",
+   "fieldtype": "Table",
+   "label": "Other Organization",
+   "options": "Other Organization"
+  },
+  {
+   "fieldname": "mailing_address",
    "fieldtype": "Data",
-   "label": "Proficiency"
+   "label": "Mailing Address"
   },
   {
    "fieldname": "position",
@@ -549,21 +584,134 @@
    "label": "Position"
   },
   {
-   "fieldname": "position_year",
+   "fieldname": "nature_of_company",
    "fieldtype": "Data",
-   "label": "Position Year"
+   "label": "Nature of Company"
   },
   {
-   "fieldname": "position_type",
+   "fieldname": "imes_basic_course",
    "fieldtype": "Data",
-   "label": "Position Type"
+   "label": "IMES Basic Course"
+  },
+  {
+   "fieldname": "imes_immediate_course",
+   "fieldtype": "Data",
+   "label": "IMES Immediate Course"
+  },
+  {
+   "fieldname": "imes_advanced_course",
+   "fieldtype": "Data",
+   "label": "IMES Advanced Course"
+  },
+  {
+   "fieldname": "first_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "1st Degree Proficiency"
+  },
+  {
+   "fieldname": "second_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "2nd Degree Proficiency"
+  },
+  {
+   "fieldname": "third_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "3rd Degree Proficiency"
+  },
+  {
+   "fieldname": "masonic_service_records",
+   "fieldtype": "Table",
+   "label": "Masonic Service Records",
+   "options": "Masonic Service Records"
+  },
+  {
+   "fieldname": "kin_information_section",
+   "fieldtype": "Section Break",
+   "label": "Kin Information"
+  },
+  {
+   "fieldname": "kin_table",
+   "fieldtype": "Table",
+   "label": "Kin",
+   "options": "Kin"
+  },
+  {
+   "fieldname": "children",
+   "fieldtype": "Table",
+   "label": "Children",
+   "options": "Children"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Data",
+   "label": "Region"
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Data",
+   "label": "Province"
+  },
+  {
+   "fieldname": "municitiies",
+   "fieldtype": "Data",
+   "label": "Municities"
+  },
+  {
+   "fieldname": "barangay",
+   "fieldtype": "Data",
+   "label": "Barangay"
+  },
+  {
+   "fieldname": "street",
+   "fieldtype": "Data",
+   "label": "Street"
+  },
+  {
+   "fieldname": "mailing_region",
+   "fieldtype": "Data",
+   "label": "Mailing Region"
+  },
+  {
+   "fieldname": "mailing_province",
+   "fieldtype": "Data",
+   "label": "Mailing Province"
+  },
+  {
+   "fieldname": "mailing_municities",
+   "fieldtype": "Data",
+   "label": "Mailing Municities"
+  },
+  {
+   "fieldname": "mailing_barangay",
+   "fieldtype": "Data",
+   "label": "Mailing Barangay"
+  },
+  {
+   "fieldname": "mailing_street",
+   "fieldtype": "Data",
+   "label": "Mailing Street"
+  },
+  {
+   "fieldname": "mailing_zip_code",
+   "fieldtype": "Data",
+   "label": "Mailing Zip code"
+  },
+  {
+   "fieldname": "mailing_short_residence_address",
+   "fieldtype": "Data",
+   "label": "Mailing Short Residence Address"
+  },
+  {
+   "fieldname": "profile_picture",
+   "fieldtype": "Attach Image",
+   "label": "Profile Picture"
   }
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-15 00:04:32.105506",
+ "modified": "2026-01-30 16:45:05.549384",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",
@@ -596,7 +744,9 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
  "sort_field": "creation",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "full_name"
 }

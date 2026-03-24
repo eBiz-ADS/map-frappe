@@ -10,6 +10,7 @@
   "lodge_no",
   "lodge_date",
   "lodge_type",
+  "status",
   "lml"
  ],
  "fields": [
@@ -32,13 +33,18 @@
    "fieldname": "lml",
    "fieldtype": "Data",
    "label": "LML"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-17 16:18:58.148930",
+ "modified": "2025-11-26 11:23:55.310281",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Lodges",

@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CIRC12-{YYYY}-{###}",
+ "creation": "2026-02-09 15:44:46.137349",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "petitioners",
+  "members",
+  "mmr",
+  "date_created",
+  "member",
+  "member_name",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "petitioners",
+   "fieldtype": "Table",
+   "label": "Petitioners",
+   "options": "Petitioner for Circular 12"
+  },
+  {
+   "fieldname": "members",
+   "fieldtype": "Table",
+   "label": "Members",
+   "options": "Member for Circular 12"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_created",
+   "fieldtype": "Datetime",
+   "label": "Date Created"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Members"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "PUBLISHED\nDRAFT"
+  },
+  {
+   "fetch_from": "member.full_name",
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "label": "Member Name"
+  },
+  {
+   "fieldname": "mmr",
+   "fieldtype": "Table",
+   "label": "MMR",
+   "options": "MMR for Circular 12"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-09 13:51:43.465214",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Circular 12",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

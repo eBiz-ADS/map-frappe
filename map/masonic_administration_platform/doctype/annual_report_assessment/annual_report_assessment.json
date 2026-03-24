@@ -1,0 +1,45 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-01 13:58:07.876186",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "per_capita",
+  "deposit_fees",
+  "annual_report_assessment_subtotal"
+ ],
+ "fields": [
+  {
+   "fieldname": "per_capita",
+   "fieldtype": "Float",
+   "label": "Per Capita"
+  },
+  {
+   "fieldname": "deposit_fees",
+   "fieldtype": "Float",
+   "label": "Deposit Fees"
+  },
+  {
+   "fieldname": "annual_report_assessment_subtotal",
+   "fieldtype": "Float",
+   "label": "Sub-Total"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-01 13:59:53.535369",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Annual Report Assessment",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

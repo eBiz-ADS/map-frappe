@@ -12,7 +12,7 @@
  "fields": [
   {
    "fieldname": "committee",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Committee",
    "options": "Committee Type"
   },
@@ -26,7 +26,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-14 13:47:59.968504",
+ "modified": "2025-12-03 16:09:43.651942",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Committee Report",
