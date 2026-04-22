@@ -151,10 +151,10 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"map.tasks.all"
-# 	],
+scheduler_events = {
+ 	"all": [
+ 		"map.api.circular.test_scheduler_job"
+ 	],
 # 	"daily": [
 # 		"map.tasks.daily"
 # 	],
@@ -167,7 +167,7 @@ doc_events = {
 # 	"monthly": [
 # 		"map.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------

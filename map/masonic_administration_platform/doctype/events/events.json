@@ -14,7 +14,8 @@
   "event_type",
   "attendees",
   "status",
-  "poster"
+  "poster",
+  "created_by"
  ],
  "fields": [
   {
@@ -69,12 +70,17 @@
    "fieldname": "venue",
    "fieldtype": "Data",
    "label": "Location"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Data",
+   "label": "Created by"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-21 02:32:18.418783",
+ "modified": "2026-04-20 11:36:09.534927",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Events",

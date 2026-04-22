@@ -17,11 +17,13 @@
   "petitioner",
   "petitioner_name",
   "lodge",
+  "lodge_name",
   "lodge_location",
   "jurisdiction",
   "membership_in_year",
-  "lodge_name",
   "member",
+  "member_name",
+  "grand_lodge",
   "previous_membership_section",
   "previous_jurisdiction",
   "previous_lodge_name",
@@ -132,7 +134,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nPetition for Affiliation Membership"
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nPetition for Affiliation Membership\nPetition for Affiliation Membership (International)\nPetition for Affiliation Membership (Other Jurisdiction)"
   },
   {
    "fieldname": "new_lodge",
@@ -200,12 +202,11 @@
   },
   {
    "fieldname": "previous_lodge",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Previous Lodge",
    "options": "Lodge List"
   },
   {
-   "fetch_from": "previous_lodge.location",
    "fieldname": "previous_lodge_location",
    "fieldtype": "Data",
    "label": "Previous Lodge Location"
@@ -760,12 +761,23 @@
    "fieldname": "or_receipt",
    "fieldtype": "Attach",
    "label": "OR Receipt"
+  },
+  {
+   "fetch_from": "member.full_name",
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "label": "Member Name"
+  },
+  {
+   "fieldname": "grand_lodge",
+   "fieldtype": "Data",
+   "label": "Grand Lodge"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-05 11:49:45.453755",
+ "modified": "2026-04-08 16:12:29.839633",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",

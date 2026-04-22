@@ -106,9 +106,6 @@
   "affiliation",
   "recognitions",
   "masonic_service_records",
-  "events_tab",
-  "events_section",
-  "member_event",
   "financial_status_tab",
   "dues_status",
   "column_break_imee",
@@ -118,7 +115,10 @@
   "section_break_oora",
   "payment",
   "activities_tab",
-  "activities"
+  "activities",
+  "tab_5_tab",
+  "events_table_section",
+  "member_event"
  ],
  "fields": [
   {
@@ -256,12 +256,6 @@
    "fieldname": "district",
    "fieldtype": "Data",
    "label": "District"
-  },
-  {
-   "fieldname": "member_event",
-   "fieldtype": "Table",
-   "label": "Member Event",
-   "options": "Member Event"
   },
   {
    "fieldname": "section_break_ggvq",
@@ -434,11 +428,6 @@
    "label": "Links"
   },
   {
-   "fieldname": "events_section",
-   "fieldtype": "Section Break",
-   "label": "Events"
-  },
-  {
    "fieldname": "tel_no_1",
    "fieldtype": "Data",
    "label": "Telephone Number 1"
@@ -509,11 +498,6 @@
    "fieldname": "masonic_information_tab",
    "fieldtype": "Tab Break",
    "label": "Masonic Information"
-  },
-  {
-   "fieldname": "events_tab",
-   "fieldtype": "Tab Break",
-   "label": "Events"
   },
   {
    "fieldname": "financial_status_tab",
@@ -705,13 +689,29 @@
    "fieldname": "profile_picture",
    "fieldtype": "Attach Image",
    "label": "Profile Picture"
+  },
+  {
+   "fieldname": "tab_5_tab",
+   "fieldtype": "Tab Break",
+   "label": "Events Tab"
+  },
+  {
+   "fieldname": "events_table_section",
+   "fieldtype": "Section Break",
+   "label": "Events Table"
+  },
+  {
+   "fieldname": "member_event",
+   "fieldtype": "Table",
+   "label": "Events",
+   "options": "Member Event"
   }
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-30 16:45:05.549384",
+ "modified": "2026-04-20 14:49:37.254306",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",

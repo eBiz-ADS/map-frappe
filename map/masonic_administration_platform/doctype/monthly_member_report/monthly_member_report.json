@@ -12,8 +12,8 @@
   "lodge_no",
   "date",
   "stated_meeting",
+  "fam",
   "other_suspension",
-  "dropped_from_the_roll",
   "worshipful_master",
   "secretary",
   "status",
@@ -30,12 +30,13 @@
   "petitions_for_affiliation_approved",
   "petitions_for_affiliation_rejected",
   "initiated",
-  "restored",
   "passed",
   "raised",
   "proficiency_exam",
+  "dropped_from_the_roll",
   "members_tab",
   "affiliated",
+  "restored",
   "given_dimit",
   "snpd",
   "sna",
@@ -183,7 +184,7 @@
   {
    "fieldname": "died",
    "fieldtype": "Table",
-   "label": "Died",
+   "label": "Deceased",
    "options": "Died MMR"
   },
   {
@@ -264,12 +265,17 @@
    "fieldname": "date_published",
    "fieldtype": "Data",
    "label": "Date Published"
+  },
+  {
+   "fieldname": "fam",
+   "fieldtype": "Data",
+   "label": "F&AM"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-23 11:29:37.097187",
+ "modified": "2026-04-13 15:01:07.420379",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Monthly Member Report",
