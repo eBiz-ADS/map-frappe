@@ -5,13 +5,48 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "grand_master",
-  "column_break_noek",
-  "grand_secretary",
+  "header_and_introduction_tab",
   "section_break_veno",
-  "to",
+  "grand_lodge_name",
+  "phone_number",
+  "address",
+  "email",
+  "website",
+  "circular_number",
+  "date_issued",
+  "masonic_year",
   "subject",
-  "note"
+  "recipients",
+  "opening_message",
+  "section_break_vzvz",
+  "status",
+  "published_by",
+  "date_circulated",
+  "history_logs",
+  "tab_2_tab",
+  "elected_grand_lodge_officers",
+  "section_break_bsru",
+  "appointed_grand_lodge_officers",
+  "section_break_rjei",
+  "junior_grand_lecturers",
+  "district_officers_tab",
+  "district_deputy_grand_masters",
+  "section_break_lmkr",
+  "district_deputy_grand_lecturers",
+  "tab_4_tab",
+  "board_for_general_purpose",
+  "section_break_zifn",
+  "corporate_appointments",
+  "section_break_qexe",
+  "institute_for_masonic_education_and_studies",
+  "section_break_bcuc",
+  "the_cable_tow",
+  "closing_tab",
+  "effectiveness_implementation_text",
+  "certification_statement",
+  "certification_date",
+  "grand_secretary",
+  "grand_master"
  ],
  "fields": [
   {
@@ -19,10 +54,6 @@
    "fieldtype": "Link",
    "label": "Grand Master",
    "options": "Members"
-  },
-  {
-   "fieldname": "column_break_noek",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "grand_secretary",
@@ -35,25 +66,209 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "to",
+   "fieldname": "grand_lodge_name",
+   "fieldtype": "Data",
+   "label": "Grand Lodge Name"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "recipients",
    "fieldtype": "Small Text",
-   "label": "To"
+   "label": "Recipients"
+  },
+  {
+   "fieldname": "opening_message",
+   "fieldtype": "Small Text",
+   "label": "Opening Message"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Grand Lodge Officers"
+  },
+  {
+   "fieldname": "masonic_year",
+   "fieldtype": "Data",
+   "label": "Masonic Year"
   },
   {
    "fieldname": "subject",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Subject"
   },
   {
-   "fieldname": "note",
+   "fieldname": "header_and_introduction_tab",
+   "fieldtype": "Tab Break",
+   "label": "Header and Introduction"
+  },
+  {
+   "fieldname": "elected_grand_lodge_officers",
+   "fieldtype": "Table",
+   "label": "Elected Grand Lodge Officers",
+   "options": "Elected Grand Lodge Officers"
+  },
+  {
+   "fieldname": "section_break_bsru",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "appointed_grand_lodge_officers",
+   "fieldtype": "Table",
+   "label": "Appointed Grand Lodge Officers",
+   "options": "Appointed Grand Lodge Officers"
+  },
+  {
+   "fieldname": "section_break_rjei",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "junior_grand_lecturers",
+   "fieldtype": "Table",
+   "label": "Junior Grand Lecturers",
+   "options": "Junior Grand Lecturers"
+  },
+  {
+   "fieldname": "district_officers_tab",
+   "fieldtype": "Tab Break",
+   "label": "District Officers"
+  },
+  {
+   "fieldname": "district_deputy_grand_masters",
+   "fieldtype": "Table",
+   "label": "District Deputy Grand Masters",
+   "options": "District Deputy Grand Masters"
+  },
+  {
+   "fieldname": "section_break_lmkr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "district_deputy_grand_lecturers",
+   "fieldtype": "Table",
+   "label": "District Deputy Grand Lecturers",
+   "options": "District Deputy Grand Lecturers"
+  },
+  {
+   "fieldname": "tab_4_tab",
+   "fieldtype": "Tab Break",
+   "label": "Committees and Bodies"
+  },
+  {
+   "fieldname": "board_for_general_purpose",
+   "fieldtype": "Table",
+   "label": "Board for General Purpose",
+   "options": "Board for General Purpose"
+  },
+  {
+   "fieldname": "section_break_zifn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "corporate_appointments",
+   "fieldtype": "Table",
+   "label": "Corporate Appointments",
+   "options": "Corporate Appointments"
+  },
+  {
+   "fieldname": "section_break_qexe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "institute_for_masonic_education_and_studies",
+   "fieldtype": "Table",
+   "label": "Institute for Masonic Education and Studies",
+   "options": "Institute for Masonic Education and Studies"
+  },
+  {
+   "fieldname": "section_break_bcuc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "the_cable_tow",
+   "fieldtype": "Table",
+   "label": "The Cable Tow",
+   "options": "The Cable Tow"
+  },
+  {
+   "fieldname": "closing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Closing"
+  },
+  {
+   "fieldname": "effectiveness_implementation_text",
    "fieldtype": "Small Text",
-   "label": "Note"
+   "label": "Effectiveness & Implementation Text"
+  },
+  {
+   "fieldname": "certification_statement",
+   "fieldtype": "Small Text",
+   "label": "Certification Statement"
+  },
+  {
+   "fieldname": "certification_date",
+   "fieldtype": "Date",
+   "label": "Certification Date"
+  },
+  {
+   "fieldname": "section_break_vzvz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPublished"
+  },
+  {
+   "fieldname": "history_logs",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "circular_number",
+   "fieldtype": "Data",
+   "label": "Circular Number"
+  },
+  {
+   "fieldname": "date_issued",
+   "fieldtype": "Date",
+   "label": "Date Issued"
+  },
+  {
+   "fieldname": "date_circulated",
+   "fieldtype": "Date",
+   "label": "Date Circulated"
+  },
+  {
+   "fieldname": "published_by",
+   "fieldtype": "Data",
+   "label": "Published by"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-14 14:37:03.552427",
+ "modified": "2026-05-02 21:32:17.442551",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 1",

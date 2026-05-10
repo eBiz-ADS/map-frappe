@@ -9,6 +9,7 @@
   "new_membership_section",
   "type",
   "status",
+  "circular12_status",
   "new_lodge",
   "new_lodge_name",
   "new_lodge_no",
@@ -772,12 +773,18 @@
    "fieldname": "grand_lodge",
    "fieldtype": "Data",
    "label": "Grand Lodge"
+  },
+  {
+   "fieldname": "circular12_status",
+   "fieldtype": "Select",
+   "label": "Cicular 12 Status",
+   "options": "\nDRAFT\nPUBLISHED"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-08 16:12:29.839633",
+ "modified": "2026-04-26 23:49:49.849433",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",

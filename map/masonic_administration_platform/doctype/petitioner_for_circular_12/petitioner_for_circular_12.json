@@ -12,7 +12,8 @@
   "lodge",
   "status",
   "lodge_name",
-  "petitioner_name"
+  "petitioner_name",
+  "petition_name"
  ],
  "fields": [
   {
@@ -25,7 +26,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nRaised"
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nRaised\nPetition for Affiliation Membership\nPetition for Affiliation Membership (Other Jurisdiction)"
   },
   {
    "default": "Today",
@@ -58,13 +59,18 @@
    "fieldtype": "Data",
    "label": "Petitioner Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "petition_name",
+   "fieldtype": "Data",
+   "label": "Petition Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-09 16:42:25.821048",
+ "modified": "2026-04-28 09:53:27.943501",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioner for Circular 12",

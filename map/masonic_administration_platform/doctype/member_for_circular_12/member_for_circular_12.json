@@ -24,7 +24,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Restored\nSNPD\nSNA/Other\nDemitted\nDeceased"
+   "options": "Restored\nSNPD\nSNA/Other\nDemitted\nDeceased\nRaised"
   },
   {
    "default": "Today",
@@ -57,7 +57,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-09 16:41:42.780948",
+ "modified": "2026-04-29 02:47:10.107622",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Member for Circular 12",

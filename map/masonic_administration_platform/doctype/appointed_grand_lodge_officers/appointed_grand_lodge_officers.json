@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-25 19:18:39.689898",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "position",
+  "member",
+  "full_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "position",
+   "fieldtype": "Select",
+   "label": "Position",
+   "options": "Assistant Grand Secretary\nAssistant Grand Treasurer\nGrand Auditor\nGrand Chaplain\nGrand Orator\nGrand Marshall\nGrand Historian\nSenior Grand Deacon\nJunior Grand Deacon\nGrand Standard Bearer\nGrand Sword Bearer\nGrand Bible Bearer\nSenior Grand Lecturer"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Members"
+  },
+  {
+   "fetch_from": "member.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-01 23:43:29.793898",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Appointed Grand Lodge Officers",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -5,15 +5,35 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "grand_lodge_name",
+  "phone_number",
+  "address",
+  "email",
+  "website",
+  "circular_number",
+  "date_issued",
+  "masonic_year",
+  "subject",
+  "recipients",
+  "opening_message",
+  "section_break_alkq",
+  "status",
+  "published_by",
+  "date_circulated",
+  "history_logs",
+  "tab_2_tab",
+  "section_break_ayir",
+  "committee_management",
+  "committee_members",
+  "technical_working_group",
+  "closing_tab",
+  "effectiveness_implementation_text",
+  "attestation_statement",
+  "attestation_date",
+  "section_break_mtnv",
   "grand_master",
   "column_break_oili",
-  "grand_secretary",
-  "section_break_cwjb",
-  "to",
-  "subject",
-  "note",
-  "section_break_ayir",
-  "committee_name"
+  "grand_secretary"
  ],
  "fields": [
   {
@@ -33,39 +53,141 @@
    "options": "Members"
   },
   {
-   "fieldname": "section_break_cwjb",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "to",
-   "fieldtype": "Small Text",
-   "label": "To"
-  },
-  {
-   "fieldname": "subject",
-   "fieldtype": "Small Text",
-   "label": "Subject"
-  },
-  {
-   "fieldname": "note",
-   "fieldtype": "Small Text",
-   "label": "Note"
-  },
-  {
    "fieldname": "section_break_ayir",
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "committee_name",
-   "fieldtype": "Link",
-   "label": "Committee Name",
-   "options": "Committee Name"
+   "fieldname": "grand_lodge_name",
+   "fieldtype": "Data",
+   "label": "Grand Lodge Name"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "circular_number",
+   "fieldtype": "Data",
+   "label": "Circular Number"
+  },
+  {
+   "fieldname": "date_issued",
+   "fieldtype": "Date",
+   "label": "Date Issued"
+  },
+  {
+   "fieldname": "section_break_mtnv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_alkq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "published_by",
+   "fieldtype": "Data",
+   "label": "Published by"
+  },
+  {
+   "fieldname": "date_circulated",
+   "fieldtype": "Date",
+   "label": "Date Circulated"
+  },
+  {
+   "fieldname": "history_logs",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  },
+  {
+   "fieldname": "masonic_year",
+   "fieldtype": "Data",
+   "label": "Masonic Year"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject"
+  },
+  {
+   "fieldname": "recipients",
+   "fieldtype": "Small Text",
+   "label": "Recipients"
+  },
+  {
+   "fieldname": "opening_message",
+   "fieldtype": "Small Text",
+   "label": "Opening Message"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Committee Management"
+  },
+  {
+   "fieldname": "committee_management",
+   "fieldtype": "Table",
+   "label": "Committee Management",
+   "options": "Committee Management"
+  },
+  {
+   "fieldname": "committee_members",
+   "fieldtype": "Table",
+   "label": "Committee Members",
+   "options": "Committee Members"
+  },
+  {
+   "fieldname": "closing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Closing"
+  },
+  {
+   "fieldname": "effectiveness_implementation_text",
+   "fieldtype": "Small Text",
+   "label": "Effectiveness & Implementation Text"
+  },
+  {
+   "fieldname": "attestation_statement",
+   "fieldtype": "Small Text",
+   "label": "Attestation Statement"
+  },
+  {
+   "fieldname": "attestation_date",
+   "fieldtype": "Date",
+   "label": "Attestation Date"
+  },
+  {
+   "fieldname": "technical_working_group",
+   "fieldtype": "Table",
+   "label": "Technical Working Group",
+   "options": "Technical Working Group"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-14 15:12:57.979249",
+ "modified": "2026-05-04 15:33:38.951073",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 3",

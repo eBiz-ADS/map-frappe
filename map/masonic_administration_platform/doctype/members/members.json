@@ -98,6 +98,8 @@
   "imes_basic_course",
   "imes_immediate_course",
   "imes_advanced_course",
+  "past_master",
+  "past_master_year",
   "column_break_mapn",
   "masonic_timeline",
   "other_lodges",
@@ -705,13 +707,23 @@
    "fieldtype": "Table",
    "label": "Events",
    "options": "Member Event"
+  },
+  {
+   "fieldname": "past_master",
+   "fieldtype": "Data",
+   "label": "Past Master"
+  },
+  {
+   "fieldname": "past_master_year",
+   "fieldtype": "Data",
+   "label": "Past Master Year"
   }
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-20 14:49:37.254306",
+ "modified": "2026-05-05 22:35:49.569180",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",
