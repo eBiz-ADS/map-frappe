@@ -152,9 +152,14 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
- 	"all": [
- 		"map.api.circular.test_scheduler_job"
- 	],
+	"cron": {
+        "59 23 * * *": [
+            "map.api.circular.publish_circular12_scheduler_job"
+        ]
+    }
+# 	"all": [
+# 		"map.api.circular.test_scheduler_job"
+# 	],
 # 	"daily": [
 # 		"map.tasks.daily"
 # 	],

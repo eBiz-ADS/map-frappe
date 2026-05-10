@@ -797,7 +797,15 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
 @frappe.whitelist()
 def search_petition_circular():
 
-    where_clauses = ["status IN ('FOR PUBLISH', 'REJECTED')"]  # only these 2 statuses are relevant for circular
+    where_clauses = []
+
+    where_clauses.append(
+        "status IN ('FOR PUBLISH', 'REJECTED')"  # only these 2 statuses are relevant for circular
+    )
+
+    where_clauses.append(
+        "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
+    )  
 
     # -------------------------------
     # DATE_COMPLETED + STATUS LOGIC
@@ -823,12 +831,22 @@ def search_petition_circular():
         as_dict=True
     )
 
-    return {"data": data}
+    return {"data": data,
+            "date_condition": date_condition
+            }
 
 @frappe.whitelist()
 def search_member_circular():
 
     where_clauses = []  # only these 2 statuses are relevant for circular
+    
+    # where_clauses.append(
+    #     "status IN ('Completed')"  # only these 2 statuses are relevant for circular
+    # )
+
+    where_clauses.append(
+        "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
+    )  
 
     # -------------------------------
     # DATE_COMPLETED + STATUS LOGIC
