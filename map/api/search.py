@@ -781,7 +781,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, status, petitioner_name, new_lodge, type, petitioner
+            name, status, petitioner_name, new_lodge, new_lodge_no, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation
         FROM `tabPetitions`
         WHERE {where_sql}
         ORDER BY {order_by}

@@ -194,7 +194,7 @@ def publish_circular12_scheduler_job():
     now = now_datetime()
 
     # Past 10 days until now
-    start_date = add_days(now, -10).replace(
+    start_date = add_days(now, -30).replace(
         hour=0,
         minute=0,
         second=0,

@@ -107,7 +107,7 @@ def run():
     data_dir = frappe.get_app_path("map", "import_child")
 
     files = [
-        "expanded_members 2026-04-14 1(test-batch-CHILD-TABLE-DATA).csv"
+        "other-lodge-batch3.csv"
     ]
 
     for file_name in files:
