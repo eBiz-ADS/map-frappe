@@ -12,6 +12,7 @@
   "status",
   "reason",
   "approver_remarks",
+  "action_date",
   "change_request_fields"
  ],
  "fields": [
@@ -55,12 +56,17 @@
    "fieldname": "approver_remarks",
    "fieldtype": "Small Text",
    "label": "Approver Remarks"
+  },
+  {
+   "fieldname": "action_date",
+   "fieldtype": "Date",
+   "label": "Action Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-14 23:46:32.739254",
+ "modified": "2026-06-07 18:47:31.302935",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Change Request",
