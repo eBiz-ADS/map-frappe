@@ -417,8 +417,9 @@
   },
   {
    "fieldname": "overall_status",
-   "fieldtype": "Data",
-   "label": "Overall Status"
+   "fieldtype": "Select",
+   "label": "Overall Status",
+   "options": "ACTIVE\nINACTIVE\nSUSPENDED FOR A CAUSE\nSNPD\nDIED\nDEMITTED\nDROPPED\nEXPELLED"
   },
   {
    "fieldname": "column_break_mapn",
@@ -723,7 +724,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-05 22:35:49.569180",
+ "modified": "2026-06-08 10:06:10.978237",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",
