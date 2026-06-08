@@ -128,7 +128,12 @@
   "or_number",
   "transmitted_date",
   "date_completed",
-  "or_receipt"
+  "or_receipt",
+  "section_break_ygrr",
+  "amount_paid_glp",
+  "or_number_glp",
+  "transmitted_date_glp",
+  "payment_proof_glp"
  ],
  "fields": [
   {
@@ -507,7 +512,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "PENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
+   "options": "PENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nPAID GLP\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -779,12 +784,36 @@
    "fieldtype": "Select",
    "label": "Cicular 12 Status",
    "options": "\nDRAFT\nPUBLISHED"
+  },
+  {
+   "fieldname": "amount_paid_glp",
+   "fieldtype": "Data",
+   "label": "Amount Paid GLP"
+  },
+  {
+   "fieldname": "or_number_glp",
+   "fieldtype": "Data",
+   "label": "OR Number GLP"
+  },
+  {
+   "fieldname": "transmitted_date_glp",
+   "fieldtype": "Date",
+   "label": "Transmitted Date GLP"
+  },
+  {
+   "fieldname": "section_break_ygrr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment_proof_glp",
+   "fieldtype": "Attach",
+   "label": "Payment Proof GLP"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-26 23:49:49.849433",
+ "modified": "2026-06-08 02:47:47.836880",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",
