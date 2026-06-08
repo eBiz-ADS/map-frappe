@@ -93,6 +93,27 @@ def process_csv(file_path):
                         "date": normalize_date(row.get("Date (Affiliation)", ""))
                     })
 
+                # --- Activities ---
+                if has_data(row.get("Date (Activities)"), row.get("Type (Activities)")):
+                    parent_doc.append("activities", {
+                        "date": normalize_date(row.get("Date (Activities)", "")),
+                        "type": row.get("Type (Activities)", "").strip(),
+                        "action": row.get("Action (Activities)", "").strip(),
+                        "notes": row.get("Notes (Activities)", "").strip()
+                    })
+
+                # --- Payment ---
+                if has_data(row.get("OR Number (Payment)"), row.get("Year (Payment)")):
+                    parent_doc.append("payment", {
+                        "or_number": row.get("OR Number (Payment)", "").strip(),
+                        "year": normalize_date(row.get("Year (Payment)", "")),
+                        "date_of_payment": normalize_date(row.get("Date of Payment (Payment)", "")),
+                        "amount": row.get("Amount (Payment)", "").strip(),
+                        "posted": row.get("Posted (Payment)", "").strip(),
+                        "user": row.get("User (Payment)", "").strip(),
+                        "lodge": row.get("Lodge (Payment)", "").strip()
+                    })
+
                 parent_doc.save()
 
             except frappe.DoesNotExistError:
@@ -107,7 +128,7 @@ def run():
     data_dir = frappe.get_app_path("map", "import_child")
 
     files = [
-        "other-lodge-batch3.csv"
+        "activities-16.csv"
     ]
 
     for file_name in files:
