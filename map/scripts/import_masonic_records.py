@@ -16,7 +16,7 @@ def get_batch_log_file(batch_id):
 
 LOG_FILE = frappe.get_site_path("private", "files", "masonic_service_import.log.txt")
 
-BATCH_SIZE = 500  # adjust depending on server load
+BATCH_SIZE = 10000  # adjust depending on server load
 
 def write_log(log_file, message: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
