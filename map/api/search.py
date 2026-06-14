@@ -195,6 +195,29 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
         as_dict=True
     )
 
+    # Fetch masonic_service_records child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        records = frappe.db.sql(
+            f"""
+            SELECT parent, record_type, record_value, lodge_no, lodge_name, date_encoded, additional_info, date_official, record, record_encoder
+            FROM `tabMasonic Service Records`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        records_map = {}
+        for record in records:
+            records_map.setdefault(record["parent"], []).append(record)
+
+        for row in data:
+            row["masonic_service_records"] = records_map.get(row["name"], [])
+
     return {"data": data}
 
 @frappe.whitelist()
@@ -872,6 +895,7 @@ def search_member_circular():
         "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
     )  
 
+    where_clauses.append("status != 'Draft'")
     # -------------------------------
     # DATE_COMPLETED + STATUS LOGIC
     # -------------------------------
@@ -1156,7 +1180,7 @@ def search_change_request(filters: str = "[]", search: str = "", limit: int = No
         placeholders = ", ".join(["%s"] * len(names))
         field_rows = frappe.db.sql(
             f"""
-            SELECT parent, category, field_name, new_value
+            SELECT parent, category, field_name, new_value, status, name
             FROM `tabChange Request Fields`
             WHERE parent IN ({placeholders})
             ORDER BY creation ASC
