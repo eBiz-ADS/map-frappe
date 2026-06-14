@@ -77,7 +77,7 @@ def add_new_masonic_records(member, records):
 
     member_doc = frappe.get_doc("Members", member)
 
-    allowed_types = ["Affiliation", "Awards", "Change In Status"]
+    allowed_types = ["Affiliation", "Awards", "Change In Status", "Change In Member Profile", "Officer"]
 
     for r in records:
         # skip empty rows
@@ -95,6 +95,7 @@ def add_new_masonic_records(member, records):
             "lodge_name": r.get("lodge_name"),
             "date_encoded": r.get("date_encoded"),
             "date_official": r.get("date_official"),
+			"record_encoder": r.get("record_encoder")
         })
 
     member_doc.save(ignore_permissions=True)
@@ -117,3 +118,25 @@ def update_masonic_record(member, record_id, updates):
 
     member_doc.save(ignore_permissions=True)
     return {"message": "updated"}
+
+
+@frappe.whitelist()
+def update_change_request_field_status(rows, status):
+    if isinstance(rows, str):
+        rows = frappe.parse_json(rows)
+
+    for row_name in rows:
+        frappe.db.set_value(
+            "Change Request Fields",
+            row_name,
+            "status",
+            status,
+            update_modified=False
+        )
+
+    frappe.db.commit()
+
+    return {
+        "message": "Statuses updated",
+        "count": len(rows)
+    }
