@@ -184,7 +184,7 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, member_key, full_name, date_raised,
+            name, member_key, id_number, full_name, date_raised,
             overall_status, district, lodge
         FROM `tabMembers`
         WHERE {where_sql}
@@ -194,6 +194,29 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
         params + [limit, limit_start],
         as_dict=True
     )
+
+    # Fetch masonic_service_records child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        records = frappe.db.sql(
+            f"""
+            SELECT parent, record_type, record_value, lodge_no, lodge_name, date_encoded, additional_info, date_official, record, record_encoder
+            FROM `tabMasonic Service Records`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        records_map = {}
+        for record in records:
+            records_map.setdefault(record["parent"], []).append(record)
+
+        for row in data:
+            row["masonic_service_records"] = records_map.get(row["name"], [])
 
     return {"data": data}
 
@@ -446,10 +469,10 @@ def search_lodge(search: str = "", limit: int = None,
             or_parts = [
                 "LOWER(lodge_no) LIKE %s",
                 "LOWER(lodge_name) LIKE %s",
-                "LOWER(district_name) LIKE %s",
-                "LOWER(status) LIKE %s",
+                "LOWER(lodge_district) LIKE %s",
+                # "LOWER(status) LIKE %s",
                 "LOWER(location) LIKE %s",
-                "LOWER(institution_date) LIKE %s"
+                # "LOWER(institution_date) LIKE %s"
             ]
             where_clauses.append("(" + " OR ".join(or_parts) + ")")
             params.extend([search_param] * 6)
@@ -781,7 +804,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, status, petitioner_name, new_lodge, new_lodge_no, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation
+            name, status, petitioner_name, new_lodge, new_lodge_no, new_lodge_name, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation, member_name, member
         FROM `tabPetitions`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -790,6 +813,30 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
         params + [limit, limit_start],
         as_dict=True
     )
+
+    # Fetch history_logs child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        logs = frappe.db.sql(
+            f"""
+            SELECT parent, participant, action, remarks, date_completed
+            FROM `tabHistory Logs`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        logs_map = {}
+        for log in logs:
+            logs_map.setdefault(log["parent"], []).append(log)
+
+        for row in data:
+            row["history_logs"] = logs_map.get(row["name"], [])
+
 
     return {"data": data}
 
@@ -848,6 +895,7 @@ def search_member_circular():
         "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
     )  
 
+    where_clauses.append("status != 'Draft'")
     # -------------------------------
     # DATE_COMPLETED + STATUS LOGIC
     # -------------------------------
@@ -1116,7 +1164,7 @@ def search_change_request(filters: str = "[]", search: str = "", limit: int = No
     data = frappe.db.sql(
         f"""
         SELECT
-            name, member, full_name, lodge, reason, status
+            name, member, full_name, lodge, reason, status, action_date
         FROM `tabChange Request`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -1125,6 +1173,29 @@ def search_change_request(filters: str = "[]", search: str = "", limit: int = No
         params + [limit, limit_start],
         as_dict=True
     )
+
+# Fetch change_request_fields child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        field_rows = frappe.db.sql(
+            f"""
+            SELECT parent, category, field_name, new_value, status, name
+            FROM `tabChange Request Fields`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        field_rows_map = {}
+        for field in field_rows:
+            field_rows_map.setdefault(field["parent"], []).append(field)
+
+        for row in data:
+            row["change_request_fields"] = field_rows_map.get(row["name"], [])
 
     return {"data": data}
 

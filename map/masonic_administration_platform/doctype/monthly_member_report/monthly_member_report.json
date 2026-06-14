@@ -123,12 +123,6 @@
    "options": "Affiliated MMR"
   },
   {
-   "fieldname": "given_dimit",
-   "fieldtype": "Table",
-   "label": "Given Dimit",
-   "options": "Given Dimit MMR"
-  },
-  {
    "fieldname": "snpd",
    "fieldtype": "Table",
    "label": "SNPD (Suspended for Non-Payment of Dues)",
@@ -216,7 +210,7 @@
    "fieldname": "sfc_suspended_for_a_cause",
    "fieldtype": "Table",
    "label": "SFC (Suspended for A Cause)",
-   "options": "SNA MMR"
+   "options": "Suspended for a Cause MMR"
   },
   {
    "fieldname": "restored",
@@ -277,12 +271,18 @@
    "fieldtype": "Data",
    "label": "Circular 12 Status",
    "options": "\nDRAFT\nPUBLISHED"
+  },
+  {
+   "fieldname": "given_dimit",
+   "fieldtype": "Table",
+   "label": "Given Dimit",
+   "options": "Given Dimit MMR"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 15:43:51.342024",
+ "modified": "2026-06-07 22:41:11.322891",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Monthly Member Report",

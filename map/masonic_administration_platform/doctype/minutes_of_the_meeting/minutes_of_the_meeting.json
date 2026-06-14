@@ -24,6 +24,7 @@
   "district_officers_present",
   "district_officers_present_copy",
   "tylers_book",
+  "tylers_book_table",
   "additional_notes",
   "opening_of_the_lodge_section",
   "opening_on_the_third_degree",
@@ -348,7 +349,7 @@
    "options": "Lodge List"
   },
   {
-   "fetch_from": "lodge_number.district",
+   "fetch_from": "lodge_number.lodge_district",
    "fieldname": "district",
    "fieldtype": "Data",
    "label": "District"
@@ -480,12 +481,18 @@
    "fieldname": "district_officers_present",
    "fieldtype": "Small Text",
    "label": "District Officers Present"
+  },
+  {
+   "fieldname": "tylers_book_table",
+   "fieldtype": "Table",
+   "label": "Tyler's Book Copy",
+   "options": "Tylers Book"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-16 15:19:01.161408",
+ "modified": "2026-06-10 11:53:57.355096",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",

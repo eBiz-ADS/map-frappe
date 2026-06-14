@@ -9,7 +9,8 @@
   "category",
   "field_name",
   "new_value",
-  "current_value"
+  "current_value",
+  "status"
  ],
  "fields": [
   {
@@ -31,13 +32,18 @@
    "fieldname": "current_value",
    "fieldtype": "Data",
    "label": "Current Value"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-15 01:49:16.975277",
+ "modified": "2026-06-14 00:27:19.442916",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Change Request Fields",

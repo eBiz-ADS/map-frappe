@@ -18,6 +18,7 @@
    "options": "Members"
   },
   {
+   "fetch_from": "member.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name",
@@ -33,7 +34,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-19 01:45:05.569926",
+ "modified": "2026-06-08 22:56:28.632067",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Suspended for a Cause MMR",

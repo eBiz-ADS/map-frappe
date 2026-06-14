@@ -65,3 +65,78 @@ def get_member_events(member_id):
 	""", (member_id,), as_dict=True)
 
 	return { "member": member, "events": events}
+
+
+@frappe.whitelist()
+def add_new_masonic_records(member, records):
+    if isinstance(records, str):
+        records = frappe.parse_json(records)
+
+    if not records:
+        frappe.throw(_("No records provided"))
+
+    member_doc = frappe.get_doc("Members", member)
+
+    allowed_types = ["Affiliation", "Awards", "Change In Status", "Change In Member Profile", "Officer"]
+
+    for r in records:
+        # skip empty rows
+        if not r.get("record_type"):
+            continue
+
+        if r.get("record_type") not in allowed_types:
+            frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
+
+        member_doc.append("masonic_service_records", {
+            "record_type": r.get("record_type"),
+            "record_value": r.get("record_value"),
+            "additional_info": r.get("additional_info"),
+            "lodge_no": r.get("lodge_no"),
+            "lodge_name": r.get("lodge_name"),
+            "date_encoded": r.get("date_encoded"),
+            "date_official": r.get("date_official"),
+			"record_encoder": r.get("record_encoder")
+        })
+
+    member_doc.save(ignore_permissions=True)
+
+    return {
+        "message": "Records added successfully",
+        "count": len(records)
+    }
+
+
+@frappe.whitelist()
+def update_masonic_record(member, record_id, updates):
+    member_doc = frappe.get_doc("Members", member)
+
+    for row in member_doc.masonic_records:
+        if row.name == record_id:
+            for k, v in updates.items():
+                setattr(row, k, v)
+            break
+
+    member_doc.save(ignore_permissions=True)
+    return {"message": "updated"}
+
+
+@frappe.whitelist()
+def update_change_request_field_status(rows, status):
+    if isinstance(rows, str):
+        rows = frappe.parse_json(rows)
+
+    for row_name in rows:
+        frappe.db.set_value(
+            "Change Request Fields",
+            row_name,
+            "status",
+            status,
+            update_modified=False
+        )
+
+    frappe.db.commit()
+
+    return {
+        "message": "Statuses updated",
+        "count": len(rows)
+    }

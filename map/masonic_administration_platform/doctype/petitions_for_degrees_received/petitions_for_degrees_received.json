@@ -27,12 +27,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "petitioner.address_1",
-   "fieldname": "residence",
-   "fieldtype": "Data",
-   "label": "Residence"
-  },
-  {
    "fetch_from": "petitioner.occupation",
    "fieldname": "occupation",
    "fieldtype": "Data",
@@ -43,13 +37,19 @@
    "fieldname": "dob",
    "fieldtype": "Date",
    "label": "Date"
+  },
+  {
+   "fetch_from": "petitioner.short_residence_address",
+   "fieldname": "residence",
+   "fieldtype": "Data",
+   "label": "Residence"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-02 03:47:17.131078",
+ "modified": "2026-06-07 18:00:45.586478",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions For Degrees Received",
