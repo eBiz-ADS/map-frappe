@@ -8,6 +8,7 @@
  "field_order": [
   "record_type",
   "record_value",
+  "record_value_list",
   "lodge_no",
   "lodge_name",
   "date_encoded",
@@ -27,14 +28,14 @@
    "fieldname": "record_type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Change In Status\nAffiliation\nAwards\nOfficer",
+   "options": "Change In Status\nChange In Member Profile\nAffiliation\nAwards\nOfficer\nOthers",
    "reqd": 1
   },
   {
    "fieldname": "record_value",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Value",
-   "options": "\nSTATUSES:\nPETITION\nPETITION RECEIVED\nINITIATED\nPASSED\nRAISED\nSNPD\nSUSPENDED FOR A CAUSE\nDEMITTED\nRESTORED\nDECEASED\nEXPELLED\nAFFILIATION TYPES:\nDUAL\nCHARTER\nHONORARY\nAWARDS:\nHIRAM MEDAL\nOFFICERS:",
+   "options": "\nSTATUSES:\nPETITION\nPETITION RECEIVED\nINITIATED\nPASSED\nRAISED\nSNPD\nSUSPENDED FOR A CAUSE\nDEMITTED\nRESTORED\nDECEASED\nEXPELLED\nAFFILIATION TYPES:\nDUAL\nCHARTER\nHONORARY\nAWARDS:\nHIRAM MEDAL\nPROFICIENCY EXAM\nIMES GRADUATE\nGRANTED LIFE MEMBERSHIP\nOFFICERS:\nCHANGE REQ",
    "reqd": 1
   },
   {
@@ -44,6 +45,7 @@
    "options": "Lodge List"
   },
   {
+   "fetch_from": "lodge_no.lodge_name",
    "fieldname": "lodge_name",
    "fieldtype": "Data",
    "label": "Lodge Name"
@@ -68,13 +70,19 @@
    "fieldname": "record_encoder",
    "fieldtype": "Data",
    "label": "Record Encoder"
+  },
+  {
+   "fieldname": "record_value_list",
+   "fieldtype": "Select",
+   "label": "Value List",
+   "options": "\nSTATUSES:\nPETITION\nPETITION RECEIVED\nINITIATED\nPASSED\nRAISED\nSNPD\nSUSPENDED FOR A CAUSE\nDEMITTED\nRESTORED\nDECEASED\nEXPELLED\nAFFILIATION TYPES:\nDUAL\nCHARTER\nHONORARY\nAWARDS:\nHIRAM MEDAL\nPROFICIENCY EXAM\nIMES GRADUATE\nGRANTED LIFE MEMBERSHIP\nOFFICERS:\nCHANGE REQ"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-04 17:19:54.147803",
+ "modified": "2026-06-14 22:41:19.667764",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Masonic Service Records",
