@@ -7,13 +7,16 @@
  "engine": "InnoDB",
  "field_order": [
   "petitioner",
+  "member",
   "type",
   "date_completed",
   "lodge",
   "status",
   "lodge_name",
   "petitioner_name",
-  "petition_name"
+  "petition_name",
+  "occupation",
+  "residence"
  ],
  "fields": [
   {
@@ -26,7 +29,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nRaised\nPetition for Affiliation Membership\nPetition for Affiliation Membership (Other Jurisdiction)"
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nRaised\nPetition for Affiliation Membership\nPetition for Affiliation Membership (Other Jurisdiction)\nNew Petitions for Degrees\nRejected Petitions\nAffiliations & Plural Memberships"
   },
   {
    "default": "Today",
@@ -54,7 +57,6 @@
    "label": "Lodge Name"
   },
   {
-   "fetch_from": "petitioner.full_name",
    "fieldname": "petitioner_name",
    "fieldtype": "Data",
    "label": "Petitioner Name",
@@ -64,13 +66,29 @@
    "fieldname": "petition_name",
    "fieldtype": "Data",
    "label": "Petition Name"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Members"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "residence",
+   "fieldtype": "Data",
+   "label": "Residence"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-04-28 09:53:27.943501",
+ "modified": "2026-06-16 20:30:49.139082",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioner for Circular 12",
