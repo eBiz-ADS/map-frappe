@@ -24,7 +24,6 @@
   "district_officers_present",
   "district_officers_present_copy",
   "tylers_book",
-  "tylers_book_table",
   "additional_notes",
   "opening_of_the_lodge_section",
   "opening_on_the_third_degree",
@@ -481,18 +480,12 @@
    "fieldname": "district_officers_present",
    "fieldtype": "Small Text",
    "label": "District Officers Present"
-  },
-  {
-   "fieldname": "tylers_book_table",
-   "fieldtype": "Table",
-   "label": "Tyler's Book Copy",
-   "options": "Tylers Book"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-10 11:53:57.355096",
+ "modified": "2026-06-16 21:40:44.185498",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",
