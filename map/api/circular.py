@@ -10,13 +10,14 @@ from calendar import monthrange
 
 @dataclass    
 class Petitioner: 
-    name: str
     petitioner: str
     petitioner_name: str
     type: str
     lodge: str
+    isAffiliation: bool = False
     status: Optional[str] = None
     date_completed: Optional[str] = None
+    name: Optional[str] = None
 
 
 @dataclass    
@@ -78,13 +79,17 @@ def create_circular_12(data):
         "petitioners": [
             {
                 "doctype": "Circular 12 Petitioner",
-                "petitioner": p.petitioner,
+                **(
+                    {"member": p.petitioner}
+                    if p.isAffiliation
+                    else {"petitioner": p.petitioner}
+                ),
+                "petitioner_name": p.petitioner_name,
                 "date_completed": p.date_completed,
                 "type": p.type,
                 "lodge": p.lodge,
-                "status": p.status,
-                "petitioner_name": p.petitioner_name,
-                "petition_name": p.name
+                # "status": p.status,
+                # "petition_name": p.name
             }
             for p in petition_data.petitioners
         ],
@@ -111,21 +116,21 @@ def create_circular_12(data):
 
     create.insert(ignore_permissions=True)
 
-    updates = {
-        "circular12_status": petition_data.status
-    }
+    # updates = {
+    #     "circular12_status": petition_data.status
+    # }
 
-    if petition_data.status == "PUBLISHED":
-        updates["status"] = "PUBLISHED"
+    # if petition_data.status == "PUBLISHED":
+    #     updates["status"] = "PUBLISHED"
 
-    for item in petition_data.petitioners:
-        frappe.logger().info(f"Updating {item.petitioner}")
-        # frappe.logger("api", allow_site=True, file_count=50).info(f"Updating {item.petitioner}")
-        frappe.db.set_value(
-            "Petitions",
-            item.name,
-            updates
-        )
+    # for item in petition_data.petitioners:
+    #     frappe.logger().info(f"Updating {item.petitioner}")
+    #     # frappe.logger("api", allow_site=True, file_count=50).info(f"Updating {item.petitioner}")
+    #     frappe.db.set_value(
+    #         "Petitions",
+    #         item.name,
+    #         updates
+    #     )
 
     update_mmr = {
         "circular12_status": petition_data.status,

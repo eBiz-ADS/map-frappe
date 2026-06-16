@@ -628,17 +628,36 @@ def get_date_completed_circular():
 
     return f"(date_completed BETWEEN '{start_date}' AND '{end_date}')"
 
+# def get_date_completed_circular_members():
+#     today = date.today()
+#     month = today.month
+#     year = today.year
+    
+#     start_date = date(year, month, 1)
+#     last_day = min(29, calendar.monthrange(year, month)[1])
+#     end_date = date(year, month, last_day)
+
+#     # Return SQL condition
+#     return f"(date BETWEEN '{start_date}' AND '{end_date}')"
+
 def get_date_completed_circular_members():
     today = date.today()
     month = today.month
     year = today.year
-    
-    start_date = date(year, month, 1)
-    last_day = min(29, calendar.monthrange(year, month)[1])
-    end_date = date(year, month, last_day)
 
-    # Return SQL condition
-    return f"(date BETWEEN '{start_date}' AND '{end_date}')"
+    start_date = date(year, month, 1)
+    end_date = date(year, month, calendar.monthrange(year, month)[1])
+
+    return f"""
+        EXISTS (
+            SELECT 1
+            FROM `tabHistory Logs` h
+            WHERE h.parent = `tabMonthly Member Report`.name
+            AND h.action = 'For Publish'
+            AND DATE(h.date_completed)
+                BETWEEN '{start_date}' AND '{end_date}'
+        )
+    """
 
 
 @frappe.whitelist()
@@ -895,7 +914,9 @@ def search_member_circular():
         "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
     )  
 
-    where_clauses.append("status != 'Draft'")
+    # where_clauses.append("status != 'Draft'") 
+    where_clauses.append("status = 'For Publish'")
+
     # -------------------------------
     # DATE_COMPLETED + STATUS LOGIC
     # -------------------------------
@@ -927,6 +948,15 @@ def search_member_circular():
             "lodge_no": doc.lodge_no,
             "date": doc.date,
             "restored": doc.restored,
+            "petition_for_degrees_received": doc.petition_for_degrees_received,
+            "petition_for_degrees_elected": doc.petition_for_degrees_elected,
+            "petition_for": doc.petition_for,
+            "petitions_for_affiliation_received": doc.petitions_for_affiliation_received,
+            "petitions_for_affiliation_approved": doc.petitions_for_affiliation_approved,
+            "petitions_for_affiliation_rejected": doc.petitions_for_affiliation_rejected,
+            "iniated": doc.initiated,
+            "passed": doc.passed,
+            "raised": doc.raised,
             "snpd": doc.snpd,
             "sna": doc.sna,
             "sfc_suspended_for_a_cause": doc.sfc_suspended_for_a_cause,
