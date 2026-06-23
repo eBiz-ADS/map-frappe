@@ -13,6 +13,7 @@
   "reason",
   "approver_remarks",
   "action_date",
+  "attachment",
   "change_request_fields"
  ],
  "fields": [
@@ -61,12 +62,17 @@
    "fieldname": "action_date",
    "fieldtype": "Date",
    "label": "Action Date"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-07 18:47:31.302935",
+ "modified": "2026-06-20 19:48:36.995782",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Change Request",
