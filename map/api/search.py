@@ -823,7 +823,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, status, petitioner_name, new_lodge, new_lodge_no, new_lodge_name, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation, member_name, member
+            name, status, type, petitioner_name, new_lodge, new_lodge_no, new_lodge_name, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation, member_name, member
         FROM `tabPetitions`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -1336,6 +1336,7 @@ def search_circular12(filters: str = "[]", search: str = "", limit: int = None,
     )
 
     return {"data": data}
+
 @frappe.whitelist()
 def search_officers(filters: str = "[]", search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "o.modified DESC", status: str =""):
@@ -1511,5 +1512,169 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
 
     return {"data": result}
 
+@frappe.whitelist()
+def search_minutes(filters: str = "[]", search: str = "", limit: int = None,
+                   limit_start: int = 0, order_by: str = "modified asc"):
+    # -------------------------------
+    # Load filters
+    # -------------------------------
+    try:
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
+
+    where_clauses = []
+    params = []
+
+    # -------------------------------
+    # Process each filter (AND conditions)
+    # -------------------------------
+    for f in filters_list:
+        if not isinstance(f, list) or len(f) != 3:
+            continue
+
+        field, condition, value = f
+        normalized_field = field.lower().strip()
+        condition_upper = condition.upper()
+
+        # -------------------------------
+        # NORMAL PARENT FILTER
+        # -------------------------------
+
+        # Normalize date fields
+        if field.lower() in ["modified"]:
+            value = normalize_date(str(value))
+            where_clauses.append(f"DATE(`{field}`) {condition} %s")
+            params.append(value)
+            continue
+
+        # IN / NOT IN
+        if condition_upper in ["IN", "NOT IN"]:
+            if isinstance(value, list):
+                placeholders = ", ".join(["%s"] * len(value))
+                where_clauses.append(f"`{field}` {condition_upper} ({placeholders})")
+                params.extend(value)
+            else:
+                where_clauses.append(f"`{field}` {condition_upper} (%s)")
+                params.append(value)
+        else:
+            where_clauses.append(f"`{field}` {condition} %s")
+            params.append(value)
+
+    # -------------------------------
+    # OR SEARCH
+    # -------------------------------
+    if search:
+        search_lower = str(search).lower()
+        search_param = f"%{search_lower}%"
+        or_parts = [
+            "LOWER(name) LIKE %s",
+            "LOWER(status) LIKE %s",
+            "LOWER(meeting_title) LIKE %s",
+            "LOWER(lodge_name) LIKE %s",
+            "CAST(meeting_date AS CHAR) LIKE %s"
+        ]
+        where_clauses.append("(" + " OR ".join(or_parts) + ")")
+        params.extend([search_param] * len(or_parts))
+
+    # -------------------------------
+    # OR status filter
+    # -------------------------------
+    # where_clauses.append(
+    #     "(LOWER(overall_status) LIKE '%%active%%' OR LOWER(overall_status) LIKE '%%demitted%%')"
+    # )
+
+    # -------------------------------
+    # Final WHERE SQL
+    # -------------------------------
+    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+
+    # -------------------------------
+    # COUNT MODE
+    # -------------------------------
+    if not limit:
+        count = frappe.db.sql(
+            f"""
+            SELECT COUNT(*) AS total
+            FROM `tabMinutes of the Meeting`
+            WHERE {where_sql}
+            """,
+            params,
+            as_dict=True
+        )
+        return {"count": count[0].total}
+
+    # -------------------------------
+    # PAGINATION MODE
+    # -------------------------------
+    data = frappe.db.sql(
+        f"""
+        SELECT
+            name,
+            lodge_number,
+            lodge_name,
+            meeting_date,
+            meeting_title,
+            meeting_type,
+            district,
+            venue,
+            status
+        FROM `tabMinutes of the Meeting`
+        WHERE {where_sql}
+        ORDER BY {order_by}
+        LIMIT %s OFFSET %s
+        """,
+        params + [limit, limit_start],
+        as_dict=True
+    )
+
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+
+        child_tables = {
+            "mom_attendees_table": "tabMOM Attendees",
+            "committee_table": "tabCommittee Report",
+            "balloting_table": "tabBalloting",
+            "petition_of_degrees_table": "tabPetition of Degrees",
+            "resolution_and_actions_information_table": "tabResolution and Actions",
+            "birthday_celebrants_table": "tabBirthday Celebrants",
+            "brethren_visiting_from_other_lodges_table": "tabBrethren Visiting for Other Lodges",
+            "tylers_book": "tabTylers Book",
+            "past_masters_present_table": "tabPast Masters Present",
+            "past_ddgms_present_table": "tabPast DDGMs and Other Dignitaries Present",
+            "district_officers_present_copy": "tabDistrict Officers Present",
+            "glp_communications_table": "tabGLP Communications",
+            "conferral_of_degrees_table": "tabConferral of Degrees",
+            "table_mzjc": "tabClosing of the Lodge",
+            "history_logs_table": "tabHistory Logs",
+            "miscellaneous_business_table": "tabMiscellaneous Business",
+        }
+
+        child_maps = {}
+
+        for fieldname, table in child_tables.items():
+            rows = frappe.db.sql(
+                f"""
+                SELECT *
+                FROM `{table}`
+                WHERE parent IN ({placeholders})
+                ORDER BY idx
+                """,
+                names,
+                as_dict=True
+            )
+
+            grouped = {}
+            for row in rows:
+                grouped.setdefault(row["parent"], []).append(row)
+
+            child_maps[fieldname] = grouped
+
+        for row in data:
+            for fieldname in child_tables:
+                row[fieldname] = child_maps[fieldname].get(row["name"], [])
+   
+    return {"data": data}
 
 
