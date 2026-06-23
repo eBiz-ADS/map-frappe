@@ -109,6 +109,7 @@
   "data_privacy_consent",
   "endorsement_letter",
   "medical_certificate",
+  "official_letter_to_gl",
   "remarks_tab",
   "remarks",
   "history_logs_tab",
@@ -133,7 +134,8 @@
   "amount_paid_glp",
   "or_number_glp",
   "transmitted_date_glp",
-  "payment_proof_glp"
+  "payment_proof_glp",
+  "deposit_slip"
  ],
  "fields": [
   {
@@ -512,7 +514,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "PENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nPAID GLP\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
+   "options": "DRAFT\nPENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nPAID GLP\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -808,12 +810,22 @@
    "fieldname": "payment_proof_glp",
    "fieldtype": "Attach",
    "label": "Payment Proof GLP"
+  },
+  {
+   "fieldname": "deposit_slip",
+   "fieldtype": "Attach",
+   "label": "Deposit Slip"
+  },
+  {
+   "fieldname": "official_letter_to_gl",
+   "fieldtype": "Attach",
+   "label": "Official Letter to GL"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-08 02:47:47.836880",
+ "modified": "2026-06-23 01:39:06.154206",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",
