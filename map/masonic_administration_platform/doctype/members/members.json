@@ -127,35 +127,41 @@
    "fieldname": "first_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "First Name"
+   "label": "First Name",
+   "length": 255
   },
   {
    "fieldname": "middle_name",
    "fieldtype": "Data",
-   "label": "Middle Name"
+   "label": "Middle Name",
+   "length": 255
   },
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name"
+   "label": "Last Name",
+   "length": 255
   },
   {
    "fieldname": "contact_no",
    "fieldtype": "Data",
-   "label": "Contact Number"
+   "label": "Contact Number",
+   "length": 255
   },
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Full Name",
+   "length": 255,
    "read_only": 1
   },
   {
    "fieldname": "email",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "label": "Email"
+   "label": "Email",
+   "length": 255
   },
   {
    "fieldname": "basic_information_section",
@@ -174,23 +180,27 @@
   {
    "fieldname": "nationality",
    "fieldtype": "Data",
-   "label": "Nationality"
+   "label": "Nationality",
+   "length": 255
   },
   {
    "fieldname": "place_of_birth",
    "fieldtype": "Data",
-   "label": "Place of Birth"
+   "label": "Place of Birth",
+   "length": 255
   },
   {
    "fieldname": "civil_status",
    "fieldtype": "Select",
    "label": "Civil Status",
+   "length": 255,
    "options": "Single\nMarried\nWidowed\nSeparated"
   },
   {
    "fieldname": "socials",
    "fieldtype": "Data",
-   "label": "Socials"
+   "label": "Socials",
+   "length": 255
   },
   {
    "fieldname": "emergency_contact_section",
@@ -278,22 +288,26 @@
   {
    "fieldname": "blood_type",
    "fieldtype": "Data",
-   "label": "Blood Type"
+   "label": "Blood Type",
+   "length": 255
   },
   {
    "fieldname": "foreigner",
    "fieldtype": "Int",
-   "label": "Foreigner"
+   "label": "Foreigner",
+   "length": 255
   },
   {
    "fieldname": "affiliate",
    "fieldtype": "Int",
-   "label": "Affiliate"
+   "label": "Affiliate",
+   "length": 255
   },
   {
    "fieldname": "office_telphone",
    "fieldtype": "Data",
-   "label": "Office Telephone"
+   "label": "Office Telephone",
+   "length": 255
   },
   {
    "fieldname": "column_break_eiub",
@@ -303,22 +317,26 @@
   {
    "fieldname": "address_1",
    "fieldtype": "Data",
-   "label": "Address 1"
+   "label": "Address 1",
+   "length": 255
   },
   {
    "fieldname": "address_2",
    "fieldtype": "Data",
-   "label": "Address 2"
+   "label": "Address 2",
+   "length": 255
   },
   {
    "fieldname": "current_province",
    "fieldtype": "Data",
-   "label": "Current Province"
+   "label": "Current Province",
+   "length": 255
   },
   {
    "fieldname": "current_country",
    "fieldtype": "Data",
-   "label": "Current Country"
+   "label": "Current Country",
+   "length": 255
   },
   {
    "fieldname": "permanent_address",
@@ -353,37 +371,44 @@
   {
    "fieldname": "website",
    "fieldtype": "Data",
-   "label": "Website"
+   "label": "Website",
+   "length": 255
   },
   {
    "fieldname": "occupation",
    "fieldtype": "Data",
-   "label": "Occupation"
+   "label": "Occupation",
+   "length": 255
   },
   {
    "fieldname": "education",
    "fieldtype": "Data",
-   "label": "Education"
+   "label": "Education",
+   "length": 255
   },
   {
    "fieldname": "school",
    "fieldtype": "Data",
-   "label": "School"
+   "label": "School",
+   "length": 255
   },
   {
    "fieldname": "fax",
    "fieldtype": "Data",
-   "label": "Fax"
+   "label": "Fax",
+   "length": 255
   },
   {
    "fieldname": "company",
    "fieldtype": "Data",
-   "label": "Company"
+   "label": "Company",
+   "length": 255
   },
   {
    "fieldname": "company_address",
    "fieldtype": "Data",
-   "label": "Company Address"
+   "label": "Company Address",
+   "length": 255
   },
   {
    "fieldname": "column_break_mlfg",
@@ -419,7 +444,8 @@
    "fieldname": "overall_status",
    "fieldtype": "Select",
    "label": "Overall Status",
-   "options": "ACTIVE\nINACTIVE\nSUSPENDED FOR A CAUSE\nSNPD\nDIED\nDEMITTED\nDROPPED\nEXPELLED"
+   "length": 255,
+   "options": "ACTIVE\nINACTIVE\nRESTORED\nDEMITTED\nSNPD\nSNA\nSUSPENDED FOR A CAUSE\nEXPELLED\nDIED\nDECEASED\nDROPPED\nDROPPED FROM THE ROLL\nOTHER SUSPENSION"
   },
   {
    "fieldname": "column_break_mapn",
@@ -433,17 +459,20 @@
   {
    "fieldname": "tel_no_1",
    "fieldtype": "Data",
-   "label": "Telephone Number 1"
+   "label": "Telephone Number 1",
+   "length": 255
   },
   {
    "fieldname": "tel_no_2",
    "fieldtype": "Data",
-   "label": "Telephone Number 2"
+   "label": "Telephone Number 2",
+   "length": 255
   },
   {
    "fieldname": "cable_tow",
    "fieldtype": "Data",
-   "label": "Cable Tow"
+   "label": "Cable Tow",
+   "length": 255
   },
   {
    "fieldname": "date_initiated",
@@ -568,12 +597,14 @@
   {
    "fieldname": "position",
    "fieldtype": "Data",
-   "label": "Position"
+   "label": "Position",
+   "length": 255
   },
   {
    "fieldname": "nature_of_company",
    "fieldtype": "Data",
-   "label": "Nature of Company"
+   "label": "Nature of Company",
+   "length": 255
   },
   {
    "fieldname": "imes_basic_course",
@@ -724,7 +755,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-08 10:06:10.978237",
+ "modified": "2026-07-06 10:48:48.989309",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Members",
