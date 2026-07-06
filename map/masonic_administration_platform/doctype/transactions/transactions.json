@@ -7,13 +7,15 @@
  "field_order": [
   "payment_section",
   "member",
+  "petitioner",
   "or_number",
   "transaction_type",
   "amount",
   "date_of_payment",
   "method",
   "attachment",
-  "recorded_by"
+  "recorded_by",
+  "lodge"
  ],
  "fields": [
   {
@@ -61,12 +63,24 @@
    "fieldname": "recorded_by",
    "fieldtype": "Data",
    "label": "Recorded By"
+  },
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Link",
+   "label": "Lodge",
+   "options": "Lodge List"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-07 15:13:47.679129",
+ "modified": "2026-06-29 14:32:54.115677",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Transactions",
