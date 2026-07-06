@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:district",
  "creation": "2025-11-20 10:34:19.294977",
@@ -10,7 +11,8 @@
   "location",
   "district_code",
   "constitution_date",
-  "status"
+  "status",
+  "district_id_code"
  ],
  "fields": [
   {
@@ -44,12 +46,17 @@
    "fieldname": "constitution_date",
    "fieldtype": "Date",
    "label": "Constitution Date"
+  },
+  {
+   "fieldname": "district_id_code",
+   "fieldtype": "Data",
+   "label": "District ID Code"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-27 16:35:48.231986",
+ "modified": "2026-07-05 23:57:13.201834",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "District",
