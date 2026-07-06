@@ -46,7 +46,9 @@
   "certification_statement",
   "certification_date",
   "grand_secretary",
-  "grand_master"
+  "grand_secretary_name",
+  "grand_master",
+  "grand_master_name"
  ],
  "fields": [
   {
@@ -263,12 +265,24 @@
    "fieldname": "published_by",
    "fieldtype": "Data",
    "label": "Published by"
+  },
+  {
+   "fetch_from": "grand_secretary.full_name",
+   "fieldname": "grand_secretary_name",
+   "fieldtype": "Data",
+   "label": "Grand Secretary Name"
+  },
+  {
+   "fetch_from": "grand_master.full_name",
+   "fieldname": "grand_master_name",
+   "fieldtype": "Data",
+   "label": "Grand Master Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-02 21:32:17.442551",
+ "modified": "2026-07-05 18:37:49.115383",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 1",
