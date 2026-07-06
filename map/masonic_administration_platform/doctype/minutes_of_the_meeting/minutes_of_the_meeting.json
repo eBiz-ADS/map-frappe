@@ -23,6 +23,7 @@
   "past_ddgms_present_table",
   "district_officers_present",
   "district_officers_present_copy",
+  "tylers_book_table",
   "tylers_book",
   "additional_notes",
   "opening_of_the_lodge_section",
@@ -39,7 +40,7 @@
   "committee_table",
   "committee_summary",
   "glp_edicts_and_circulars_section",
-  "edict_and_circular_table",
+  "glp_communications_table",
   "balloting_section",
   "balloting_table",
   "masonic_education_section",
@@ -58,9 +59,7 @@
   "remarks_from_the_floor",
   "conferral_of_degrees",
   "column_break_hcbd",
-  "candidate_name",
-  "candidate_full_name",
-  "degree",
+  "conferral_of_degrees_table",
   "conferral_notes",
   "message_from_district_officers_section",
   "gli_remarks",
@@ -206,12 +205,6 @@
    "fieldtype": "Table",
    "label": "Committee",
    "options": "Committee Report"
-  },
-  {
-   "fieldname": "edict_and_circular_table",
-   "fieldtype": "Table",
-   "label": "Edict and Circular Information",
-   "options": "Edicts and Circular"
   },
   {
    "fieldname": "balloting_table",
@@ -378,8 +371,9 @@
   },
   {
    "fieldname": "tylers_book",
-   "fieldtype": "Attach",
-   "label": "Tyler's Book"
+   "fieldtype": "Table",
+   "label": "Tyler's Book",
+   "options": "Tylers Book"
   },
   {
    "fieldname": "additional_notes",
@@ -392,18 +386,6 @@
    "label": "Approved MOM from Previous Meeting"
   },
   {
-   "fieldname": "candidate_name",
-   "fieldtype": "Link",
-   "label": "Candidate Name",
-   "options": "Petitioners List"
-  },
-  {
-   "fieldname": "degree",
-   "fieldtype": "Select",
-   "label": "Degree",
-   "options": "Entered Apprentice\nFellowcraft\nMaster Mason"
-  },
-  {
    "fieldname": "status_section",
    "fieldtype": "Section Break",
    "label": "Status"
@@ -412,11 +394,6 @@
    "fieldname": "status",
    "fieldtype": "Data",
    "label": "Status"
-  },
-  {
-   "fieldname": "candidate_full_name",
-   "fieldtype": "Data",
-   "label": "Candidate Full Name"
   },
   {
    "fieldname": "section_break_bgbl",
@@ -480,12 +457,29 @@
    "fieldname": "district_officers_present",
    "fieldtype": "Small Text",
    "label": "District Officers Present"
+  },
+  {
+   "fieldname": "tylers_book_table",
+   "fieldtype": "Attach",
+   "label": "Tyler's Book Copy"
+  },
+  {
+   "fieldname": "glp_communications_table",
+   "fieldtype": "Table",
+   "label": "GLP Communications",
+   "options": "GLP Communications"
+  },
+  {
+   "fieldname": "conferral_of_degrees_table",
+   "fieldtype": "Table",
+   "label": "Conferral of Degrees",
+   "options": "Conferral of Degrees"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-16 21:40:44.185498",
+ "modified": "2026-06-21 19:24:14.094897",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",

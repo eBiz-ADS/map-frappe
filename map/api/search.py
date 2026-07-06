@@ -2,6 +2,7 @@ import frappe
 import json
 from datetime import datetime, date
 import calendar
+import re
 
 def normalize_date(date_str: str) -> str:
     """
@@ -398,6 +399,30 @@ def search_petitioners(filters: str = "[]", search: str = "", limit: int = None,
         as_dict=True
     )
 
+  # Fetch masonic_service_records child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        records = frappe.db.sql(
+            f"""
+            SELECT parent, record_type, record_value, lodge_no, lodge_name, date_encoded, additional_info, date_official, record, record_encoder
+            FROM `tabMasonic Service Records`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        records_map = {}
+        for record in records:
+            records_map.setdefault(record["parent"], []).append(record)
+
+        for row in data:
+            row["masonic_service_records"] = records_map.get(row["name"], [])
+
+
     return {"data": data}
 
 @frappe.whitelist()
@@ -497,7 +522,7 @@ def search_lodge(search: str = "", limit: int = None,
         data = frappe.db.sql(f"""
             SELECT
                 lodge_no, lodge_name, district, district_name, status,
-                location, institution_date, name
+                location, institution_date, name, district_id_code
             FROM `tabLodge List`
             WHERE {where_sql}
             ORDER BY {order_by}
@@ -570,64 +595,86 @@ def get_date_completed_range(filter_value: str):
     return f"(date_completed BETWEEN '{start_date}' AND '{end_date}')"
 
 
+# OLD NEED CLARIFICATION
+# def get_date_completed_circular():
+#     today = date.today()
+#     day = today.day
+#     month = today.month
+#     year = today.year
 
+#     # Determine today's bucket
+#     if 10 <= day <= 19:
+#         today_bucket = "A"
+#     elif 20 <= day <= 29:
+#         today_bucket = "B"
+#     else:  # 30/31/1–9
+#         today_bucket = "C"
+
+#     prev_bucket = {"A": "C", "B": "A", "C": "B"}[today_bucket]
+
+#     # Previous month logic
+#     if month == 1:
+#         prev_month = 12
+#         prev_year = year - 1
+#     else:
+#         prev_month = month - 1
+#         prev_year = year
+
+#     # -------- Calculate Date Range --------
+
+#     if prev_bucket == "A":
+#         # 10–19
+#         # Same month if today is B
+#         if today_bucket == "B":
+#             start_date = date(year, month, 10)
+#             end_date = date(year, month, 19)
+#         else:
+#             start_date = date(prev_year, prev_month, 10)
+#             end_date = date(prev_year, prev_month, 19)
+
+#     elif prev_bucket == "B":
+#         # 20–29
+#         if today_bucket == "C":
+#             # Must use previous month
+#             last_day = min(29, calendar.monthrange(prev_year, prev_month)[1])
+#             start_date = date(prev_year, prev_month, 20)
+#             end_date = date(prev_year, prev_month, last_day)
+#         else:
+#             last_day = min(29, calendar.monthrange(year, month)[1])
+#             start_date = date(year, month, 20)
+#             end_date = date(year, month, last_day)
+
+#     else:  # prev_bucket == "C"
+#         # 30/31 previous month + 1–9 current month
+#         last_day_prev = calendar.monthrange(prev_year, prev_month)[1]
+#         start_day = 30 if last_day_prev >= 30 else last_day_prev
+#         start_date = date(prev_year, prev_month, start_day)
+#         end_date = date(year, month, 9)
+
+#     return f"(date_completed BETWEEN '{start_date}' AND '{end_date}')"
+
+# NEW NEED CLARIFICATION
 def get_date_completed_circular():
     today = date.today()
-    day = today.day
-    month = today.month
+
     year = today.year
+    month = today.month
+    day = today.day
 
-    # Determine today's bucket
-    if 10 <= day <= 19:
-        today_bucket = "A"
-    elif 20 <= day <= 29:
-        today_bucket = "B"
-    else:  # 30/31/1–9
-        today_bucket = "C"
+    if 1 <= day <= 10:
+        start_date = date(year, month, 1)
+        end_date = date(year, month, 10)
 
-    prev_bucket = {"A": "C", "B": "A", "C": "B"}[today_bucket]
+    elif 11 <= day <= 20:
+        start_date = date(year, month, 11)
+        end_date = date(year, month, 20)
 
-    # Previous month logic
-    if month == 1:
-        prev_month = 12
-        prev_year = year - 1
-    else:
-        prev_month = month - 1
-        prev_year = year
-
-    # -------- Calculate Date Range --------
-
-    if prev_bucket == "A":
-        # 10–19
-        # Same month if today is B
-        if today_bucket == "B":
-            start_date = date(year, month, 10)
-            end_date = date(year, month, 19)
-        else:
-            start_date = date(prev_year, prev_month, 10)
-            end_date = date(prev_year, prev_month, 19)
-
-    elif prev_bucket == "B":
-        # 20–29
-        if today_bucket == "C":
-            # Must use previous month
-            last_day = min(29, calendar.monthrange(prev_year, prev_month)[1])
-            start_date = date(prev_year, prev_month, 20)
-            end_date = date(prev_year, prev_month, last_day)
-        else:
-            last_day = min(29, calendar.monthrange(year, month)[1])
-            start_date = date(year, month, 20)
-            end_date = date(year, month, last_day)
-
-    else:  # prev_bucket == "C"
-        # 30/31 previous month + 1–9 current month
-        last_day_prev = calendar.monthrange(prev_year, prev_month)[1]
-        start_day = 30 if last_day_prev >= 30 else last_day_prev
-        start_date = date(prev_year, prev_month, start_day)
-        end_date = date(year, month, 9)
+    else:  # 21 → end of month
+        last_day = calendar.monthrange(year, month)[1]
+        start_date = date(year, month, 21)
+        end_date = date(year, month, last_day)
 
     return f"(date_completed BETWEEN '{start_date}' AND '{end_date}')"
-
 # def get_date_completed_circular_members():
 #     today = date.today()
 #     month = today.month
@@ -888,7 +935,8 @@ def search_petition_circular():
         SELECT
             p.name, p.status, p.petitioner_name, p.new_lodge, p.type, p.presented, p.date_completed, p.new_lodge_no, p.new_lodge_name, p.petitioner,
             pt.occupation AS occupation,
-            pt.short_residence_address AS short_residence_address
+            pt.short_residence_address AS short_residence_address,
+            p.member, p.member_name
         FROM `tabPetitions` p
         LEFT JOIN `tabPetitioners List` pt
             ON pt.name = p.petitioner
@@ -960,9 +1008,11 @@ def search_member_circular():
             "snpd": doc.snpd,
             "sna": doc.sna,
             "sfc_suspended_for_a_cause": doc.sfc_suspended_for_a_cause,
+            "other_suspension": doc.other_suspension,
             "given_dimit": doc.given_dimit,
             "died": doc.died,
-            "raised": doc.raised            
+            "expelled": doc.expelled,
+            "dropped_from_the_roll": doc.dropped_from_the_roll            
         })
 
     return {"data": result}
@@ -1412,7 +1462,8 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
         or_parts = [
             "LOWER(o.year) LIKE %s",
             "LOWER(o.district) LIKE %s",
-            "LOWER(o.lodge) LIKE %s",
+            "LOWER(o.lodge_no) LIKE %s",
+            "LOWER(o.lodge_name) LIKE %s",
             "LOWER(o.type) LIKE %s",
             "LOWER(o.position) LIKE %s",
             "LOWER(o.`dual`) LIKE %s",
@@ -1435,6 +1486,18 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
         if status_lower == "posted":
             where_clauses.append("o.status = %s")
             params.append("Posted")
+
+        if status_lower == "created":
+            where_clauses.append("o.status = %s")
+            params.append("created")
+
+        if status_lower == "returned":
+            where_clauses.append("o.status = %s")
+            params.append("returned")
+        
+        if status_lower == "resubmitted":
+            where_clauses.append("o.status = %s")
+            params.append("resubmitted")
 
         elif status_lower == "unposted":
             where_clauses.append("o.status IN (%s, %s, %s)")
@@ -1475,7 +1538,8 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
             o.name,
             o.year,
             o.district,
-            o.lodge,
+            o.lodge_no,
+            o.lodge_name,
             o.type,
             o.position,
             o.`dual`,
@@ -1506,7 +1570,7 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
             "last_name": row.get("member_last_name"),
             "middle_name": row.get("member_middle_name"),
             "first_name": row.get("member_first_name"),
-            "lodge": row.get("member_lodge")
+            "lodge_no": row.get("member_lodge")
         }
         result.append(row)
 
@@ -1677,4 +1741,92 @@ def search_minutes(filters: str = "[]", search: str = "", limit: int = None,
    
     return {"data": data}
 
+@frappe.whitelist()
+def search_member_by_name(search):
+    # Normalize the input
+    normalized_search = re.sub(r"[^A-Za-z\s]", "", search).strip()
+    normalized_search = re.sub(r"\s+", " ", normalized_search)
 
+    return frappe.db.sql(
+        """
+        SELECT *
+        FROM `tabMembers`
+        WHERE
+            LOWER(REGEXP_REPLACE(full_name, '[^A-Za-z ]', '')) = LOWER(%(search)s)
+            OR LOWER(
+                REGEXP_REPLACE(
+                    CONCAT_WS(' ',
+                        first_name,
+                        middle_name,
+                        last_name
+                    ),
+                    '[^A-Za-z ]',
+                    ''
+                )
+            ) = LOWER(%(search)s)
+        LIMIT 1
+        """,
+        {
+            "search": normalized_search,
+        },
+        as_dict=True,
+    )
+# def search_member_by_name(search):
+#     return frappe.db.sql(
+#         """
+#         SELECT *
+#         FROM `tabMembers`
+#         WHERE
+#             LOWER(full_name) = LOWER(%(search)s)
+#             OR LOWER(CONCAT_WS(' ',
+#                 first_name,
+#                 middle_name,
+#                 last_name
+#             )) = LOWER(%(search)s)
+#         LIMIT 1
+#         """,
+#         {
+#             "search": search.strip()
+#         },
+#         as_dict=True,
+#     )
+# LIKE MATCH
+# def search_member_by_name(search):
+#     return frappe.db.sql(
+#         """
+#         SELECT
+#             *
+#         FROM `tabMembers`
+#         WHERE
+#             full_name LIKE %(search)s
+#             OR CONCAT_WS(' ',
+#                 first_name,
+#                 middle_name,
+#                 last_name
+#             ) LIKE %(search)s
+#         ORDER BY full_name
+#         LIMIT 20
+#         """,
+#         {
+#             "search": f"%{search}%"
+#         },
+#         as_dict=True,
+#     )
+
+
+@frappe.whitelist()
+def validate_id_number(id_number):
+    if not id_number:
+        return False
+
+    member_exists = frappe.db.exists(
+        "Members",
+        {"id_number": id_number}
+    )
+
+    petitioner_exists = frappe.db.exists(
+        "Petitioners",
+        {"id_number": id_number}
+    )
+
+    return bool(member_exists or petitioner_exists)

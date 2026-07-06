@@ -74,10 +74,6 @@
   "emergency_contact_relation",
   "column_break_dicr",
   "emergency_contact_no",
-  "links_section",
-  "affiliation",
-  "recognitions",
-  "certificates",
   "section_break_ggvq",
   "documents",
   "kin_information_section",
@@ -107,6 +103,11 @@
   "masonic_timeline",
   "other_lodges",
   "other_organization",
+  "links_section",
+  "affiliation",
+  "recognitions",
+  "certificates",
+  "masonic_service_records",
   "events_tab",
   "events_section",
   "member_event",
@@ -135,66 +136,78 @@
   {
    "fieldname": "member_key",
    "fieldtype": "Data",
-   "label": "Member Key"
+   "label": "Member Key",
+   "length": 255
   },
   {
    "fieldname": "first_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "First Name"
+   "label": "First Name",
+   "length": 255
   },
   {
    "fieldname": "middle_name",
    "fieldtype": "Data",
-   "label": "Middle Name"
+   "label": "Middle Name",
+   "length": 255
   },
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
-   "label": "Last Name"
+   "label": "Last Name",
+   "length": 255
   },
   {
    "fieldname": "full_name",
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Full Name",
+   "length": 255,
    "read_only": 1
   },
   {
    "fieldname": "email",
    "fieldtype": "Data",
    "in_global_search": 1,
-   "label": "Email"
+   "label": "Email",
+   "length": 255
   },
   {
    "fieldname": "contact_no",
    "fieldtype": "Data",
-   "label": "Contact Number"
+   "label": "Contact Number",
+   "length": 255
   },
   {
    "fieldname": "website",
    "fieldtype": "Data",
-   "label": "Website"
+   "label": "Website",
+   "length": 255
   },
   {
    "fieldname": "occupation",
    "fieldtype": "Data",
-   "label": "Occupation"
+   "label": "Occupation",
+   "length": 255
   },
   {
    "fieldname": "education",
    "fieldtype": "Data",
-   "label": "Education"
+   "label": "Education",
+   "length": 255
   },
   {
    "fieldname": "school",
    "fieldtype": "Data",
-   "label": "School"
+   "label": "School",
+   "length": 255
   },
   {
    "fieldname": "overall_status",
    "fieldtype": "Data",
-   "label": "Overall Status"
+   "label": "Overall Status",
+   "length": 255
   },
   {
    "fieldname": "death_date",
@@ -208,12 +221,14 @@
   {
    "fieldname": "blood_type",
    "fieldtype": "Data",
-   "label": "Blood Type"
+   "label": "Blood Type",
+   "length": 255
   },
   {
    "fieldname": "nationality",
    "fieldtype": "Data",
-   "label": "Nationality"
+   "label": "Nationality",
+   "length": 255
   },
   {
    "fieldname": "civil_status",
@@ -224,7 +239,8 @@
   {
    "fieldname": "socials",
    "fieldtype": "Data",
-   "label": "Socials"
+   "label": "Socials",
+   "length": 255
   },
   {
    "fieldname": "foreigner",
@@ -239,37 +255,44 @@
   {
    "fieldname": "tel_no_1",
    "fieldtype": "Data",
-   "label": "Telephone Number 1"
+   "label": "Telephone Number 1",
+   "length": 255
   },
   {
    "fieldname": "tel_no_2",
    "fieldtype": "Data",
-   "label": "Telephone Number 2"
+   "label": "Telephone Number 2",
+   "length": 255
   },
   {
    "fieldname": "office_telphone",
    "fieldtype": "Data",
-   "label": "Office Telephone"
+   "label": "Office Telephone",
+   "length": 255
   },
   {
    "fieldname": "fax",
    "fieldtype": "Data",
-   "label": "Fax"
+   "label": "Fax",
+   "length": 255
   },
   {
    "fieldname": "company",
    "fieldtype": "Data",
-   "label": "Company"
+   "label": "Company",
+   "length": 255
   },
   {
    "fieldname": "company_address",
    "fieldtype": "Data",
-   "label": "Company Address"
+   "label": "Company Address",
+   "length": 255
   },
   {
    "fieldname": "cable_tow",
    "fieldtype": "Data",
-   "label": "Cable Tow"
+   "label": "Cable Tow",
+   "length": 255
   },
   {
    "fieldname": "column_break_eiub",
@@ -284,52 +307,62 @@
   {
    "fieldname": "place_of_birth",
    "fieldtype": "Data",
-   "label": "Place of Birth"
+   "label": "Place of Birth",
+   "length": 255
   },
   {
    "fieldname": "address_1",
    "fieldtype": "Data",
-   "label": "Address 1"
+   "label": "Address 1",
+   "length": 255
   },
   {
    "fieldname": "address_2",
    "fieldtype": "Data",
-   "label": "Address 2"
+   "label": "Address 2",
+   "length": 255
   },
   {
    "fieldname": "current_province",
    "fieldtype": "Data",
-   "label": "Current Province"
+   "label": "Current Province",
+   "length": 255
   },
   {
    "fieldname": "current_country",
    "fieldtype": "Data",
-   "label": "Current Country"
+   "label": "Current Country",
+   "length": 255
   },
   {
    "fieldname": "permanent_address",
    "fieldtype": "Data",
-   "label": "Permanent Address"
+   "label": "Permanent Address",
+   "length": 255
   },
   {
    "fieldname": "permanent_province",
    "fieldtype": "Data",
-   "label": "Permanent Province"
+   "label": "Permanent Province",
+   "length": 255
   },
   {
    "fieldname": "permanent_country",
    "fieldtype": "Data",
-   "label": "Permanent Country"
+   "label": "Permanent Country",
+   "length": 255
   },
   {
    "fieldname": "zip_code",
    "fieldtype": "Data",
-   "label": "Zip code"
+   "label": "Zip code",
+   "length": 255
   },
   {
    "fieldname": "short_residence_address",
    "fieldtype": "Data",
-   "label": "Short Residence Address"
+   "label": "Short Residence Address",
+   "length": 255
   },
   {
    "fieldname": "column_break_mlfg",
@@ -364,7 +397,8 @@
   {
    "fieldname": "emergency_contact_name",
    "fieldtype": "Data",
-   "label": "Emergency Contact Name"
+   "label": "Emergency Contact Name",
+   "length": 255
   },
   {
    "fieldname": "column_break_blit",
@@ -373,7 +407,8 @@
   {
    "fieldname": "emergency_contact_relation",
    "fieldtype": "Data",
-   "label": "Emergency Contact Relation"
+   "label": "Emergency Contact Relation",
+   "length": 255
   },
   {
    "fieldname": "column_break_dicr",
@@ -382,7 +417,8 @@
   {
    "fieldname": "emergency_contact_no",
    "fieldtype": "Data",
-   "label": "Emergency Contact Number"
+   "label": "Emergency Contact Number",
+   "length": 255
   },
   {
    "fieldname": "links_section",
@@ -457,22 +493,26 @@
   {
    "fieldname": "lml",
    "fieldtype": "Data",
-   "label": "LML"
+   "label": "LML",
+   "length": 255
   },
   {
    "fieldname": "district",
    "fieldtype": "Data",
-   "label": "District"
+   "label": "District",
+   "length": 255
   },
   {
    "fieldname": "lodge",
    "fieldtype": "Data",
-   "label": "Lodge"
+   "label": "Lodge",
+   "length": 255
   },
   {
    "fieldname": "rank_number",
    "fieldtype": "Int",
    "label": "Rank",
+   "length": 255,
    "non_negative": 1
   },
   {
@@ -542,6 +582,7 @@
    "fieldname": "balance",
    "fieldtype": "Float",
    "label": "Balance",
+   "length": 65,
    "precision": "1"
   },
   {
@@ -577,12 +618,14 @@
   {
    "fieldname": "mailing_address",
    "fieldtype": "Data",
-   "label": "Mailing Address"
+   "label": "Mailing Address",
+   "length": 255
   },
   {
    "fieldname": "position",
    "fieldtype": "Data",
-   "label": "Position"
+   "label": "Position",
+   "length": 255
   },
   {
    "fieldname": "compan",
@@ -598,17 +641,20 @@
   {
    "fieldname": "imes_basic_course",
    "fieldtype": "Data",
-   "label": "IMES Basic Course"
+   "label": "IMES Basic Course",
+   "length": 255
   },
   {
    "fieldname": "imes_immediate_course",
    "fieldtype": "Data",
-   "label": "IMES Immediate Course"
+   "label": "IMES Immediate Course",
+   "length": 255
   },
   {
    "fieldname": "imes_advanced_course",
    "fieldtype": "Data",
-   "label": "IMES Advanced Course"
+   "label": "IMES Advanced Course",
+   "length": 255
   },
   {
    "fieldname": "first_degree_proficiency",
@@ -645,74 +691,92 @@
   {
    "fieldname": "region",
    "fieldtype": "Data",
-   "label": "Region"
+   "label": "Region",
+   "length": 255
   },
   {
    "fieldname": "province",
    "fieldtype": "Data",
-   "label": "Province"
+   "label": "Province",
+   "length": 255
   },
   {
    "fieldname": "municities",
    "fieldtype": "Data",
-   "label": "Municities"
+   "label": "Municities",
+   "length": 255
   },
   {
    "fieldname": "barangay",
    "fieldtype": "Data",
-   "label": "Barangay"
+   "label": "Barangay",
+   "length": 255
   },
   {
    "fieldname": "street",
    "fieldtype": "Data",
-   "label": "Street"
+   "label": "Street",
+   "length": 255
   },
   {
    "fieldname": "mailing_region",
    "fieldtype": "Data",
-   "label": "Mailing Region"
+   "label": "Mailing Region",
+   "length": 255
   },
   {
    "fieldname": "mailing_province",
    "fieldtype": "Data",
-   "label": "Mailing Province"
+   "label": "Mailing Province",
+   "length": 255
   },
   {
    "fieldname": "mailing_municities",
    "fieldtype": "Data",
-   "label": "Mailing Municities"
+   "label": "Mailing Municities",
+   "length": 255
   },
   {
    "fieldname": "mailing_barangay",
    "fieldtype": "Data",
-   "label": "Mailing Barangay"
+   "label": "Mailing Barangay",
+   "length": 255
   },
   {
    "fieldname": "mailing_street",
    "fieldtype": "Data",
-   "label": "Mailing Street"
+   "label": "Mailing Street",
+   "length": 255
   },
   {
    "fieldname": "mailing_zip_code",
    "fieldtype": "Data",
-   "label": "Mailing Zip code"
+   "label": "Mailing Zip code",
+   "length": 255
   },
   {
    "fieldname": "mailing_short_residence_address",
    "fieldtype": "Data",
-   "label": "Mailing Short Residence Address"
+   "label": "Mailing Short Residence Address",
+   "length": 255
   },
   {
    "fieldname": "profile_picture",
    "fieldtype": "Attach Image",
    "label": "Profile Picture"
+  },
+  {
+   "fieldname": "masonic_service_records",
+   "fieldtype": "Table",
+   "label": "Masonic Service Records",
+   "options": "Masonic Service Records"
   }
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-30 17:00:27.804294",
+ "modified": "2026-07-06 10:38:42.213066",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioners List",

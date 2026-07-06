@@ -32,8 +32,10 @@
   "attestation_date",
   "section_break_mtnv",
   "grand_master",
+  "grand_master_name",
   "column_break_oili",
-  "grand_secretary"
+  "grand_secretary",
+  "grand_secretary_name"
  ],
  "fields": [
   {
@@ -182,12 +184,24 @@
    "fieldtype": "Table",
    "label": "Technical Working Group",
    "options": "Technical Working Group"
+  },
+  {
+   "fetch_from": "grand_master.full_name",
+   "fieldname": "grand_master_name",
+   "fieldtype": "Data",
+   "label": "Grand Master Name"
+  },
+  {
+   "fetch_from": "grand_secretary.full_name",
+   "fieldname": "grand_secretary_name",
+   "fieldtype": "Data",
+   "label": "Grand Secretary Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-05-04 15:33:38.951073",
+ "modified": "2026-07-05 19:39:21.733125",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 3",

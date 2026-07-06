@@ -13,7 +13,6 @@
   "date",
   "stated_meeting",
   "fam",
-  "other_suspension",
   "worshipful_master",
   "secretary",
   "status",
@@ -45,7 +44,8 @@
   "imes_graduate",
   "granted_life_membership",
   "expelled",
-  "died"
+  "died",
+  "other_suspension"
  ],
  "fields": [
   {
@@ -177,12 +177,6 @@
    "options": "Expelled MMR"
   },
   {
-   "fieldname": "died",
-   "fieldtype": "Table",
-   "label": "Deceased",
-   "options": "Died MMR"
-  },
-  {
    "fieldname": "other_suspension",
    "fieldtype": "Table",
    "label": "Other Suspension",
@@ -277,12 +271,18 @@
    "fieldtype": "Table",
    "label": "Given Dimit",
    "options": "Given Dimit MMR"
+  },
+  {
+   "fieldname": "died",
+   "fieldtype": "Table",
+   "label": "Deceased",
+   "options": "Died MMR"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-07 22:41:11.322891",
+ "modified": "2026-06-23 16:37:25.682791",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Monthly Member Report",

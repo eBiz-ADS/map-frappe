@@ -18,13 +18,15 @@ class Petitioner:
     status: Optional[str] = None
     date_completed: Optional[str] = None
     name: Optional[str] = None
-
+    residence: Optional[str] = None
+    occupation: Optional[str] = None
 
 @dataclass    
 class Member: 
     member_name: str
     type: str
     lodge: str
+    details: Optional[str] = None
     member: Optional[str] = None
     date_completed: Optional[str] = None
     
@@ -40,6 +42,7 @@ class Petitions:
     members: List[Member]
     mmr: Optional[List[MMR]] = None
     member: Optional[str] = None
+    member_name: Optional[str] = None
 
 @frappe.whitelist()
 def create_circular_12(data):
@@ -80,16 +83,16 @@ def create_circular_12(data):
             {
                 "doctype": "Circular 12 Petitioner",
                 **(
-                    {"member": p.petitioner}
-                    if p.isAffiliation
-                    else {"petitioner": p.petitioner}
+                    {"petitioner": p.petitioner}
+                    if p.type == "Petition for Degrees of Masonry"
+                    else {"member": p.petitioner}
                 ),
                 "petitioner_name": p.petitioner_name,
                 "date_completed": p.date_completed,
                 "type": p.type,
                 "lodge": p.lodge,
-                # "status": p.status,
-                # "petition_name": p.name
+                "status": p.status,
+                "petition_name": p.name
             }
             for p in petition_data.petitioners
         ],
@@ -97,11 +100,16 @@ def create_circular_12(data):
         "members": [
             {
                 "doctype": "Circular 12 Member",
-                "member": m.member,
+                **(
+                    {"petitioner": m.member}
+                    if m.type == "Dropped From The Roll"
+                    else {"member": m.member}
+                ),
                 "member_name": m.member_name,
                 "date_completed": m.date_completed,
                 "type": m.type,
-                "lodge": m.lodge
+                "lodge": m.lodge,
+                "details": m.details
             }
             for m in petition_data.members
         ],
@@ -116,32 +124,64 @@ def create_circular_12(data):
 
     create.insert(ignore_permissions=True)
 
-    # updates = {
-    #     "circular12_status": petition_data.status
-    # }
+    if data.get("status") != "DRAFT":
+        updates = {
+            "circular12_status": petition_data.status
+        }
 
-    # if petition_data.status == "PUBLISHED":
-    #     updates["status"] = "PUBLISHED"
+        for item in petition_data.petitioners:
+            petition_updates = updates.copy()
 
-    # for item in petition_data.petitioners:
-    #     frappe.logger().info(f"Updating {item.petitioner}")
-    #     # frappe.logger("api", allow_site=True, file_count=50).info(f"Updating {item.petitioner}")
-    #     frappe.db.set_value(
-    #         "Petitions",
-    #         item.name,
-    #         updates
-    #     )
+            if item.status == "FOR PUBLISH":
+                petition_updates["status"] = "PUBLISHED"
+                petition_updates["date_published"] = now_datetime()
 
-    update_mmr = {
-        "circular12_status": petition_data.status,
-    }
+                # Add history log
+                petition_doc = frappe.get_doc("Petitions", item.name)
 
-    for item in petition_data.mmr:
-        frappe.db.set_value(
-            "Monthly Member Report",
-            item.mmr,
-            update_mmr
-        )
+                petition_doc.append("history_logs", {
+                    "participant": data.get("member_name"),
+                    "date_completed": now_datetime(),
+                    "action": "PUBLISHED"
+                })
+
+                petition_doc.save(ignore_permissions=True)
+
+            frappe.logger().info(f"Updating {item.name}")
+
+            frappe.db.set_value(
+                "Petitions",
+                item.name,
+                petition_updates
+            )
+
+    if data.get("status") != "DRAFT":
+        update_mmr = {
+            "circular12_status": petition_data.status,
+        }
+
+        for item in petition_data.mmr:
+
+            if petition_data.status == "PUBLISHED":
+                update_mmr["status"] = "Published"
+                update_mmr["date_published"] = now_datetime()
+
+                # Add history log
+                mmr_doc = frappe.get_doc("Monthly Member Report", item.mmr)
+
+                mmr_doc.append("history_logs", {
+                    "participant": mmr_doc.member,  # assuming the MMR has a member field
+                    "date_completed": now_datetime(),
+                    "action": "Published"
+                })
+
+                mmr_doc.save(ignore_permissions=True)
+
+            frappe.db.set_value(
+                "Monthly Member Report",
+                item.mmr,
+                update_mmr
+            )
 
     frappe.db.commit()
 
@@ -292,54 +332,89 @@ def update_circular_12(circular_12_name, data):
     # -----------------------------------
 
     updates = {
-        "circular12_status": data.get("status")
+    "circular12_status": data.get("status")
     }
 
-    if data.get("status") == "PUBLISHED":
-        updates["status"] = "PUBLISHED"
+    if data.get("status") != "DRAFT":
+        for item in doc.petitioners:
 
-    # use petitioners from Circular 12 document
-    for item in doc.petitioners:
+            petition_name = item.get("petition_name")
 
-        petition_name = item.get("petition_name")
+            if petition_name:
 
-        if petition_name:
+                petition_updates = updates.copy()
 
-            frappe.logger().info(
-                f"Updating Petition {petition_name}"
-            )
+                if item.get("status") == "FOR PUBLISH":
+                    petition_updates["status"] = "PUBLISHED"
+                    petition_updates["date_published"] = now_datetime()
 
-            frappe.db.set_value(
-                "Petitions",
-                petition_name,
-                updates
-            )
-            
+                    # Load the Petition document
+                    petition_doc = frappe.get_doc("Petitions", petition_name)
+
+                    # Add history log
+                    petition_doc.append("history_logs", {
+                        "participant": data.get("member_name"), 
+                        "date_completed": now_datetime(),
+                        "action": "PUBLISHED"
+                    })
+
+                    petition_doc.save(ignore_permissions=True)
+
+                frappe.logger().info(
+                    f"Updating Petition {petition_name}"
+                )
+
+                frappe.db.set_value(
+                    "Petitions",
+                    petition_name,
+                    petition_updates
+                )
+
+    frappe.db.commit()
+    
     updates_mmr = {
         "circular12_status": data.get("status")
     }
 
     if data.get("status") == "PUBLISHED":
-        updates_mmr["date_published"] = datetime.today()
-        updates_mmr["status"] = "Published"        
-            
-    # use MMR from Circular 12 document
-    for item in doc.mmr:
+        updates_mmr["date_published"] = now_datetime()
+        updates_mmr["status"] = "Published"
 
-        mmr_name = item.get("mmr")
+    if data.get("status") != "DRAFT":
+        # use MMR from Circular 12 document
+        for item in doc.mmr:
 
-        if mmr_name:
+            mmr_name = item.get("mmr")
 
-            frappe.logger().info(
-                f"Updating Monthly Member Report{mmr_name}"
-            )
+            if mmr_name:
 
-            frappe.db.set_value(
-                "Monthly Member Report",
-                mmr_name,
-                updates_mmr
-            )
-            
+                if data.get("status") == "PUBLISHED":
+
+                    # Load the MMR document
+                    mmr_doc = frappe.get_doc(
+                        "Monthly Member Report",
+                        mmr_name
+                    )
+
+                    # Add history log
+                    mmr_doc.append("history_logs_table", {
+                        "participant": data.get("member_name"),
+                        "date_completed": now_datetime(),
+                        "action": "PUBLISHED"
+                    })
+
+                    mmr_doc.save(ignore_permissions=True)
+
+                frappe.logger().info(
+                    f"Updating Monthly Member Report {mmr_name}"
+                )
+
+                frappe.db.set_value(
+                    "Monthly Member Report",
+                    mmr_name,
+                    updates_mmr
+                )
+
     frappe.db.commit()
 
     return {

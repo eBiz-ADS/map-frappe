@@ -9,7 +9,8 @@
   "candidate_name",
   "full_name",
   "column_break_wrwu",
-  "degree"
+  "degree",
+  "date"
  ],
  "fields": [
   {
@@ -29,16 +30,22 @@
    "options": "Entered Apprentice\nFellowcraft\nMaster Mason"
   },
   {
+   "fetch_from": "candidate_name.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-06 19:32:10.871304",
+ "modified": "2026-06-21 19:22:54.145507",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Conferral of Degrees",

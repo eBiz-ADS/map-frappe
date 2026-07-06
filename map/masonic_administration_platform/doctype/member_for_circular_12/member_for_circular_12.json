@@ -7,11 +7,13 @@
  "engine": "InnoDB",
  "field_order": [
   "member",
+  "petitioner",
   "type",
   "date_completed",
   "lodge",
   "lodge_name",
-  "member_name"
+  "member_name",
+  "details"
  ],
  "fields": [
   {
@@ -24,7 +26,7 @@
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Restored\nSNPD\nSNA/Other\nDemitted\nDeceased\nRaised"
+   "options": "Restored\nSNPD\nSNA\nDemitted\nDeceased\nRaised\nExpelled\nOther Suspension\nSuspended For a Cause\nDropped From The Roll"
   },
   {
    "default": "Today",
@@ -51,13 +53,24 @@
    "fieldtype": "Data",
    "label": "Member Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Data",
+   "label": "Details"
+  },
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-16 20:15:53.349333",
+ "modified": "2026-06-27 20:16:05.828012",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Member for Circular 12",
