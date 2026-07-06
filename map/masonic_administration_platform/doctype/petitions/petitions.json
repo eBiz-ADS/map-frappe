@@ -36,6 +36,7 @@
   "day",
   "month",
   "year",
+  "date_of_petition",
   "to_the_master_warden_and_brethren_of_section",
   "lodge_name_1",
   "lodge_number_1",
@@ -76,6 +77,8 @@
   "recommender_2_lodge_number",
   "recommender",
   "recommender_2",
+  "character_reference",
+  "character_reference_2",
   "degree_information_tab",
   "initiated",
   "initiated_location",
@@ -129,6 +132,7 @@
   "or_number",
   "transmitted_date",
   "date_completed",
+  "date_published",
   "or_receipt",
   "section_break_ygrr",
   "amount_paid_glp",
@@ -176,7 +180,8 @@
    "fetch_from": "new_lodge.lodge_name",
    "fieldname": "new_lodge_name",
    "fieldtype": "Data",
-   "label": "New Lodge Name"
+   "label": "New Lodge Name",
+   "length": 255
   },
   {
    "fieldname": "current_membership_section",
@@ -186,12 +191,14 @@
   {
    "fieldname": "lodge_location",
    "fieldtype": "Data",
-   "label": "Lodge Location"
+   "label": "Lodge Location",
+   "length": 255
   },
   {
    "fieldname": "jurisdiction",
    "fieldtype": "Data",
-   "label": "Jurisdiction"
+   "label": "Jurisdiction",
+   "length": 255
   },
   {
    "fieldname": "membership_in_year",
@@ -206,7 +213,8 @@
   {
    "fieldname": "previous_jurisdiction",
    "fieldtype": "Data",
-   "label": "Previous Jurisdiction"
+   "label": "Previous Jurisdiction",
+   "length": 255
   },
   {
    "fieldname": "previous_lodge",
@@ -217,7 +225,8 @@
   {
    "fieldname": "previous_lodge_location",
    "fieldtype": "Data",
-   "label": "Previous Lodge Location"
+   "label": "Previous Lodge Location",
+   "length": 255
   },
   {
    "fieldname": "previous_membership_in_year",
@@ -232,7 +241,8 @@
   {
    "fieldname": "dated_at",
    "fieldtype": "Data",
-   "label": "Dated At"
+   "label": "Dated At",
+   "length": 255
   },
   {
    "fieldname": "day",
@@ -257,39 +267,46 @@
   {
    "fieldname": "occupation",
    "fieldtype": "Data",
-   "label": "Occupation"
+   "label": "Occupation",
+   "length": 255
   },
   {
    "fieldname": "employed_as",
    "fieldtype": "Data",
-   "label": "Employed as"
+   "label": "Employed as",
+   "length": 255
   },
   {
    "fieldname": "employed_by",
    "fieldtype": "Data",
-   "label": "Employed by"
+   "label": "Employed by",
+   "length": 255
   },
   {
    "fieldname": "business_nature",
    "fieldtype": "Data",
-   "label": "Business Nature"
+   "label": "Business Nature",
+   "length": 255
   },
   {
    "fieldname": "business_location",
    "fieldtype": "Data",
-   "label": "Business Location"
+   "label": "Business Location",
+   "length": 255
   },
   {
    "fetch_from": "petitioner.address_1",
    "fieldname": "residence_address",
    "fieldtype": "Data",
-   "label": "Residence Address"
+   "label": "Residence Address",
+   "length": 255
   },
   {
    "fetch_from": "petitioner.company_address",
    "fieldname": "business_address",
    "fieldtype": "Data",
-   "label": "Business Address"
+   "label": "Business Address",
+   "length": 255
   },
   {
    "fieldname": "tab_3_tab",
@@ -384,9 +401,8 @@
    "label": "Raised Location"
   },
   {
-   "default": "0",
    "fieldname": "religious_belief",
-   "fieldtype": "Check",
+   "fieldtype": "Data",
    "label": "Religious Belief"
   },
   {
@@ -395,15 +411,13 @@
    "label": "Health and Legal Restrictions"
   },
   {
-   "default": "0",
    "fieldname": "sound_bodily_health",
-   "fieldtype": "Check",
+   "fieldtype": "Data",
    "label": "Sound Bodily Health"
   },
   {
-   "default": "0",
    "fieldname": "physical_legal_moral_restriction",
-   "fieldtype": "Check",
+   "fieldtype": "Data",
    "label": "Physical, legal, or Moral Restriction"
   },
   {
@@ -422,7 +436,6 @@
    "label": "Previous Petition"
   },
   {
-   "default": "0",
    "fieldname": "previous_petition",
    "fieldtype": "Data",
    "label": "Previous Petition"
@@ -520,7 +533,8 @@
    "fetch_from": "petitioner.full_name",
    "fieldname": "petitioner_name",
    "fieldtype": "Data",
-   "label": "Petitioner Name"
+   "label": "Petitioner Name",
+   "length": 255
   },
   {
    "fieldname": "additional_personal_information_tab",
@@ -540,17 +554,20 @@
   {
    "fieldname": "town",
    "fieldtype": "Data",
-   "label": "Town"
+   "label": "Town",
+   "length": 255
   },
   {
    "fieldname": "city",
    "fieldtype": "Data",
-   "label": "City"
+   "label": "City",
+   "length": 255
   },
   {
    "fieldname": "country",
    "fieldtype": "Data",
-   "label": "Country"
+   "label": "Country",
+   "length": 255
   },
   {
    "fieldname": "marital_status",
@@ -560,39 +577,45 @@
   {
    "fieldname": "beneficiary_name",
    "fieldtype": "Data",
-   "label": "Beneficiary Name"
+   "label": "Beneficiary Name",
+   "length": 255
   },
   {
    "fieldname": "beneficiary_address",
    "fieldtype": "Data",
-   "label": "Beneficiary Address"
+   "label": "Beneficiary Address",
+   "length": 255
   },
   {
    "fieldname": "occupation_title",
    "fieldtype": "Data",
-   "label": "Position/Title"
+   "label": "Position/Title",
+   "length": 255
   },
   {
-   "default": "0",
    "fieldname": "other_organization",
    "fieldtype": "Data",
-   "label": "Other Organization"
+   "label": "Other Organization",
+   "length": 255
   },
   {
    "fieldname": "lodge_name",
    "fieldtype": "Data",
-   "label": "Lodge Name"
+   "label": "Lodge Name",
+   "length": 255
   },
   {
    "fieldname": "recommender",
    "fieldtype": "Link",
    "label": "Recommender",
+   "length": 255,
    "options": "Members"
   },
   {
    "fieldname": "recommender_2",
    "fieldtype": "Link",
    "label": "Recommender 2",
+   "length": 255,
    "options": "Members"
   },
   {
@@ -603,7 +626,8 @@
   {
    "fieldname": "lodge_name_1",
    "fieldtype": "Data",
-   "label": "Lodge Name 1"
+   "label": "Lodge Name 1",
+   "length": 255
   },
   {
    "fieldname": "lodge_number_1",
@@ -713,9 +737,8 @@
    "label": "Transmitted Date"
   },
   {
-   "default": "0",
    "fieldname": "immortality_of_the_soul",
-   "fieldtype": "Check",
+   "fieldtype": "Data",
    "label": "Immortality of the Soul"
   },
   {
@@ -726,7 +749,8 @@
   {
    "fieldname": "origin_lodge_name",
    "fieldtype": "Data",
-   "label": "Origin Lodge"
+   "label": "Origin Lodge",
+   "length": 255
   },
   {
    "fieldname": "origin_lodge_number",
@@ -734,9 +758,8 @@
    "label": "Origin Lodge Number"
   },
   {
-   "default": "0",
    "fieldname": "adequate_provision",
-   "fieldtype": "Check",
+   "fieldtype": "Data",
    "label": "Adequate Provision"
   },
   {
@@ -747,7 +770,8 @@
   {
    "fieldname": "previous_lodge_name",
    "fieldtype": "Data",
-   "label": "Previous Lodge Name"
+   "label": "Previous Lodge Name",
+   "length": 255
   },
   {
    "fieldname": "date_completed",
@@ -774,7 +798,8 @@
    "fetch_from": "member.full_name",
    "fieldname": "member_name",
    "fieldtype": "Data",
-   "label": "Member Name"
+   "label": "Member Name",
+   "length": 255
   },
   {
    "fieldname": "grand_lodge",
@@ -820,12 +845,34 @@
    "fieldname": "official_letter_to_gl",
    "fieldtype": "Attach",
    "label": "Official Letter to GL"
+  },
+  {
+   "fieldname": "character_reference",
+   "fieldtype": "Data",
+   "label": "Character Reference",
+   "length": 255
+  },
+  {
+   "fieldname": "character_reference_2",
+   "fieldtype": "Data",
+   "label": "Character Reference 2",
+   "length": 255
+  },
+  {
+   "fieldname": "date_published",
+   "fieldtype": "Date",
+   "label": "Date Published"
+  },
+  {
+   "fieldname": "date_of_petition",
+   "fieldtype": "Data",
+   "label": "Date of Petition"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-23 01:39:06.154206",
+ "modified": "2026-07-06 10:24:15.391469",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",
