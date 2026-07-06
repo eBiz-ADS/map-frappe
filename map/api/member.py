@@ -105,6 +105,80 @@ def add_new_masonic_records(member, records):
         "count": len(records)
     }
 
+    
+@frappe.whitelist()
+def add_other_lodges(member, records):
+    if isinstance(records, str):
+        records = frappe.parse_json(records)
+
+    if not records:
+        frappe.throw(_("No records provided"))
+
+    member_doc = frappe.get_doc("Members", member)
+
+    # allowed_types = ["Affiliation", "Awards", "Change In Status", "Change In Member Profile", "Officer"]
+
+    for r in records:
+        # skip empty rows
+        if not r.get("lodge_no"):
+            continue
+
+        # if r.get("record_type") not in allowed_types:
+        #     frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
+
+        member_doc.append("other_lodges", {
+            "lodge_no": r.get("lodge_no"),
+            "lodge_date": r.get("lodge_date"),
+            "lodge_type": r.get("lodge_type"),
+            "lodge_name": r.get("lodge_name"),
+            "status": r.get("status"),
+        })
+
+    member_doc.save(ignore_permissions=True)
+
+    return {
+        "message": "Records added successfully",
+        "count": len(records)
+    }
+
+@frappe.whitelist()
+def add_new_masonic_records_petitioner(petitioner, records):
+    if isinstance(records, str):
+        records = frappe.parse_json(records)
+
+    if not records:
+        frappe.throw(_("No records provided"))
+
+    member_doc = frappe.get_doc("Petitioners List", petitioner)
+
+    allowed_types = ["Affiliation", "Awards", "Change In Status", "Change In Member Profile", "Officer"]
+
+    for r in records:
+        # skip empty rows
+        if not r.get("record_type"):
+            continue
+
+        if r.get("record_type") not in allowed_types:
+            frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
+
+        member_doc.append("masonic_service_records", {
+            "record_type": r.get("record_type"),
+            "record_value": r.get("record_value"),
+            "additional_info": r.get("additional_info"),
+            "lodge_no": r.get("lodge_no"),
+            "lodge_name": r.get("lodge_name"),
+            "date_encoded": r.get("date_encoded"),
+            "date_official": r.get("date_official"),
+			"record_encoder": r.get("record_encoder")
+        })
+
+    member_doc.save(ignore_permissions=True)
+
+    return {
+        "message": "Records added successfully",
+        "count": len(records)
+    }
+
 
 @frappe.whitelist()
 def update_masonic_record(member, record_id, updates):
