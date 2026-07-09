@@ -15,29 +15,33 @@
   {
    "fieldname": "type_of_kin",
    "fieldtype": "Data",
-   "label": "Type of Kin"
+   "label": "Type of Kin",
+   "length": 255
   },
   {
    "fieldname": "name_of_kin",
    "fieldtype": "Data",
-   "label": "Name of Kin"
+   "label": "Name of Kin",
+   "length": 255
   },
   {
    "fieldname": "email",
    "fieldtype": "Data",
-   "label": "Email"
+   "label": "Email",
+   "length": 255
   },
   {
    "fieldname": "phone_no",
    "fieldtype": "Data",
-   "label": "Phone Number"
+   "label": "Phone Number",
+   "length": 255
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-26 10:24:02.254576",
+ "modified": "2026-07-06 09:23:13.102756",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Kin",

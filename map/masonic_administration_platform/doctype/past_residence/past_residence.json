@@ -18,44 +18,51 @@
   {
    "fieldname": "year",
    "fieldtype": "Data",
-   "label": "Year"
+   "label": "Year",
+   "length": 255
   },
   {
    "fieldname": "region",
    "fieldtype": "Data",
-   "label": "Region"
+   "label": "Region",
+   "length": 255
   },
   {
    "fieldname": "province",
    "fieldtype": "Data",
-   "label": "Province"
+   "label": "Province",
+   "length": 255
   },
   {
    "fieldname": "municities",
    "fieldtype": "Data",
-   "label": "Municities"
+   "label": "Municities",
+   "length": 255
   },
   {
    "fieldname": "barangay",
    "fieldtype": "Data",
-   "label": "Barangay"
+   "label": "Barangay",
+   "length": 255
   },
   {
    "fieldname": "street",
    "fieldtype": "Data",
-   "label": "Street"
+   "label": "Street",
+   "length": 255
   },
   {
    "fieldname": "zip_code",
    "fieldtype": "Data",
-   "label": "Zip Code"
+   "label": "Zip Code",
+   "length": 255
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-28 13:41:32.037316",
+ "modified": "2026-07-06 10:31:50.524620",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Past Residence",

@@ -8,7 +8,8 @@
  "field_order": [
   "year",
   "district",
-  "lodge",
+  "lodge_no",
+  "lodge_name",
   "type",
   "position",
   "dual",
@@ -29,22 +30,16 @@
    "options": "District"
   },
   {
-   "fieldname": "lodge",
-   "fieldtype": "Data",
-   "label": "Lodge",
-   "options": "Lodge List"
-  },
-  {
    "fieldname": "type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Lodge\nGrand Lodge\nDistrict"
+   "options": "Grand Lodge Officer\nDistrict Officer\nLodge Officer"
   },
   {
    "fieldname": "position",
    "fieldtype": "Select",
    "label": "Position",
-   "options": "Worshipful Master\nSenior Warden\nJunior Warden\nTreasurer\nSecretary\nAuditor"
+   "options": "Grand Master\nDeputy Grand Master\nSenior Grand Warden\nJunior Grand Warden\nGrand Treasurer\nGrand Secretary\nDistrict Deputy Grand Master\nDistrict Deputy Grand Lecturer\nWorshipful Master\nSenior Warden\nJunior Warden\nTreasurer\nSecretary\nAuditor\nHarmony Officer"
   },
   {
    "fieldname": "dual",
@@ -66,13 +61,25 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Posted\nUnposted\nReceived\nPending"
+   "options": "Posted\nUnposted\nReceived\nPending\nCreated\nReturned\nResubmitted"
+  },
+  {
+   "fieldname": "lodge_no",
+   "fieldtype": "Link",
+   "label": "Lodge Number",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "lodge_no.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-19 19:07:39.577956",
+ "modified": "2026-07-06 14:28:35.960718",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Officers",

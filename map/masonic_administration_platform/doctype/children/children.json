@@ -13,19 +13,21 @@
   {
    "fieldname": "name_of_child",
    "fieldtype": "Data",
-   "label": "Name of Child"
+   "label": "Name of Child",
+   "length": 255
   },
   {
    "fieldname": "age",
    "fieldtype": "Data",
-   "label": "Age"
+   "label": "Age",
+   "length": 255
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-26 10:25:01.647574",
+ "modified": "2026-07-06 09:30:49.400848",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Children",
