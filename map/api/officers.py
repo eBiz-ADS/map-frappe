@@ -2,7 +2,7 @@ import frappe
 from frappe.utils import now
 
 @frappe.whitelist()
-def bulk_update_status(docnames: list[str], status: str):
+def bulk_update_status(docnames: list[str], status: str, remarks: str | None = None,):
     # 1️⃣ Input validation
     if not isinstance(docnames, list) or not docnames:
         frappe.throw("Invalid or empty document list")
@@ -14,7 +14,7 @@ def bulk_update_status(docnames: list[str], status: str):
     frappe.has_permission("Officers", "write", throw=True)
 
     # 3️⃣ Optional: enforce allowed statuses
-    allowed_statuses = {"Posted","Unposted","Received"}
+    allowed_statuses = {"Posted","Unposted","Received", "Pending", "Created", "Returned", "Resubmitted"}
     if status not in allowed_statuses:
         frappe.throw(f"Status '{status}' is not allowed")
 
@@ -37,10 +37,11 @@ def bulk_update_status(docnames: list[str], status: str):
         UPDATE `tabOfficers`
         SET
             status = %s,
+            remarks = %s,
             modified = %s
         WHERE name IN %s
         """,
-        (status, now(), tuple(existing)),
+        (status, remarks if status == "Returned" else None, now(), tuple(existing)),
     )
     
     frappe.logger().info(
