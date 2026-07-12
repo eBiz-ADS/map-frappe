@@ -640,6 +640,7 @@ def search_lodge(filters: str = "[]", search: str = "", limit: int = None,
         """, params + [limit, limit_start], as_dict=True)
 
         return {"data": data}
+    
     except Exception as e:
         frappe.log_error(f"search_lodge error: {frappe.get_traceback()}")
         raise e
@@ -912,7 +913,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
         # NORMAL PARENT FILTER
         # -------------------------------
         # Normalize date fields
-        if field.lower() in ["created"]:
+        if field.lower() in ["creation"]:
             value = normalize_date(str(value))
             where_clauses.append(f"DATE(`{field}`) {condition} %s")
             params.append(value)
