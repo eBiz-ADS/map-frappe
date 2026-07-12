@@ -525,13 +525,62 @@ def search_district(filters: str = "[]",search: str = "", limit: int = None,
 
 
 @frappe.whitelist()
-def search_lodge(search: str = "", limit: int = None,
+def search_lodge(filters: str = "[]", search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "lodge_name asc"):
+    
+    # -------------------------------
+    # Load filters
+    # -------------------------------
+    try:
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
 
     try:
         where_clauses = []
         params = []
+        # -------------------------------
+        # Process each filter (AND conditions)
+        # -------------------------------
+        for f in filters_list:
+            if not isinstance(f, list) or len(f) != 3:
+                continue
 
+            field, condition, value = f
+            normalized_field = field.lower().strip()
+            condition_upper = condition.upper()
+
+            # -------------------------------
+            # Normalize date fields
+            # -------------------------------
+            if normalized_field in ["institution_date", "constitution_date", "creation", "modified"]:
+                value = normalize_date(str(value))
+                where_clauses.append(f"DATE(`{field}`) {condition} %s")
+                params.append(value)
+                continue
+
+            # -------------------------------
+            # IN / NOT IN
+            # -------------------------------
+            if condition_upper in ["IN", "NOT IN"]:
+                if isinstance(value, list):
+                    placeholders = ", ".join(["%s"] * len(value))
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} ({placeholders})"
+                    )
+                    params.extend(value)
+                else:
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} (%s)"
+                    )
+                    params.append(value)
+
+            # -------------------------------
+            # Normal filter
+            # -------------------------------
+            else:
+                where_clauses.append(f"`{field}` {condition} %s")
+                params.append(value)
         # -------------------------------
         # OR SEARCH
         # -------------------------------
@@ -542,16 +591,31 @@ def search_lodge(search: str = "", limit: int = None,
                 "LOWER(lodge_no) LIKE %s",
                 "LOWER(lodge_name) LIKE %s",
                 "LOWER(lodge_district) LIKE %s",
-                # "LOWER(status) LIKE %s",
+                "LOWER(status) LIKE %s",
                 "LOWER(location) LIKE %s",
-                # "LOWER(institution_date) LIKE %s"
+                "LOWER(institution_date) LIKE %s",
+                "LOWER(constitution_date) LIKE %s"
             ]
             where_clauses.append("(" + " OR ".join(or_parts) + ")")
-            params.extend([search_param] * 6)
+            params.extend([search_param] * len(or_parts))
 
         # Final WHERE clause
         where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
 
+        # -------------------------------
+        # Normalize ORDER BY
+        # -------------------------------
+        parts = order_by.split()
+
+        field = parts[0] if parts else "lodge_name"
+        direction = parts[1].upper() if len(parts) > 1 else "ASC"
+
+        # Numeric sort for lodge_no
+        if field == "lodge_no":
+            order_by = f"CAST(`lodge_no` AS UNSIGNED) {direction}"
+        else:
+            order_by = f"`{field}` {direction}"
+            
         # -------------------------------
         # COUNT MODE
         # -------------------------------
@@ -568,8 +632,7 @@ def search_lodge(search: str = "", limit: int = None,
         # -------------------------------
         data = frappe.db.sql(f"""
             SELECT
-                lodge_no, lodge_name, district, district_name, status,
-                location, institution_date, name, district_id_code
+                *
             FROM `tabLodge List`
             WHERE {where_sql}
             ORDER BY {order_by}
