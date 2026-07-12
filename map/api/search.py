@@ -185,8 +185,7 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, member_key, id_number, full_name, date_raised,
-            overall_status, district, lodge
+            *
         FROM `tabMembers`
         WHERE {where_sql}
         ORDER BY {order_by}
