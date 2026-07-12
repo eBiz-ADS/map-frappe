@@ -1208,58 +1208,237 @@ def search_event_members(filters: str = "[]", search: str = "", limit: int = Non
     
 @frappe.whitelist()
 def search_regional(
+    filters: str = "[]",
     search: str = "",
     limit: int = None,
     limit_start: int = 0,
     order_by: str = "region asc"
 ):
+    # -------------------------------
+    # Load filters
+    # -------------------------------
     try:
-        filters = []
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
+
+    where_clauses = []
+    params = []
+
+    # -------------------------------
+    # Process filters
+    # -------------------------------
+    for f in filters_list:
+        if not isinstance(f, list) or len(f) != 3:
+            continue
+
+        field, condition, value = f
+        condition_upper = condition.upper()
 
         # -------------------------------
-        # SEARCH (Regional only)
+        # CHILD TABLE FILTER
         # -------------------------------
-        if search:
-            filters.append(["region", "like", f"%{search}%"])
+        if field == "districts":
+            if condition_upper in ["IN", "NOT IN"] and isinstance(value, list):
+                placeholders = ", ".join(["%s"] * len(value))
+
+                where_clauses.append(f"""
+                    EXISTS (
+                        SELECT 1
+                        FROM `tabDistricts of Region`
+                        WHERE parent = `tabRegional`.name
+                        AND district {condition_upper} ({placeholders})
+                    )
+                """)
+
+                params.extend(value)
+
+            else:
+                where_clauses.append(f"""
+                    EXISTS (
+                        SELECT 1
+                        FROM `tabDistricts of Region`
+                        WHERE parent = `tabRegional`.name
+                        AND district {condition} %s
+                    )
+                """)
+
+                params.append(value)
+
+            continue
 
         # -------------------------------
-        # COUNT MODE
+        # NORMAL PARENT FILTER
         # -------------------------------
-        if not limit:
-            total = frappe.db.count("Regional", filters=filters)
-            return {"count": total}
+        if condition_upper in ["IN", "NOT IN"]:
+            if isinstance(value, list):
+                placeholders = ", ".join(["%s"] * len(value))
+                where_clauses.append(
+                    f"`{field}` {condition_upper} ({placeholders})"
+                )
+                params.extend(value)
+            else:
+                where_clauses.append(f"`{field}` {condition_upper} (%s)")
+                params.append(value)
+        else:
+            where_clauses.append(f"`{field}` {condition} %s")
+            params.append(value)
 
-        # -------------------------------
-        # PAGINATION (Parent only)
-        # -------------------------------
-        regionals = frappe.get_all(
-            "Regional",
-            filters=filters,
-            fields=["name", "region"],
-            order_by=order_by,
-            limit_start=limit_start,
-            limit_page_length=limit,
+    # -------------------------------
+    # SEARCH
+    # -------------------------------
+    if search:
+        search_param = f"%{search.lower()}%"
+
+        where_clauses.append("""
+            (
+                LOWER(region) LIKE %s
+            )
+        """)
+
+        params.append(search_param)
+
+    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+
+    # -------------------------------
+    # COUNT
+    # -------------------------------
+    if not limit:
+        count = frappe.db.sql(
+            f"""
+            SELECT COUNT(*) AS total
+            FROM `tabRegional`
+            WHERE {where_sql}
+            """,
+            params,
+            as_dict=True,
         )
 
-        # -------------------------------
-        # FETCH FULL DOCS (with children)
-        # -------------------------------
-        data = []
-        for r in regionals:
-            doc = frappe.get_doc("Regional", r.name)
+        return {"count": count[0].total}
 
-            data.append({
-                "name": doc.name,
-                "region": doc.region,
-                "districts": doc.districts  # CHILD TABLE FIELDNAME
-            })
+    # -------------------------------
+    # FETCH PARENTS
+    # -------------------------------
+    regionals = frappe.db.sql(
+        f"""
+        SELECT
+            name,
+            region
+        FROM `tabRegional`
+        WHERE {where_sql}
+        ORDER BY {order_by}
+        LIMIT %s OFFSET %s
+        """,
+        params + [limit, limit_start],
+        as_dict=True,
+    )
 
-        return {"data": data}
+    # -------------------------------
+    # FETCH CHILD TABLE
+    # -------------------------------
+    if regionals:
+        names = [r["name"] for r in regionals]
+        placeholders = ", ".join(["%s"] * len(names))
 
-    except Exception:
-        frappe.log_error(frappe.get_traceback(), "search_regional error")
-        frappe.throw("Unable to fetch Regional data")
+        districts = frappe.db.sql(
+            f"""
+            SELECT
+                parent,
+                district
+            FROM `tabDistricts of Region`
+            WHERE parent IN ({placeholders})
+            ORDER BY idx
+            """,
+            names,
+            as_dict=True,
+        )
 
+        district_map = {}
+
+        for d in districts:
+            district_map.setdefault(d["parent"], []).append(d)
+
+        for row in regionals:
+            row["districts"] = district_map.get(row["name"], [])
+
+    return {"data": regionals}
+
+# @frappe.whitelist()
+# def search_regional(
+#     filters: str = "[]",
+#     search: str = "",
+#     limit: int = None,
+#     limit_start: int = 0,
+#     order_by: str = "region asc"
+# ):
+#     try:
+#         filters_list = frappe.parse_json(filters)
+#     except Exception:
+#         filters_list = []
+    
+#     try:
+#         parent_filters = []
+
+#         # -------------------------------
+#         # FILTER (If districts filter exists)
+#         # -------------------------------
+#         district_filter = None
+
+#         for f in filters_list:
+#             if len(f) != 3:
+#                 continue
+
+#             field, condition, value = f
+
+#             if field == "district":
+#                 district_filter = value
+#             else:
+#                 parent_filters.append([field, condition, value])
+            
+#         # -------------------------------
+#         # SEARCH (Regional only)
+#         # -------------------------------
+#         if search:
+#             parent_filters.append(["region", "like", f"%{search}%"])
+
+#         # -------------------------------
+#         # COUNT MODE
+#         # -------------------------------
+#         if not limit:
+#             total = frappe.db.count("Regional", filters=filters)
+#             return {"count": total}
+
+#         # -------------------------------
+#         # PAGINATION (Parent only)
+#         # -------------------------------
+#         regionals = frappe.get_all(
+#             "Regional",
+#             filters=filters,
+#             fields=["name", "region"],
+#             order_by=order_by,
+#             limit_start=limit_start,
+#             limit_page_length=limit,
+#         )
+
+#         # -------------------------------
+#         # FETCH FULL DOCS (with children)
+#         # -------------------------------
+#         data = []
+#         for r in regionals:
+#             doc = frappe.get_doc("Regional", r.name)
+
+#             data.append({
+#                 "name": doc.name,
+#                 "region": doc.region,
+#                 "districts": doc.districts  # CHILD TABLE FIELDNAME
+#             })
+
+#         return {"data": data}
+
+#     except Exception:
+#         frappe.log_error(frappe.get_traceback(), "search_regional error")
+#         frappe.throw("Unable to fetch Regional data")
+    
 @frappe.whitelist()
 def search_change_request(filters: str = "[]", search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "name asc"):
