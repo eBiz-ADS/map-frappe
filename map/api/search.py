@@ -426,12 +426,59 @@ def search_petitioners(filters: str = "[]", search: str = "", limit: int = None,
     return {"data": data}
 
 @frappe.whitelist()
-def search_district(search: str = "", limit: int = None,
+def search_district(filters: str = "[]",search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "district asc"):
+  # -------------------------------
+    # Load filters
+    # -------------------------------
+    try:
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
 
     where_clauses = []
     params = []
+    
+    for f in filters_list:
+            if not isinstance(f, list) or len(f) != 3:
+                continue
 
+            field, condition, value = f
+            normalized_field = field.lower().strip()
+            condition_upper = condition.upper()
+
+            # -------------------------------
+            # Normalize date fields
+            # -------------------------------
+            if normalized_field in ["institution_date", "constitution_date", "creation", "modified"]:
+                value = normalize_date(str(value))
+                where_clauses.append(f"DATE(`{field}`) {condition} %s")
+                params.append(value)
+                continue
+
+            # -------------------------------
+            # IN / NOT IN
+            # -------------------------------
+            if condition_upper in ["IN", "NOT IN"]:
+                if isinstance(value, list):
+                    placeholders = ", ".join(["%s"] * len(value))
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} ({placeholders})"
+                    )
+                    params.extend(value)
+                else:
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} (%s)"
+                    )
+                    params.append(value)
+
+            # -------------------------------
+            # Normal filter
+            # -------------------------------
+            else:
+                where_clauses.append(f"`{field}` {condition} %s")
+                params.append(value)
+    
     # -------------------------------
     # OR SEARCH
     # -------------------------------
