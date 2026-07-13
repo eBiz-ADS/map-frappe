@@ -12,7 +12,8 @@
   "district_code",
   "constitution_date",
   "status",
-  "district_id_code"
+  "district_id_code",
+  "regional_district"
  ],
  "fields": [
   {
@@ -40,7 +41,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Active\nInactive"
+   "options": "Active\nInactive\nACTIVE\nINACTIVE"
   },
   {
    "fieldname": "constitution_date",
@@ -51,12 +52,17 @@
    "fieldname": "district_id_code",
    "fieldtype": "Data",
    "label": "District ID Code"
+  },
+  {
+   "fieldname": "regional_district",
+   "fieldtype": "Data",
+   "label": "Region"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-05 23:57:13.201834",
+ "modified": "2026-07-09 13:36:04.930044",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "District",

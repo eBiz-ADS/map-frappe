@@ -185,8 +185,7 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, member_key, id_number, full_name, date_raised,
-            overall_status, district, lodge
+            *
         FROM `tabMembers`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -426,12 +425,59 @@ def search_petitioners(filters: str = "[]", search: str = "", limit: int = None,
     return {"data": data}
 
 @frappe.whitelist()
-def search_district(search: str = "", limit: int = None,
+def search_district(filters: str = "[]",search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "district asc"):
+  # -------------------------------
+    # Load filters
+    # -------------------------------
+    try:
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
 
     where_clauses = []
     params = []
+    
+    for f in filters_list:
+            if not isinstance(f, list) or len(f) != 3:
+                continue
 
+            field, condition, value = f
+            normalized_field = field.lower().strip()
+            condition_upper = condition.upper()
+
+            # -------------------------------
+            # Normalize date fields
+            # -------------------------------
+            if normalized_field in ["institution_date", "constitution_date", "creation", "modified"]:
+                value = normalize_date(str(value))
+                where_clauses.append(f"DATE(`{field}`) {condition} %s")
+                params.append(value)
+                continue
+
+            # -------------------------------
+            # IN / NOT IN
+            # -------------------------------
+            if condition_upper in ["IN", "NOT IN"]:
+                if isinstance(value, list):
+                    placeholders = ", ".join(["%s"] * len(value))
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} ({placeholders})"
+                    )
+                    params.extend(value)
+                else:
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} (%s)"
+                    )
+                    params.append(value)
+
+            # -------------------------------
+            # Normal filter
+            # -------------------------------
+            else:
+                where_clauses.append(f"`{field}` {condition} %s")
+                params.append(value)
+    
     # -------------------------------
     # OR SEARCH
     # -------------------------------
@@ -478,13 +524,62 @@ def search_district(search: str = "", limit: int = None,
 
 
 @frappe.whitelist()
-def search_lodge(search: str = "", limit: int = None,
+def search_lodge(filters: str = "[]", search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "lodge_name asc"):
+    
+    # -------------------------------
+    # Load filters
+    # -------------------------------
+    try:
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
 
     try:
         where_clauses = []
         params = []
+        # -------------------------------
+        # Process each filter (AND conditions)
+        # -------------------------------
+        for f in filters_list:
+            if not isinstance(f, list) or len(f) != 3:
+                continue
 
+            field, condition, value = f
+            normalized_field = field.lower().strip()
+            condition_upper = condition.upper()
+
+            # -------------------------------
+            # Normalize date fields
+            # -------------------------------
+            if normalized_field in ["institution_date", "constitution_date", "creation", "modified"]:
+                value = normalize_date(str(value))
+                where_clauses.append(f"DATE(`{field}`) {condition} %s")
+                params.append(value)
+                continue
+
+            # -------------------------------
+            # IN / NOT IN
+            # -------------------------------
+            if condition_upper in ["IN", "NOT IN"]:
+                if isinstance(value, list):
+                    placeholders = ", ".join(["%s"] * len(value))
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} ({placeholders})"
+                    )
+                    params.extend(value)
+                else:
+                    where_clauses.append(
+                        f"`{field}` {condition_upper} (%s)"
+                    )
+                    params.append(value)
+
+            # -------------------------------
+            # Normal filter
+            # -------------------------------
+            else:
+                where_clauses.append(f"`{field}` {condition} %s")
+                params.append(value)
         # -------------------------------
         # OR SEARCH
         # -------------------------------
@@ -495,16 +590,31 @@ def search_lodge(search: str = "", limit: int = None,
                 "LOWER(lodge_no) LIKE %s",
                 "LOWER(lodge_name) LIKE %s",
                 "LOWER(lodge_district) LIKE %s",
-                # "LOWER(status) LIKE %s",
+                "LOWER(status) LIKE %s",
                 "LOWER(location) LIKE %s",
-                # "LOWER(institution_date) LIKE %s"
+                "LOWER(institution_date) LIKE %s",
+                "LOWER(constitution_date) LIKE %s"
             ]
             where_clauses.append("(" + " OR ".join(or_parts) + ")")
-            params.extend([search_param] * 6)
+            params.extend([search_param] * len(or_parts))
 
         # Final WHERE clause
         where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
 
+        # -------------------------------
+        # Normalize ORDER BY
+        # -------------------------------
+        parts = order_by.split()
+
+        field = parts[0] if parts else "lodge_name"
+        direction = parts[1].upper() if len(parts) > 1 else "ASC"
+
+        # Numeric sort for lodge_no
+        if field == "lodge_no":
+            order_by = f"CAST(`lodge_no` AS UNSIGNED) {direction}"
+        else:
+            order_by = f"`{field}` {direction}"
+            
         # -------------------------------
         # COUNT MODE
         # -------------------------------
@@ -521,8 +631,7 @@ def search_lodge(search: str = "", limit: int = None,
         # -------------------------------
         data = frappe.db.sql(f"""
             SELECT
-                lodge_no, lodge_name, district, district_name, status,
-                location, institution_date, name, district_id_code
+                *
             FROM `tabLodge List`
             WHERE {where_sql}
             ORDER BY {order_by}
@@ -530,6 +639,7 @@ def search_lodge(search: str = "", limit: int = None,
         """, params + [limit, limit_start], as_dict=True)
 
         return {"data": data}
+    
     except Exception as e:
         frappe.log_error(f"search_lodge error: {frappe.get_traceback()}")
         raise e
@@ -802,7 +912,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
         # NORMAL PARENT FILTER
         # -------------------------------
         # Normalize date fields
-        if field.lower() in ["created"]:
+        if field.lower() in ["creation"]:
             value = normalize_date(str(value))
             where_clauses.append(f"DATE(`{field}`) {condition} %s")
             params.append(value)
@@ -1097,58 +1207,237 @@ def search_event_members(filters: str = "[]", search: str = "", limit: int = Non
     
 @frappe.whitelist()
 def search_regional(
+    filters: str = "[]",
     search: str = "",
     limit: int = None,
     limit_start: int = 0,
     order_by: str = "region asc"
 ):
+    # -------------------------------
+    # Load filters
+    # -------------------------------
     try:
-        filters = []
+        filters_list = json.loads(filters)
+    except Exception:
+        filters_list = []
+
+    where_clauses = []
+    params = []
+
+    # -------------------------------
+    # Process filters
+    # -------------------------------
+    for f in filters_list:
+        if not isinstance(f, list) or len(f) != 3:
+            continue
+
+        field, condition, value = f
+        condition_upper = condition.upper()
 
         # -------------------------------
-        # SEARCH (Regional only)
+        # CHILD TABLE FILTER
         # -------------------------------
-        if search:
-            filters.append(["region", "like", f"%{search}%"])
+        if field == "districts":
+            if condition_upper in ["IN", "NOT IN"] and isinstance(value, list):
+                placeholders = ", ".join(["%s"] * len(value))
+
+                where_clauses.append(f"""
+                    EXISTS (
+                        SELECT 1
+                        FROM `tabDistricts of Region`
+                        WHERE parent = `tabRegional`.name
+                        AND district {condition_upper} ({placeholders})
+                    )
+                """)
+
+                params.extend(value)
+
+            else:
+                where_clauses.append(f"""
+                    EXISTS (
+                        SELECT 1
+                        FROM `tabDistricts of Region`
+                        WHERE parent = `tabRegional`.name
+                        AND district {condition} %s
+                    )
+                """)
+
+                params.append(value)
+
+            continue
 
         # -------------------------------
-        # COUNT MODE
+        # NORMAL PARENT FILTER
         # -------------------------------
-        if not limit:
-            total = frappe.db.count("Regional", filters=filters)
-            return {"count": total}
+        if condition_upper in ["IN", "NOT IN"]:
+            if isinstance(value, list):
+                placeholders = ", ".join(["%s"] * len(value))
+                where_clauses.append(
+                    f"`{field}` {condition_upper} ({placeholders})"
+                )
+                params.extend(value)
+            else:
+                where_clauses.append(f"`{field}` {condition_upper} (%s)")
+                params.append(value)
+        else:
+            where_clauses.append(f"`{field}` {condition} %s")
+            params.append(value)
 
-        # -------------------------------
-        # PAGINATION (Parent only)
-        # -------------------------------
-        regionals = frappe.get_all(
-            "Regional",
-            filters=filters,
-            fields=["name", "region"],
-            order_by=order_by,
-            limit_start=limit_start,
-            limit_page_length=limit,
+    # -------------------------------
+    # SEARCH
+    # -------------------------------
+    if search:
+        search_param = f"%{search.lower()}%"
+
+        where_clauses.append("""
+            (
+                LOWER(region) LIKE %s
+            )
+        """)
+
+        params.append(search_param)
+
+    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+
+    # -------------------------------
+    # COUNT
+    # -------------------------------
+    if not limit:
+        count = frappe.db.sql(
+            f"""
+            SELECT COUNT(*) AS total
+            FROM `tabRegional`
+            WHERE {where_sql}
+            """,
+            params,
+            as_dict=True,
         )
 
-        # -------------------------------
-        # FETCH FULL DOCS (with children)
-        # -------------------------------
-        data = []
-        for r in regionals:
-            doc = frappe.get_doc("Regional", r.name)
+        return {"count": count[0].total}
 
-            data.append({
-                "name": doc.name,
-                "region": doc.region,
-                "districts": doc.districts  # CHILD TABLE FIELDNAME
-            })
+    # -------------------------------
+    # FETCH PARENTS
+    # -------------------------------
+    regionals = frappe.db.sql(
+        f"""
+        SELECT
+            name,
+            region
+        FROM `tabRegional`
+        WHERE {where_sql}
+        ORDER BY {order_by}
+        LIMIT %s OFFSET %s
+        """,
+        params + [limit, limit_start],
+        as_dict=True,
+    )
 
-        return {"data": data}
+    # -------------------------------
+    # FETCH CHILD TABLE
+    # -------------------------------
+    if regionals:
+        names = [r["name"] for r in regionals]
+        placeholders = ", ".join(["%s"] * len(names))
 
-    except Exception:
-        frappe.log_error(frappe.get_traceback(), "search_regional error")
-        frappe.throw("Unable to fetch Regional data")
+        districts = frappe.db.sql(
+            f"""
+            SELECT
+                parent,
+                district
+            FROM `tabDistricts of Region`
+            WHERE parent IN ({placeholders})
+            ORDER BY idx
+            """,
+            names,
+            as_dict=True,
+        )
 
+        district_map = {}
+
+        for d in districts:
+            district_map.setdefault(d["parent"], []).append(d)
+
+        for row in regionals:
+            row["districts"] = district_map.get(row["name"], [])
+
+    return {"data": regionals}
+
+# @frappe.whitelist()
+# def search_regional(
+#     filters: str = "[]",
+#     search: str = "",
+#     limit: int = None,
+#     limit_start: int = 0,
+#     order_by: str = "region asc"
+# ):
+#     try:
+#         filters_list = frappe.parse_json(filters)
+#     except Exception:
+#         filters_list = []
+    
+#     try:
+#         parent_filters = []
+
+#         # -------------------------------
+#         # FILTER (If districts filter exists)
+#         # -------------------------------
+#         district_filter = None
+
+#         for f in filters_list:
+#             if len(f) != 3:
+#                 continue
+
+#             field, condition, value = f
+
+#             if field == "district":
+#                 district_filter = value
+#             else:
+#                 parent_filters.append([field, condition, value])
+            
+#         # -------------------------------
+#         # SEARCH (Regional only)
+#         # -------------------------------
+#         if search:
+#             parent_filters.append(["region", "like", f"%{search}%"])
+
+#         # -------------------------------
+#         # COUNT MODE
+#         # -------------------------------
+#         if not limit:
+#             total = frappe.db.count("Regional", filters=filters)
+#             return {"count": total}
+
+#         # -------------------------------
+#         # PAGINATION (Parent only)
+#         # -------------------------------
+#         regionals = frappe.get_all(
+#             "Regional",
+#             filters=filters,
+#             fields=["name", "region"],
+#             order_by=order_by,
+#             limit_start=limit_start,
+#             limit_page_length=limit,
+#         )
+
+#         # -------------------------------
+#         # FETCH FULL DOCS (with children)
+#         # -------------------------------
+#         data = []
+#         for r in regionals:
+#             doc = frappe.get_doc("Regional", r.name)
+
+#             data.append({
+#                 "name": doc.name,
+#                 "region": doc.region,
+#                 "districts": doc.districts  # CHILD TABLE FIELDNAME
+#             })
+
+#         return {"data": data}
+
+#     except Exception:
+#         frappe.log_error(frappe.get_traceback(), "search_regional error")
+#         frappe.throw("Unable to fetch Regional data")
+    
 @frappe.whitelist()
 def search_change_request(filters: str = "[]", search: str = "", limit: int = None,
                    limit_start: int = 0, order_by: str = "name asc"):

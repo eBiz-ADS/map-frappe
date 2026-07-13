@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "field:lodge_no",
  "creation": "2025-11-04 17:55:44.894153",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,7 +14,9 @@
   "naming_series",
   "district_id_code",
   "status",
-  "control_number"
+  "control_number",
+  "constitution_date",
+  "institution_date"
  ],
  "fields": [
   {
@@ -58,16 +60,26 @@
    "fieldname": "control_number",
    "fieldtype": "Data",
    "label": "Control Number"
+  },
+  {
+   "fieldname": "constitution_date",
+   "fieldtype": "Date",
+   "label": "Constitution Date"
+  },
+  {
+   "fieldname": "institution_date",
+   "fieldtype": "Date",
+   "label": "Institution Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-06 00:17:37.952769",
+ "modified": "2026-07-08 02:48:41.299421",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Lodge List",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
