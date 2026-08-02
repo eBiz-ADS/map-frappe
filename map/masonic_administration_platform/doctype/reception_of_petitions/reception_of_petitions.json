@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-19 11:23:09.016942",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "petition_type",
+  "petitioner",
+  "full_name",
+  "member",
+  "member_name",
+  "age",
+  "dob",
+  "occupation",
+  "residence",
+  "lodge_no",
+  "location",
+  "summary"
+ ],
+ "fields": [
+  {
+   "fetch_from": "petitioner.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "residence",
+   "fieldtype": "Data",
+   "label": "Residence"
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "lodge_no",
+   "fieldtype": "Link",
+   "label": "Lodge Number",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "lodge_no.location",
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "petition_type",
+   "fieldtype": "Select",
+   "label": "Petition Type",
+   "options": "Petition for Degrees of Masonry\nPetition for Plural Membership\nPetition for Affiliation Membership (Other Jurisdiction)"
+  },
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Members"
+  },
+  {
+   "fetch_from": "member.full_name",
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "label": "Member Name"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Small Text",
+   "label": "Summary"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-24 15:49:55.611855",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Reception of Petitions",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

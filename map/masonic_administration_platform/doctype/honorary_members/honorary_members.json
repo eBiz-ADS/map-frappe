@@ -1,42 +1,36 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-13 17:22:17.031175",
+ "creation": "2026-07-06 13:58:14.042682",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "members_present_section",
-  "member",
+  "honorary_member",
   "full_name"
  ],
  "fields": [
   {
-   "fetch_from": "member.full_name",
-   "fieldname": "full_name",
-   "fieldtype": "Data",
-   "label": "Full Name"
-  },
-  {
-   "fieldname": "member",
+   "fieldname": "honorary_member",
    "fieldtype": "Link",
-   "label": "Member",
+   "label": "Honorary Member",
    "options": "Members"
   },
   {
-   "fieldname": "members_present_section",
-   "fieldtype": "Section Break",
-   "label": "Members Present"
+   "fetch_from": "honorary_member.full_name",
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Honorary Member Full Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-07 13:00:55.447517",
+ "modified": "2026-07-06 14:00:13.448205",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
- "name": "MOM Attendees",
+ "name": "Honorary Members",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
