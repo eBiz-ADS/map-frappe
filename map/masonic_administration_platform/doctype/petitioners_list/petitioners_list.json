@@ -163,8 +163,7 @@
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Full Name",
-   "length": 255,
-   "read_only": 1
+   "length": 255
   },
   {
    "fieldname": "email",
@@ -234,7 +233,7 @@
    "fieldname": "civil_status",
    "fieldtype": "Select",
    "label": "Civil Status",
-   "options": "Single\nMarried\nWidowed\nSeparated"
+   "options": "Single\nMarried\nWidowed\nSeparated\nDivorced"
   },
   {
    "fieldname": "socials",
@@ -776,7 +775,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-06 10:38:42.213066",
+ "modified": "2026-07-29 21:18:33.833511",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioners List",
