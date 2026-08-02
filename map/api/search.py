@@ -218,6 +218,52 @@ def search_members(filters: str = "[]", search: str = "", limit: int = None,
         for row in data:
             row["masonic_service_records"] = records_map.get(row["name"], [])
 
+    # Fetch other_lodges child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        lodges = frappe.db.sql(
+            f"""
+            SELECT parent, lodge_name, lodge_no, lodge_type, lodge_date, status
+            FROM `tabLodges`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        lodges_map = {}
+        for lodge in lodges:
+            lodges_map.setdefault(lodge["parent"], []).append(lodge)
+
+        for row in data:
+            row["lodges"] = lodges_map.get(row["name"], [])
+
+    # Fetch meeting_and_attendance child rows in one query
+    if data:
+        names = [r["name"] for r in data]
+        placeholders = ", ".join(["%s"] * len(names))
+        attendances = frappe.db.sql(
+            f"""
+            SELECT parent, meeting_title, meeting_date, lodge_name, lodge_no, attendance, action
+            FROM `tabMeeting and Attendance`
+            WHERE parent IN ({placeholders})
+            ORDER BY creation ASC
+            """,
+            names,
+            as_dict=True
+        )
+
+        # Group by parent
+        attendances_map = {}
+        for attendance in attendances:
+            attendances_map.setdefault(attendance["parent"], []).append(attendance)
+
+        for row in data:
+            row["meeting_and_attendance"] = attendances_map.get(row["name"], [])
+
     return {"data": data}
 
 @frappe.whitelist()
@@ -857,7 +903,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
 
             normalized_value = str(value).lower().replace("%", "").strip()
 
-            if normalized_value in ["published", "for publish"]:
+            if normalized_value in ["published", "for publish",]:
                 date_condition = get_date_completed_range(normalized_value)
                 if date_condition:
                     where_clauses.append(date_condition)
@@ -916,6 +962,18 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
             value = normalize_date(str(value))
             where_clauses.append(f"DATE(`{field}`) {condition} %s")
             params.append(value)
+            continue
+
+        if condition_upper == "=" and value in ["", None]:
+            where_clauses.append(
+                f"(`{field}` IS NULL OR `{field}` = '')"
+            )
+            continue
+
+        if condition_upper in ["!=", "<>"] and value in ["", None]:
+            where_clauses.append(
+                f"(`{field}` IS NOT NULL AND `{field}` != '')"
+            )
             continue
 
         # IN / NOT IN
@@ -980,7 +1038,7 @@ def search_petition(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, status, type, petitioner_name, new_lodge, new_lodge_no, new_lodge_name, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation, member_name, member
+            name, status, type, petitioner_name, new_lodge, new_lodge_no, new_lodge_name, type, petitioner, creation, presented, elected, date_of_birth, residence_address, occupation, member_name, member, date_published
         FROM `tabPetitions`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -1108,7 +1166,7 @@ def search_member_circular():
             "restored": doc.restored,
             "petition_for_degrees_received": doc.petition_for_degrees_received,
             "petition_for_degrees_elected": doc.petition_for_degrees_elected,
-            "petition_for": doc.petition_for,
+            "petition_for_degrees_rejected": doc.petition_for_degrees_rejected,
             "petitions_for_affiliation_received": doc.petitions_for_affiliation_received,
             "petitions_for_affiliation_approved": doc.petitions_for_affiliation_approved,
             "petitions_for_affiliation_rejected": doc.petitions_for_affiliation_rejected,
@@ -1664,7 +1722,7 @@ def search_circular12(filters: str = "[]", search: str = "", limit: int = None,
     data = frappe.db.sql(
         f"""
         SELECT
-            name, status, date_created, member, member_name
+            name, status, date_created, date_published, member, member_name
         FROM `tabCircular 12`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -1838,6 +1896,7 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
             m.middle_name AS member_middle_name,
             m.first_name AS member_first_name,
             m.lodge AS member_lodge,
+            m.name AS member_name,
             o.remarks,
             o.status
         FROM `tabOfficers` o
@@ -1854,7 +1913,7 @@ def search_officers(filters: str = "[]", search: str = "", limit: int = None,
     result = []
     for row in data:
         row["member"] = {
-            "id": row.get("member"),
+            "name": row.get("member_name"),
             "full_name": row.get("member_full_name"),
             "last_name": row.get("member_last_name"),
             "middle_name": row.get("member_middle_name"),
@@ -1971,7 +2030,9 @@ def search_minutes(filters: str = "[]", search: str = "", limit: int = None,
             meeting_type,
             district,
             venue,
-            status
+            status,
+            modified,
+            creation
         FROM `tabMinutes of the Meeting`
         WHERE {where_sql}
         ORDER BY {order_by}
@@ -1989,7 +2050,7 @@ def search_minutes(filters: str = "[]", search: str = "", limit: int = None,
             "mom_attendees_table": "tabMOM Attendees",
             "committee_table": "tabCommittee Report",
             "balloting_table": "tabBalloting",
-            "petition_of_degrees_table": "tabPetition of Degrees",
+            "reception_of_petitions_table": "tabReception of Petitions",
             "resolution_and_actions_information_table": "tabResolution and Actions",
             "birthday_celebrants_table": "tabBirthday Celebrants",
             "brethren_visiting_from_other_lodges_table": "tabBrethren Visiting for Other Lodges",
