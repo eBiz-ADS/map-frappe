@@ -1,61 +1,42 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-19 03:00:46.732095",
+ "creation": "2026-07-26 10:35:26.565735",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "petitioner",
+  "member",
   "full_name",
-  "dob",
-  "residence",
-  "occupation",
-  "petition_type"
+  "date"
  ],
  "fields": [
   {
-   "fetch_from": "petitioner.full_name",
+   "fetch_from": "member.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
-   "label": "Full Name",
-   "read_only": 1
+   "label": "Full Name"
   },
   {
-   "fieldname": "petition_type",
-   "fieldtype": "Data",
-   "label": "Petition Type"
-  },
-  {
-   "fieldname": "dob",
+   "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
   },
   {
-   "fieldname": "residence",
-   "fieldtype": "Data",
-   "label": "Residence"
-  },
-  {
-   "fieldname": "occupation",
-   "fieldtype": "Data",
-   "label": "Occupation"
-  },
-  {
-   "fieldname": "petitioner",
+   "fieldname": "member",
    "fieldtype": "Link",
    "label": "Petitioner",
-   "options": "Petitioners List"
+   "options": "Members"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-26 15:09:35.954372",
+ "modified": "2026-07-26 16:25:46.447737",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
- "name": "Petitions For Affiliation Rejected",
+ "name": "Petitions For Plural Membership Approved",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
