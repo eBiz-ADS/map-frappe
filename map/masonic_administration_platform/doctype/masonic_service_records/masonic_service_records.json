@@ -28,7 +28,7 @@
    "fieldname": "record_type",
    "fieldtype": "Select",
    "label": "Type",
-   "options": "Change In Status\nChange In Member Profile\nAffiliation\nAwards\nOfficer\nOthers",
+   "options": "Change In Status\nChange In Member Profile\nAffiliation\nAwards\nOfficer\nOthers\nLodge",
    "reqd": 1
   },
   {
@@ -41,7 +41,7 @@
   },
   {
    "fieldname": "lodge_no",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Lodge Number",
    "options": "Lodge List"
   },
@@ -83,7 +83,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-13 16:02:10.288504",
+ "modified": "2026-07-29 22:39:27.964480",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Masonic Service Records",
