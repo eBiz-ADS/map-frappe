@@ -10,6 +10,7 @@
   "members",
   "mmr",
   "date_created",
+  "date_published",
   "member",
   "member_name",
   "status"
@@ -56,12 +57,17 @@
    "fieldtype": "Table",
    "label": "MMR",
    "options": "MMR for Circular 12"
+  },
+  {
+   "fieldname": "date_published",
+   "fieldtype": "Date",
+   "label": "Date Published"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 09:48:41.462470",
+ "modified": "2026-07-27 00:17:55.556157",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 12",

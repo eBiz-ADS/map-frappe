@@ -6,25 +6,23 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "member",
+  "petitioner",
   "full_name",
-  "date",
+  "dob",
   "lodge",
   "location",
-  "petition_type"
+  "petition_type",
+  "residence",
+  "occupation",
+  "date"
  ],
  "fields": [
   {
-   "fetch_from": "member.full_name",
+   "fetch_from": "petitioner.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "label": "Full Name",
    "read_only": 1
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
   },
   {
    "fieldname": "lodge",
@@ -39,22 +37,42 @@
    "label": "Location"
   },
   {
-   "fieldname": "member",
-   "fieldtype": "Link",
-   "label": "Petitioner",
-   "options": "Members"
-  },
-  {
    "fieldname": "petition_type",
    "fieldtype": "Data",
    "label": "Petition Type"
+  },
+  {
+   "fieldname": "petitioner",
+   "fieldtype": "Link",
+   "label": "Petitioner",
+   "options": "Petitioners List"
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "residence",
+   "fieldtype": "Data",
+   "label": "Residence"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-23 10:52:34.630983",
+ "modified": "2026-07-26 17:01:36.450463",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions For Affiliation Received",

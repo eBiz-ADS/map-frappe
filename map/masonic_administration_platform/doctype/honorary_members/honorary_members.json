@@ -1,46 +1,36 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-19 11:23:09.016942",
+ "creation": "2026-07-06 13:58:14.042682",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "full_name",
-  "age",
-  "occupation",
-  "petition_of_degree_summary"
+  "honorary_member",
+  "full_name"
  ],
  "fields": [
   {
+   "fieldname": "honorary_member",
+   "fieldtype": "Link",
+   "label": "Honorary Member",
+   "options": "Members"
+  },
+  {
+   "fetch_from": "honorary_member.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
-   "label": "Full Name"
-  },
-  {
-   "fieldname": "age",
-   "fieldtype": "Int",
-   "label": "Age"
-  },
-  {
-   "fieldname": "occupation",
-   "fieldtype": "Data",
-   "label": "Occupation"
-  },
-  {
-   "fieldname": "petition_of_degree_summary",
-   "fieldtype": "Small Text",
-   "label": "Summary"
+   "label": "Honorary Member Full Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-04 09:13:28.745954",
+ "modified": "2026-07-06 14:00:13.448205",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
- "name": "Petition of Degrees",
+ "name": "Honorary Members",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

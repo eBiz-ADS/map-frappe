@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "business_meeting_tab",
   "lodge_and_meeting_information_section",
   "lodge_number",
   "lodge_name",
@@ -14,9 +15,27 @@
   "meeting_type",
   "district",
   "venue",
+  "approvals_section",
+  "approved_by_column",
+  "worshipful_master",
+  "worshipful_master_name",
+  "attested_by_column",
+  "grand_lodge_inspector",
+  "grand_lodge_inspector_name",
+  "secretary_column",
+  "secretary",
+  "secretary_name",
+  "status_section",
+  "status",
+  "section_break_bgbl",
+  "date_received",
+  "time_received",
+  "received_by",
+  "attendance_tab",
   "attendance_section",
   "members_present_column",
   "mom_attendees_table",
+  "honorary_members_table",
   "brethren_visiting_from_other_lodges_table",
   "brethren_visiting_from_other_countries",
   "past_masters_present_table",
@@ -26,60 +45,66 @@
   "tylers_book_table",
   "tylers_book",
   "additional_notes",
+  "minutes_tab",
+  "minutes_table",
+  "opening_of_the_lodge_tab",
   "opening_of_the_lodge_section",
   "opening_on_the_third_degree",
   "heraldry",
   "acknowledgement",
+  "business_meetingbusiness_meeting_tab",
   "business_meeting_section",
   "minutes_of_past_meetings",
   "approved_mom_from_previous_meeting",
+  "approved_previous_mom_table",
   "secretarys_report",
   "bills_of_payments",
   "treasurers_report",
+  "tab_6_tab",
   "committee_report_section",
   "committee_table",
   "committee_summary",
+  "tab_7_tab",
   "glp_edicts_and_circulars_section",
   "glp_communications_table",
+  "tab_8_tab",
   "balloting_section",
   "balloting_table",
+  "tab_9_tab",
   "masonic_education_section",
   "masonic_education_by_brother_of_the_lodge",
   "masonic_education_by_dgl_or_district_official",
   "address_of_visiting_dignitary",
+  "tab_10_tab",
   "reception_of_petition_of_degrees_section",
-  "petition_of_degrees_table",
+  "reception_of_petitions_table",
+  "tab_11_tab",
   "unfinished_and_pending_business_section",
   "matters_arising_from_previous_meeting",
+  "resolution_and_actions_tab",
+  "resolution_and_actions_section",
   "resolution_and_actions_information_table",
+  "tab_13_tab",
+  "conferral_of_degrees",
+  "column_break_hcbd",
+  "conferral_of_degrees_table",
+  "conferral_notes",
+  "tab_12_tab",
   "miscellaneous_business_section",
   "birthday_celebrants_table",
   "miscellaneous_business_table",
   "announcement",
   "remarks_from_the_floor",
-  "conferral_of_degrees",
-  "column_break_hcbd",
-  "conferral_of_degrees_table",
-  "conferral_notes",
+  "tab_14_tab",
   "message_from_district_officers_section",
   "gli_remarks",
   "dgl_remarks",
   "ddgm_remarks",
+  "tab_15_tab",
   "closing_of_the_lodge_section",
   "table_mzjc",
   "closing_remarks",
-  "approvals_section",
-  "approved_by_column",
-  "worshipful_master",
-  "attested_by_column",
-  "grand_lodge_inspector",
-  "status_section",
-  "status",
-  "section_break_bgbl",
-  "date_received",
-  "time_received",
-  "received_by",
-  "section_break_vxlw",
+  "history_logs_tab",
   "history_logs_table"
  ],
  "fields": [
@@ -137,7 +162,7 @@
   {
    "fieldname": "glp_edicts_and_circulars_section",
    "fieldtype": "Section Break",
-   "label": "GLP Edicts and Circulars"
+   "label": "GLP Communications"
   },
   {
    "fieldname": "balloting_section",
@@ -172,6 +197,7 @@
   {
    "fieldname": "committee_summary",
    "fieldtype": "Small Text",
+   "hidden": 1,
    "label": "Summary"
   },
   {
@@ -215,13 +241,7 @@
   {
    "fieldname": "reception_of_petition_of_degrees_section",
    "fieldtype": "Section Break",
-   "label": "Reception of Petition of Degrees"
-  },
-  {
-   "fieldname": "petition_of_degrees_table",
-   "fieldtype": "Table",
-   "label": "Petition of Degrees Information",
-   "options": "Petition of Degrees"
+   "label": "Reception of Petitions"
   },
   {
    "fieldname": "unfinished_and_pending_business_section",
@@ -300,6 +320,7 @@
   {
    "fieldname": "table_mzjc",
    "fieldtype": "Table",
+   "hidden": 1,
    "options": "Closing of the Lodge"
   },
   {
@@ -314,9 +335,9 @@
   },
   {
    "fieldname": "worshipful_master",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Worshipful Master",
-   "options": "Julius\nRamon\nMerck"
+   "options": "Members"
   },
   {
    "fieldname": "attested_by_column",
@@ -325,9 +346,9 @@
   },
   {
    "fieldname": "grand_lodge_inspector",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Grand Lodge Inspector",
-   "options": "Juan\nJames\nKevin"
+   "options": "Members"
   },
   {
    "fieldname": "brethren_visiting_from_other_countries",
@@ -383,6 +404,7 @@
   {
    "fieldname": "approved_mom_from_previous_meeting",
    "fieldtype": "Attach",
+   "hidden": 1,
    "label": "Approved MOM from Previous Meeting"
   },
   {
@@ -415,10 +437,6 @@
    "label": "Received By"
   },
   {
-   "fieldname": "section_break_vxlw",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "history_logs_table",
    "fieldtype": "Table",
    "label": "History Logs",
@@ -427,12 +445,14 @@
   {
    "fieldname": "past_masters_present_table",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Past Masters Present",
    "options": "Past Masters Present"
   },
   {
    "fieldname": "past_ddgms_present_table",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Past DDGMs and Other Dignitaries Present",
    "options": "Past DDGMs and Other Dignitaries Present"
   },
@@ -450,6 +470,7 @@
   {
    "fieldname": "district_officers_present_copy",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "District Officers Present Copy",
    "options": "District Officers Present"
   },
@@ -461,6 +482,7 @@
   {
    "fieldname": "tylers_book_table",
    "fieldtype": "Attach",
+   "hidden": 1,
    "label": "Tyler's Book Copy"
   },
   {
@@ -474,12 +496,155 @@
    "fieldtype": "Table",
    "label": "Conferral of Degrees",
    "options": "Conferral of Degrees"
+  },
+  {
+   "fetch_from": "worshipful_master.full_name",
+   "fieldname": "worshipful_master_name",
+   "fieldtype": "Data",
+   "label": "Worshipful Master Name"
+  },
+  {
+   "fetch_from": "grand_lodge_inspector.full_name",
+   "fieldname": "grand_lodge_inspector_name",
+   "fieldtype": "Data",
+   "label": "Grand Lodge Inspector Name"
+  },
+  {
+   "fieldname": "honorary_members_table",
+   "fieldtype": "Table",
+   "label": "Honorary Members",
+   "options": "Honorary Members"
+  },
+  {
+   "fieldname": "secretary_column",
+   "fieldtype": "Column Break",
+   "label": "Secretary"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Link",
+   "label": "Secretary",
+   "options": "Members"
+  },
+  {
+   "fetch_from": "secretary.full_name",
+   "fieldname": "secretary_name",
+   "fieldtype": "Data",
+   "label": "Secretary Name"
+  },
+  {
+   "fieldname": "minutes_tab",
+   "fieldtype": "Tab Break",
+   "label": "Uploaded Minutes"
+  },
+  {
+   "fieldname": "minutes_table",
+   "fieldtype": "Table",
+   "label": "Uploaded Minutes",
+   "options": "Minutes"
+  },
+  {
+   "fieldname": "approved_previous_mom_table",
+   "fieldtype": "Table",
+   "label": "Approved Previous MOM",
+   "options": "Approved Previous MOM"
+  },
+  {
+   "fieldname": "resolution_and_actions_section",
+   "fieldtype": "Section Break",
+   "label": "Resolution and Actions"
+  },
+  {
+   "fieldname": "reception_of_petitions_table",
+   "fieldtype": "Table",
+   "label": "Reception of Petitions",
+   "options": "Reception of Petitions"
+  },
+  {
+   "fieldname": "business_meeting_tab",
+   "fieldtype": "Tab Break",
+   "label": "Lodge and Meeting Information"
+  },
+  {
+   "fieldname": "attendance_tab",
+   "fieldtype": "Tab Break",
+   "label": "Attendance"
+  },
+  {
+   "fieldname": "opening_of_the_lodge_tab",
+   "fieldtype": "Tab Break",
+   "label": "Opening of the Lodge"
+  },
+  {
+   "fieldname": "business_meetingbusiness_meeting_tab",
+   "fieldtype": "Tab Break",
+   "label": "Business Meeting"
+  },
+  {
+   "fieldname": "tab_6_tab",
+   "fieldtype": "Tab Break",
+   "label": "Committee Reports"
+  },
+  {
+   "fieldname": "tab_7_tab",
+   "fieldtype": "Tab Break",
+   "label": "GLP Communications"
+  },
+  {
+   "fieldname": "tab_8_tab",
+   "fieldtype": "Tab Break",
+   "label": "Balloting"
+  },
+  {
+   "fieldname": "tab_9_tab",
+   "fieldtype": "Tab Break",
+   "label": "Masonic Education"
+  },
+  {
+   "fieldname": "tab_10_tab",
+   "fieldtype": "Tab Break",
+   "label": "Reception of Petitions"
+  },
+  {
+   "fieldname": "tab_11_tab",
+   "fieldtype": "Tab Break",
+   "label": "Unfinished and Pending Business"
+  },
+  {
+   "fieldname": "tab_12_tab",
+   "fieldtype": "Tab Break",
+   "label": "Miscellaneous Business"
+  },
+  {
+   "fieldname": "tab_13_tab",
+   "fieldtype": "Tab Break",
+   "label": "Conferral of Degrees"
+  },
+  {
+   "fieldname": "tab_14_tab",
+   "fieldtype": "Tab Break",
+   "label": "Message from District Officers"
+  },
+  {
+   "fieldname": "tab_15_tab",
+   "fieldtype": "Tab Break",
+   "label": "Closing of the Lodge"
+  },
+  {
+   "fieldname": "history_logs_tab",
+   "fieldtype": "Tab Break",
+   "label": "History Logs"
+  },
+  {
+   "fieldname": "resolution_and_actions_tab",
+   "fieldtype": "Tab Break",
+   "label": "Resolution and Actions"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-21 19:24:14.094897",
+ "modified": "2026-07-25 19:34:07.835038",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",

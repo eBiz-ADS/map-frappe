@@ -3,6 +3,11 @@ import base64
 import os
 from typing import List
 import json
+from frappe import _
+from frappe.utils import getdate
+from collections import defaultdict
+import calendar
+from datetime import date
 
 @frappe.whitelist()
 def get_member_files_events(member_id):
@@ -127,10 +132,10 @@ def add_other_lodges(member, records):
         #     frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
 
         member_doc.append("other_lodges", {
-            "lodge_no": r.get("lodge_no"),
-            "lodge_date": r.get("lodge_date"),
-            "lodge_type": r.get("lodge_type"),
             "lodge_name": r.get("lodge_name"),
+            "lodge_no": r.get("lodge_no"),
+            "lodge_type": r.get("lodge_type"),
+            "lodge_date": r.get("lodge_date"),
             "status": r.get("status"),
         })
 
@@ -213,4 +218,311 @@ def update_change_request_field_status(rows, status):
     return {
         "message": "Statuses updated",
         "count": len(rows)
+    }
+
+@frappe.whitelist()
+def get_lodge_members(lodge_no):
+    rows = frappe.db.sql(
+        """
+        SELECT DISTINCT
+            m.name,
+            m.full_name,
+            m.id_number,
+            m.member_key,
+            m.overall_status,
+            ol.lodge_type,
+            ol.status AS lodge_status
+        FROM `tabMembers` m
+        LEFT JOIN `tabLodges` ol
+            ON ol.parent = m.name
+            AND ol.lodge_no = %(lodge_no)s
+            # AND ol.status = 'Active'
+        WHERE
+            # m.overall_status = 'Active'
+            # AND (
+            m.lodge = %(lodge_no)s
+            OR ol.parent IS NOT NULL
+            # )
+        """,
+        {"lodge_no": lodge_no},
+        as_dict=True,
+    )
+
+    members = {}
+    honorary_members = {}
+    restore_members = {}
+
+    excluded_restore_statuses = {
+        "active",
+        "dropped from the roll",
+        "deceased",
+    }
+
+    for row in rows:
+        name = row["name"]
+        lodge_type = (row.get("lodge_type") or "").lower()
+        status = (row.get("overall_status") or "").strip().lower()
+        lodge_status = (row.get("lodge_status") or "").strip().lower()
+
+        member_data = {
+            "name": name,
+            "full_name": row["full_name"],
+            "id_number": row.get("id_number") or "",
+            "member_key": row.get("member_key"),
+            "overall_status": row.get("overall_status"),
+        }
+
+        # Normal active members
+        if lodge_status == "active" or status == "active":
+            if lodge_status == "active" and lodge_type == "honorary":
+                honorary_members[name] = member_data
+            else:
+                members[name] = member_data
+        elif status not in excluded_restore_statuses:
+            restore_members[name] = member_data
+
+    return {
+        "members": list(members.values()),
+        "honoraryMembers": list(honorary_members.values()),
+        "restoreMembers": list(restore_members.values()),
+    }
+
+    
+ACTION_NO_ACTION = "No Action"
+ACTION_FOR_SUSPENSION = "For Suspension"
+ACTION_SUSPENDED = "Suspended for Non-attendance"
+ACTION_RESTORED = "Restored"
+
+
+def _get_lodge_roster(lodge_no):
+    """
+    Returns the full working roster for a lodge: home members plus
+    dual/affiliated members from other lodges. Honorary members are
+    returned separately since they aren't subject to attendance/suspension.
+    """
+    rows = frappe.db.sql(
+        """
+        SELECT DISTINCT
+            m.name,
+            m.full_name,
+            m.id_number,
+            m.member_key,
+            m.overall_status,
+            ol.lodge_type,
+            ol.status AS lodge_status
+        FROM `tabMembers` m
+        LEFT JOIN `tabLodges` ol
+            ON ol.parent = m.name
+            AND ol.lodge_no = %(lodge_no)s
+            # AND ol.status = 'Active'
+        WHERE
+            # m.overall_status = 'Active'
+            # AND (
+            m.lodge = %(lodge_no)s
+            OR ol.parent IS NOT NULL
+            # )
+        """,
+        {"lodge_no": lodge_no},
+        as_dict=True,
+    )
+
+    roster = {}
+    honorary = {}
+
+
+    for row in rows:
+        lodge_type = (row.get("lodge_type") or "").lower()
+        status = (row.get("overall_status") or "").strip().lower()
+        lodge_status = (row.get("lodge_status") or "").strip().lower()
+
+        # Normal active members
+        if lodge_status == "active" or status == "active":
+            if lodge_status == "active" and lodge_type == "honorary":
+                honorary[row["name"]] = row
+            else:
+                roster[row["name"]] = row
+
+
+    return list(roster.values()), list(honorary.values())
+
+
+@frappe.whitelist()
+def get_lodge_attendance_roster(lodge_no):
+    members, honorary_members = _get_lodge_roster(lodge_no)
+    return {
+        "members": [
+            {
+                "name": m["name"],
+                "full_name": m["full_name"],
+                "id_number": m["id_number"],
+                "member_key": m["member_key"],
+            }
+            for m in members
+        ],
+        "honoraryMembers": [
+            {"name": m["name"], "full_name": m["full_name"]}
+            for m in honorary_members
+        ],
+    }
+
+
+@frappe.whitelist()
+def submit_minutes_attendance(lodge_no, meeting_title, meeting_date, present_members=None):
+    """
+    Marks every working member of a lodge (home + dual/affiliated)
+    Present/Absent for a given meeting, and flags members for suspension
+    after 3 consecutive absences at that same lodge.
+    """
+    if isinstance(present_members, str):
+        present_members = frappe.parse_json(present_members)
+
+    present_members = set(present_members or [])
+
+    if not lodge_no:
+        frappe.throw(_("Lodge number is required"))
+
+    roster, _honorary = _get_lodge_roster(lodge_no)
+    lodge_members = [row["name"] for row in roster]
+
+    flagged_for_suspension = []
+    restored = []
+
+    for member_name in lodge_members:
+        member_doc = frappe.get_doc("Members", member_name)
+        attendance = "Present" if member_name in present_members else "Absent"
+
+        # this member's history at THIS lodge specifically
+        lodge_history = [
+            row for row in (member_doc.meeting_and_attendance or [])
+            if row.lodge_no == lodge_no
+        ]
+        lodge_history.sort(key=lambda r: getdate(r.meeting_date), reverse=True)
+
+        most_recent_action = lodge_history[0].action if lodge_history else ACTION_NO_ACTION
+        action = ACTION_NO_ACTION
+
+        if attendance == "Absent":
+            last_two = lodge_history[:2]
+            if len(last_two) == 2 and all(r.attendance == "Absent" for r in last_two):
+                action = ACTION_FOR_SUSPENSION
+                flagged_for_suspension.append(member_name)
+        else:
+            # attended — clear a prior flag/suspension
+            if most_recent_action in (ACTION_FOR_SUSPENSION, ACTION_SUSPENDED):
+                action = ACTION_RESTORED
+                restored.append(member_name)
+
+        member_doc.append("meeting_and_attendance", {
+            "meeting_title": meeting_title,
+            "meeting_date": meeting_date,
+            "lodge_no": lodge_no,
+            "attendance": attendance,
+            "action": action,
+        })
+
+        member_doc.save(ignore_permissions=True)
+
+    return {
+        "message": "Attendance recorded",
+        "total_members": len(lodge_members),
+        "present_count": len(present_members),
+        "absent_count": len(lodge_members) - len(present_members),
+        "flagged_for_suspension": flagged_for_suspension,
+        "restored": restored,
+    }
+
+
+@frappe.whitelist()
+def get_lodge_attendance_report(lodge_no, year, from_month, to_month):
+    # ---------------------------------------
+    # Set dates to fetch
+    # ---------------------------------------
+    year = int(year)
+    from_month = int(from_month)
+    to_month = int(to_month)
+
+    from_date = date(year, from_month, 1)
+
+    last_day = calendar.monthrange(year, to_month)[1]
+    to_date = date(year, to_month, last_day)
+
+    # ---------------------------------------
+    # Get all eligible lodge members
+    # ---------------------------------------
+    members = frappe.db.sql(
+        """
+        SELECT DISTINCT
+            m.name,
+            m.full_name,
+            m.member_key,
+            m.id_number,
+            m.overall_status,
+
+            CASE
+                WHEN ol.lodge_type IS NULL THEN 'Regular'
+                ELSE ol.lodge_type
+            END AS membership_type
+
+        FROM `tabMembers` m
+
+        LEFT JOIN `tabLodges` ol
+            ON ol.parent = m.name
+            AND ol.lodge_no = %(lodge_no)s
+
+        WHERE
+            (
+                m.overall_status = 'ACTIVE'
+                AND m.lodge = %(lodge_no)s
+            )
+            OR
+            (
+                ol.lodge_no = %(lodge_no)s
+                AND ol.status = 'Active'
+                AND ol.lodge_type IN (
+                    'DUAL',
+                    'HONORARY',
+                    'AFFILIATED',
+                    'CHARTER'
+                )
+            )
+
+        ORDER BY m.full_name
+        """,
+        {"lodge_no": lodge_no},
+        as_dict=True,
+    )
+
+    member_names = [m["name"] for m in members]
+
+    attendance_rows = frappe.get_all(
+        "Meeting and Attendance",
+        filters={
+            "parent": ["in", member_names],
+            "meeting_date": ["between", [from_date, to_date]],
+            "lodge_no": lodge_no
+        },
+        fields=[
+            "parent",
+            "meeting_date",
+            "attendance",
+            "action",
+        ],
+        order_by="meeting_date asc",
+    )
+
+    attendance_by_member = {}
+
+    for row in attendance_rows:
+        attendance_by_member.setdefault(row.parent, []).append(row)
+
+    return {
+        "from_date": str(from_date),
+        "to_date": str(to_date),
+        "members": [
+            {
+                **member,
+                "attendance": attendance_by_member.get(member["name"], [])
+            }
+            for member in members
+        ]
     }

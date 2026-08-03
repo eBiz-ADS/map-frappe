@@ -17,6 +17,7 @@ class Petitioner:
     isAffiliation: bool = False
     status: Optional[str] = None
     date_completed: Optional[str] = None
+    date_presented: Optional[str] = None
     name: Optional[str] = None
     residence: Optional[str] = None
     occupation: Optional[str] = None
@@ -70,7 +71,8 @@ def create_circular_12(data):
             for m in data.get("mmr", [])
         ] if data.get("mmr") else [],
 
-        member=data.get("member")
+        member=data.get("member"),
+        member_name= data.get("member_name")
     )
 
     create = frappe.get_doc({
@@ -89,10 +91,25 @@ def create_circular_12(data):
                 ),
                 "petitioner_name": p.petitioner_name,
                 "date_completed": p.date_completed,
+                "date_presented": p.date_presented,
                 "type": p.type,
                 "lodge": p.lodge,
-                "status": p.status,
-                "petition_name": p.name
+                **(
+                    {
+                        "status": "PUBLISHED"
+                    }
+                    if petition_data.status == "PUBLISHED"
+                    else {"status": p.status}
+                ),
+                "petition_name": p.name,
+                **(
+                    {
+                        "occupation": p.occupation,
+                        "residence": p.residence,
+                    }
+                    if p.type == "Petition for Degrees of Masonry"
+                    else {}
+                ),
             }
             for p in petition_data.petitioners
         ],
@@ -121,6 +138,9 @@ def create_circular_12(data):
             for m in petition_data.mmr
         ]
     })
+
+    if petition_data.status == "PUBLISHED":
+        create.date_published = now_datetime()
 
     create.insert(ignore_permissions=True)
 
@@ -169,8 +189,8 @@ def create_circular_12(data):
                 # Add history log
                 mmr_doc = frappe.get_doc("Monthly Member Report", item.mmr)
 
-                mmr_doc.append("history_logs", {
-                    "participant": mmr_doc.member,  # assuming the MMR has a member field
+                mmr_doc.append("history_logs_table", {
+                    "participant": data.get("member_name"),  # assuming the MMR has a member field
                     "date_completed": now_datetime(),
                     "action": "Published"
                 })
@@ -325,6 +345,13 @@ def update_circular_12(circular_12_name, data):
     for key, value in data.items():
         if key not in child_tables:
             doc.set(key, value)
+
+    if data.get("status") == "PUBLISHED":
+        doc.date_published = now_datetime()
+
+    if data.get("status") == "PUBLISHED":
+        for item in doc.petitioners:
+            item.status = "PUBLISHED"
 
     doc.save(ignore_permissions=True)
     # -----------------------------------

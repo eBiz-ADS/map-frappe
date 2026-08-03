@@ -56,8 +56,9 @@
   },
   {
    "fieldname": "details",
-   "fieldtype": "Data",
-   "label": "Details"
+   "fieldtype": "Text",
+   "label": "Details",
+   "length": 512
   },
   {
    "fieldname": "petitioner",
@@ -70,7 +71,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-27 20:16:05.828012",
+ "modified": "2026-07-27 22:42:31.701710",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Member for Circular 12",

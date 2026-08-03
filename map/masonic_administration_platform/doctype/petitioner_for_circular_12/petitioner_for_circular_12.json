@@ -10,6 +10,7 @@
   "member",
   "type",
   "date_completed",
+  "date_presented",
   "lodge",
   "status",
   "lodge_name",
@@ -48,7 +49,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "FOR PUBLISH\nREJECTED"
+   "options": "FOR PUBLISH\nREJECTED\nPUBLISHED"
   },
   {
    "fetch_from": "lodge.lodge_name",
@@ -82,13 +83,18 @@
    "fieldname": "residence",
    "fieldtype": "Data",
    "label": "Residence"
+  },
+  {
+   "fieldname": "date_presented",
+   "fieldtype": "Date",
+   "label": "Date Presented"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-16 20:30:49.139082",
+ "modified": "2026-07-27 23:51:20.889709",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioner for Circular 12",

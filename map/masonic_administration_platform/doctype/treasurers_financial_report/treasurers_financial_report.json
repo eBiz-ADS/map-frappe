@@ -48,9 +48,17 @@
   "investments_table",
   "cash_back_in_subtotal",
   "certified_true_and_correct",
+  "secretary",
+  "secretary_name",
+  "column_break_dqpz",
   "treasurer",
+  "treasurer_name",
+  "column_break_svex",
   "audited_by",
+  "auditor_name",
+  "column_break_lknz",
   "approved_by",
+  "worshipful_master_name",
   "status_section",
   "status",
   "section_break_dwuc",
@@ -58,7 +66,9 @@
   "time_received",
   "received_by",
   "history_logs_section",
-  "history_logs_table"
+  "history_logs_table",
+  "uploaded_treasurers_tab",
+  "treasurers_table"
  ],
  "fields": [
   {
@@ -202,21 +212,21 @@
   },
   {
    "fieldname": "treasurer",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Treasurer",
-   "options": "James\nDave\nJose"
+   "options": "Members"
   },
   {
    "fieldname": "audited_by",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Audited by:",
-   "options": "Juan\nChu\nHen"
+   "options": "Members"
   },
   {
    "fieldname": "approved_by",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Approved by",
-   "options": "John\nClark\nLee"
+   "options": "Members"
   },
   {
    "fieldname": "month",
@@ -332,12 +342,66 @@
    "fieldtype": "Table",
    "label": "History Logs",
    "options": "History Logs"
+  },
+  {
+   "fieldname": "uploaded_treasurers_tab",
+   "fieldtype": "Tab Break",
+   "label": "Uploaded Treasurers"
+  },
+  {
+   "fieldname": "treasurers_table",
+   "fieldtype": "Table",
+   "label": "Treasurers",
+   "options": "Treasurers"
+  },
+  {
+   "fetch_from": "treasurer.full_name",
+   "fieldname": "treasurer_name",
+   "fieldtype": "Data",
+   "label": "Treasurer Name"
+  },
+  {
+   "fieldname": "column_break_svex",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "audited_by.full_name",
+   "fieldname": "auditor_name",
+   "fieldtype": "Data",
+   "label": "Auditor Name"
+  },
+  {
+   "fieldname": "column_break_lknz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "approved_by.full_name",
+   "fieldname": "worshipful_master_name",
+   "fieldtype": "Data",
+   "label": "Worshipful Master Name",
+   "options": "John\nClark\nLee"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Link",
+   "label": "Secretary",
+   "options": "Members"
+  },
+  {
+   "fetch_from": "secretary.full_name",
+   "fieldname": "secretary_name",
+   "fieldtype": "Data",
+   "label": "Secretary Name"
+  },
+  {
+   "fieldname": "column_break_dqpz",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-26 11:33:36.360486",
+ "modified": "2026-07-16 15:14:38.109555",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Treasurers Financial Report",

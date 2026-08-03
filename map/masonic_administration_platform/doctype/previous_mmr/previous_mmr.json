@@ -1,36 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-26 10:11:35.393695",
+ "creation": "2026-07-19 23:20:56.239210",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "full_name",
-  "member"
+  "previous_mmr"
  ],
  "fields": [
   {
-   "fetch_from": "member.full_name",
-   "fieldname": "full_name",
-   "fieldtype": "Data",
-   "label": "Full Name"
-  },
-  {
-   "fieldname": "member",
-   "fieldtype": "Link",
-   "label": "Member",
-   "options": "Members"
+   "fieldname": "previous_mmr",
+   "fieldtype": "Attach",
+   "label": "Previous MMR"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-07-20 11:34:04.038023",
+ "modified": "2026-07-19 23:22:05.278951",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
- "name": "Birthday Celebrants",
+ "name": "Previous MMR",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

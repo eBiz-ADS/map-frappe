@@ -13,19 +13,28 @@
   "date",
   "stated_meeting",
   "fam",
+  "section_break_bapd",
   "worshipful_master",
+  "worshipful_master_name",
+  "column_break_bxfo",
   "secretary",
+  "secretary_name",
+  "section_break_iqdz",
   "status",
   "date_received",
-  "time_received",
   "received_by",
+  "time_received",
   "history_logs_table",
+  "section_break_qsll",
   "date_published",
   "circular12_status",
   "petitions",
   "petition_for_degrees_received",
   "petition_for_degrees_elected",
-  "petition_for",
+  "petition_for_degrees_rejected",
+  "petitions_for_plural_membership_received",
+  "petitions_for_plural_membership_approved",
+  "petitions_for_plural_membership_rejected",
   "petitions_for_affiliation_received",
   "petitions_for_affiliation_approved",
   "petitions_for_affiliation_rejected",
@@ -45,7 +54,9 @@
   "granted_life_membership",
   "expelled",
   "died",
-  "other_suspension"
+  "other_suspension",
+  "uploaded_mmr_tab",
+  "mmr_table"
  ],
  "fields": [
   {
@@ -81,12 +92,6 @@
    "fieldtype": "Table",
    "label": "Petitions For Degrees Elected",
    "options": "Petitions For Degrees Elected"
-  },
-  {
-   "fieldname": "petition_for",
-   "fieldtype": "Table",
-   "label": "Petitions For Degrees Rejected",
-   "options": "Petitions For Degrees Rejected"
   },
   {
    "fieldname": "petitions_for_affiliation_received",
@@ -277,12 +282,75 @@
    "fieldtype": "Table",
    "label": "Deceased",
    "options": "Died MMR"
+  },
+  {
+   "fieldname": "uploaded_mmr_tab",
+   "fieldtype": "Tab Break",
+   "label": "Uploaded MMR"
+  },
+  {
+   "fieldname": "mmr_table",
+   "fieldtype": "Table",
+   "label": "Previous MMR",
+   "options": "Previous MMR"
+  },
+  {
+   "fieldname": "section_break_bapd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "worshipful_master.full_name",
+   "fieldname": "worshipful_master_name",
+   "fieldtype": "Data",
+   "label": "Worshipful Master Name"
+  },
+  {
+   "fieldname": "column_break_bxfo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "secretary.full_name",
+   "fieldname": "secretary_name",
+   "fieldtype": "Data",
+   "label": "Secretary Name"
+  },
+  {
+   "fieldname": "section_break_iqdz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_qsll",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "petitions_for_plural_membership_received",
+   "fieldtype": "Table",
+   "label": "Petitions For Plural Membership Received",
+   "options": "Petitions For Plural Membership Received"
+  },
+  {
+   "fieldname": "petitions_for_plural_membership_approved",
+   "fieldtype": "Table",
+   "label": "Petitions For Plural Membership Approved",
+   "options": "Petitions For Plural Membership Approved"
+  },
+  {
+   "fieldname": "petitions_for_plural_membership_rejected",
+   "fieldtype": "Table",
+   "label": "Petitions For Plural Membership Rejected",
+   "options": "Petitions For Plural Membership Rejected"
+  },
+  {
+   "fieldname": "petition_for_degrees_rejected",
+   "fieldtype": "Table",
+   "label": "Petitions For Degrees Rejected",
+   "options": "Petitions For Degrees Rejected"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-23 16:37:25.682791",
+ "modified": "2026-07-26 14:04:43.176712",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Monthly Member Report",

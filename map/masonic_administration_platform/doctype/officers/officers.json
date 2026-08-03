@@ -24,10 +24,10 @@
    "label": "Year"
   },
   {
+   "fetch_from": "lodge_no.lodge_district",
    "fieldname": "district",
-   "fieldtype": "Link",
-   "label": "District",
-   "options": "District"
+   "fieldtype": "Data",
+   "label": "District"
   },
   {
    "fieldname": "type",
@@ -79,7 +79,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-06 14:28:35.960718",
+ "modified": "2026-07-28 16:59:21.432270",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Officers",
