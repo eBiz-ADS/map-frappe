@@ -297,14 +297,14 @@
   {
    "fetch_from": "petitioner.address_1",
    "fieldname": "residence_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Residence Address",
    "length": 255
   },
   {
    "fetch_from": "petitioner.company_address",
    "fieldname": "business_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Business Address",
    "length": 255
   },
@@ -373,32 +373,38 @@
   {
    "fieldname": "initiated",
    "fieldtype": "Data",
-   "label": "Initiated"
+   "label": "Initiated",
+   "length": 255
   },
   {
    "fieldname": "initiated_location",
-   "fieldtype": "Data",
-   "label": "Initiated Location"
+   "fieldtype": "Small Text",
+   "label": "Initiated Location",
+   "length": 255
   },
   {
    "fieldname": "passed",
    "fieldtype": "Data",
-   "label": "Passed"
+   "label": "Passed",
+   "length": 255
   },
   {
    "fieldname": "passed_location",
-   "fieldtype": "Data",
-   "label": "Passed Location"
+   "fieldtype": "Small Text",
+   "label": "Passed Location",
+   "length": 255
   },
   {
    "fieldname": "raised",
    "fieldtype": "Data",
-   "label": "Raised"
+   "label": "Raised",
+   "length": 255
   },
   {
    "fieldname": "raised_location",
-   "fieldtype": "Data",
-   "label": "Raised Location"
+   "fieldtype": "Small Text",
+   "label": "Raised Location",
+   "length": 255
   },
   {
    "fieldname": "religious_belief",
@@ -527,7 +533,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "DRAFT\nPENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nPAID GLP\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED"
+   "options": "DRAFT\nPENDING\nPENDING GLS1\nPENDING GLS2\nPENDING GLS3\nPENDING AGS\nRECEIVED\nPAID\nPAID GLP\nCONFIRMED PAYMENT\nVERIFIED\nCONFIRMED\nFOR PUBLISH\nPUBLISHED\nRETURNED AGS\nRETURNED GLS1\nRETURNED GLS2\nRETURNED GLS3\nRETURNED\nREJECTED\nSUSPENDED\nPRESENTED\nELECTED\nINITIATED\nPASSED\nRAISED"
   },
   {
    "fetch_from": "petitioner.full_name",
@@ -582,7 +588,7 @@
   },
   {
    "fieldname": "beneficiary_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Beneficiary Address",
    "length": 255
   },
@@ -606,14 +612,14 @@
   },
   {
    "fieldname": "recommender",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Recommender",
    "length": 255,
    "options": "Members"
   },
   {
    "fieldname": "recommender_2",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Recommender 2",
    "length": 255,
    "options": "Members"
@@ -872,7 +878,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-06 10:24:15.391469",
+ "modified": "2026-08-10 15:17:04.158431",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",

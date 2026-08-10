@@ -1,796 +1,832 @@
 {
-  "actions": [],
-  "allow_import": 1,
-  "creation": "2025-09-30 09:41:38.266829",
-  "doctype": "DocType",
-  "engine": "InnoDB",
-  "field_order": [
-    "basic_information_section",
-    "member_information_column",
-    "member_key",
-    "first_name",
-    "middle_name",
-    "last_name",
-    "full_name",
-    "email",
-    "contact_no",
-    "website",
-    "occupation",
-    "position",
-    "education",
-    "school",
-    "overall_status",
-    "death_date",
-    "column_break_keet",
-    "blood_type",
-    "nationality",
-    "civil_status",
-    "socials",
-    "foreigner",
-    "affiliate",
-    "tel_no_1",
-    "tel_no_2",
-    "office_telphone",
-    "fax",
-    "company",
-    "company_address",
-    "cable_tow",
-    "nature_of_company",
-    "column_break_eiub",
-    "date_of_birth",
-    "place_of_birth",
-    "address_1",
-    "address_2",
-    "current_province",
-    "current_country",
-    "permanent_address",
-    "permanent_province",
-    "permanent_country",
-    "mailing_address",
-    "region",
-    "province",
-    "municitiies",
-    "barangay",
-    "street",
-    "zip_code",
-    "short_residence_address",
-    "mailing_region",
-    "mailing_province",
-    "mailing_municities",
-    "mailing_barangay",
-    "mailing_street",
-    "mailing_zip_code",
-    "mailing_short_residence_address",
-    "column_break_mlfg",
-    "kin",
-    "kin_relation",
-    "child_count",
-    "child_names",
-    "profile_picture",
-    "emergency_contact_section",
-    "emergency_contact_name",
-    "column_break_blit",
-    "emergency_contact_relation",
-    "column_break_dicr",
-    "emergency_contact_no",
-    "section_break_ggvq",
-    "documents",
-    "kin_information_section",
-    "kin_table",
-    "children",
-    "masonic_information_tab",
-    "masonic_information_section",
-    "masonic_rank_remarks",
-    "date_initiated",
-    "date_passed",
-    "date_raised",
-    "id_number",
-    "lml",
-    "district",
-    "lodge",
-    "first_degree_proficiency",
-    "second_degree_proficiency",
-    "third_degree_proficiency",
-    "rank_number",
-    "imes_date",
-    "imes_remarks",
-    "imes_graduation_year",
-    "imes_basic_course",
-    "imes_immediate_course",
-    "imes_advanced_course",
-    "past_master",
-    "past_master_year",
-    "column_break_mapn",
-    "masonic_timeline",
-    "other_lodges",
-    "other_organization",
-    "links_section",
-    "affiliation",
-    "recognitions",
-    "masonic_service_records",
-    "financial_status_tab",
-    "dues_status",
-    "column_break_imee",
-    "balance",
-    "column_break_xjcu",
-    "last_payment",
-    "section_break_oora",
-    "payment",
-    "activities_tab",
-    "activities",
-    "tab_5_tab",
-    "events_table_section",
-    "member_event"
-  ],
-  "fields": [
-    {
-      "fieldname": "first_name",
-      "fieldtype": "Data",
-      "in_list_view": 1,
-      "label": "First Name",
-      "length": 255
-    },
-    {
-      "fieldname": "middle_name",
-      "fieldtype": "Data",
-      "label": "Middle Name",
-      "length": 255
-    },
-    {
-      "fieldname": "last_name",
-      "fieldtype": "Data",
-      "label": "Last Name",
-      "length": 255
-    },
-    {
-      "fieldname": "contact_no",
-      "fieldtype": "Data",
-      "label": "Contact Number",
-      "length": 255
-    },
-    {
-      "fieldname": "full_name",
-      "fieldtype": "Data",
-      "in_global_search": 1,
-      "label": "Full Name",
-      "length": 255,
-      "read_only": 1
-    },
-    {
-      "fieldname": "email",
-      "fieldtype": "Data",
-      "in_global_search": 1,
-      "label": "Email",
-      "length": 255
-    },
-    {
-      "fieldname": "basic_information_section",
-      "fieldtype": "Section Break",
-      "label": "Basic Information"
-    },
-    {
-      "fieldname": "column_break_keet",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "date_of_birth",
-      "fieldtype": "Date",
-      "label": "Date of Birth"
-    },
-    {
-      "fieldname": "nationality",
-      "fieldtype": "Data",
-      "label": "Nationality",
-      "length": 255
-    },
-    {
-      "fieldname": "place_of_birth",
-      "fieldtype": "Data",
-      "label": "Place of Birth",
-      "length": 255
-    },
-    {
-      "fieldname": "civil_status",
-      "fieldtype": "Select",
-      "label": "Civil Status",
-      "length": 255,
-      "options": "Single\nMarried\nWidowed\nSeparated"
-    },
-    {
-      "fieldname": "socials",
-      "fieldtype": "Data",
-      "label": "Socials",
-      "length": 255
-    },
-    {
-      "fieldname": "emergency_contact_section",
-      "fieldtype": "Section Break",
-      "label": "Emergency Contact"
-    },
-    {
-      "fieldname": "emergency_contact_name",
-      "fieldtype": "Data",
-      "label": "Emergency Contact Name"
-    },
-    {
-      "fieldname": "emergency_contact_relation",
-      "fieldtype": "Data",
-      "label": "Emergency Contact Relation"
-    },
-    {
-      "fieldname": "emergency_contact_no",
-      "fieldtype": "Data",
-      "label": "Emergency Contact Number"
-    },
-    {
-      "fieldname": "masonic_information_section",
-      "fieldtype": "Section Break",
-      "label": "Masonic Information"
-    },
-    {
-      "fieldname": "masonic_timeline",
-      "fieldtype": "Table",
-      "label": "Masonic Timeline",
-      "options": "Masonic Timeline"
-    },
-    {
-      "fieldname": "column_break_blit",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "column_break_dicr",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "affiliation",
-      "fieldtype": "Table",
-      "label": "Affiliation",
-      "options": "Affiliations"
-    },
-    {
-      "fieldname": "recognitions",
-      "fieldtype": "Table",
-      "label": "Recognitions",
-      "options": "Recognitions"
-    },
-    {
-      "fieldname": "lodge",
-      "fieldtype": "Data",
-      "label": "Lodge"
-    },
-    {
-      "fieldname": "rank_number",
-      "fieldtype": "Int",
-      "label": "Rank",
-      "non_negative": 1
-    },
-    {
-      "fieldname": "district",
-      "fieldtype": "Data",
-      "label": "District"
-    },
-    {
-      "fieldname": "section_break_ggvq",
-      "fieldtype": "Section Break",
-      "label": "Docs"
-    },
-    {
-      "fieldname": "documents",
-      "fieldtype": "Table",
-      "label": "Member Documents",
-      "options": "Member Documents"
-    },
-    {
-      "fieldname": "member_key",
-      "fieldtype": "Data",
-      "label": "Member Key"
-    },
-    {
-      "fieldname": "blood_type",
-      "fieldtype": "Data",
-      "label": "Blood Type",
-      "length": 255
-    },
-    {
-      "fieldname": "foreigner",
-      "fieldtype": "Int",
-      "label": "Foreigner",
-      "length": 255
-    },
-    {
-      "fieldname": "affiliate",
-      "fieldtype": "Int",
-      "label": "Affiliate",
-      "length": 255
-    },
-    {
-      "fieldname": "office_telphone",
-      "fieldtype": "Data",
-      "label": "Office Telephone",
-      "length": 255
-    },
-    {
-      "fieldname": "column_break_eiub",
-      "fieldtype": "Column Break",
-      "label": "Address"
-    },
-    {
-      "fieldname": "address_1",
-      "fieldtype": "Data",
-      "label": "Address 1",
-      "length": 255
-    },
-    {
-      "fieldname": "address_2",
-      "fieldtype": "Data",
-      "label": "Address 2",
-      "length": 255
-    },
-    {
-      "fieldname": "current_province",
-      "fieldtype": "Data",
-      "label": "Current Province",
-      "length": 255
-    },
-    {
-      "fieldname": "current_country",
-      "fieldtype": "Data",
-      "label": "Current Country",
-      "length": 255
-    },
-    {
-      "fieldname": "permanent_address",
-      "fieldtype": "Data",
-      "label": "Permanent Address"
-    },
-    {
-      "fieldname": "permanent_province",
-      "fieldtype": "Data",
-      "label": "Permanent Province"
-    },
-    {
-      "fieldname": "permanent_country",
-      "fieldtype": "Data",
-      "label": "Permanent Country"
-    },
-    {
-      "fieldname": "zip_code",
-      "fieldtype": "Data",
-      "label": "Zip code"
-    },
-    {
-      "fieldname": "short_residence_address",
-      "fieldtype": "Data",
-      "label": "Short Residence Address"
-    },
-    {
-      "fieldname": "member_information_column",
-      "fieldtype": "Column Break",
-      "label": "Member Information"
-    },
-    {
-      "fieldname": "website",
-      "fieldtype": "Data",
-      "label": "Website",
-      "length": 255
-    },
-    {
-      "fieldname": "occupation",
-      "fieldtype": "Data",
-      "label": "Occupation",
-      "length": 255
-    },
-    {
-      "fieldname": "education",
-      "fieldtype": "Data",
-      "label": "Education",
-      "length": 255
-    },
-    {
-      "fieldname": "school",
-      "fieldtype": "Data",
-      "label": "School",
-      "length": 255
-    },
-    {
-      "fieldname": "fax",
-      "fieldtype": "Data",
-      "label": "Fax",
-      "length": 255
-    },
-    {
-      "fieldname": "company",
-      "fieldtype": "Data",
-      "label": "Company",
-      "length": 255
-    },
-    {
-      "fieldname": "company_address",
-      "fieldtype": "Data",
-      "label": "Company Address",
-      "length": 255
-    },
-    {
-      "fieldname": "column_break_mlfg",
-      "fieldtype": "Column Break",
-      "label": "Kin Information"
-    },
-    {
-      "fieldname": "kin",
-      "fieldtype": "Data",
-      "label": "Kin"
-    },
-    {
-      "fieldname": "kin_relation",
-      "fieldtype": "Data",
-      "label": "Kin Relation"
-    },
-    {
-      "fieldname": "child_count",
-      "fieldtype": "Data",
-      "label": "Child Count"
-    },
-    {
-      "fieldname": "child_names",
-      "fieldtype": "Text",
-      "label": "Child Names"
-    },
-    {
-      "fieldname": "death_date",
-      "fieldtype": "Date",
-      "label": "Death Date"
-    },
-    {
-      "fieldname": "overall_status",
-      "fieldtype": "Select",
-      "label": "Overall Status",
-      "length": 255,
-      "options": "ACTIVE\nINACTIVE\nRESTORED\nDEMITTED\nSNPD\nSNA\nSUSPENDED FOR A CAUSE\nEXPELLED\nDIED\nDECEASED\nDROPPED\nDROPPED FROM THE ROLL\nOTHER SUSPENSION"
-    },
-    {
-      "fieldname": "column_break_mapn",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "links_section",
-      "fieldtype": "Section Break",
-      "label": "Links"
-    },
-    {
-      "fieldname": "tel_no_1",
-      "fieldtype": "Data",
-      "label": "Telephone Number 1",
-      "length": 255
-    },
-    {
-      "fieldname": "tel_no_2",
-      "fieldtype": "Data",
-      "label": "Telephone Number 2",
-      "length": 255
-    },
-    {
-      "fieldname": "cable_tow",
-      "fieldtype": "Data",
-      "label": "Cable Tow",
-      "length": 255
-    },
-    {
-      "fieldname": "date_initiated",
-      "fieldtype": "Date",
-      "label": "Date Initiated"
-    },
-    {
-      "fieldname": "date_passed",
-      "fieldtype": "Date",
-      "label": "Date Passed"
-    },
-    {
-      "fieldname": "id_number",
-      "fieldtype": "Data",
-      "label": "Member ID",
-      "non_negative": 1
-    },
-    {
-      "fieldname": "imes_date",
-      "fieldtype": "Date",
-      "label": "IMES Date"
-    },
-    {
-      "fieldname": "imes_remarks",
-      "fieldtype": "Small Text",
-      "label": "IMES Remarks"
-    },
-    {
-      "fieldname": "imes_graduation_year",
-      "fieldtype": "Data",
-      "label": "IMES Graduation Year"
-    },
-    {
-      "fieldname": "other_lodges",
-      "fieldtype": "Table",
-      "label": "Other Lodges",
-      "options": "Lodges"
-    },
-    {
-      "fieldname": "date_raised",
-      "fieldtype": "Date",
-      "label": "Date Raised"
-    },
-    {
-      "fieldname": "lml",
-      "fieldtype": "Data",
-      "label": "LML"
-    },
-    {
-      "fieldname": "masonic_rank_remarks",
-      "fieldtype": "Small Text",
-      "label": "Masonic Rank Remarks"
-    },
-    {
-      "fieldname": "masonic_information_tab",
-      "fieldtype": "Tab Break",
-      "label": "Masonic Information"
-    },
-    {
-      "fieldname": "financial_status_tab",
-      "fieldtype": "Tab Break",
-      "label": "Financial Status"
-    },
-    {
-      "default": "Paid",
-      "fieldname": "dues_status",
-      "fieldtype": "Select",
-      "label": "Dues status",
-      "options": "Paid"
-    },
-    {
-      "fieldname": "column_break_imee",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "balance",
-      "fieldtype": "Float",
-      "label": "Balance",
-      "precision": "1"
-    },
-    {
-      "fieldname": "column_break_xjcu",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "last_payment",
-      "fieldtype": "Date",
-      "label": "Last Payment"
-    },
-    {
-      "fieldname": "section_break_oora",
-      "fieldtype": "Section Break"
-    },
-    {
-      "fieldname": "payment",
-      "fieldtype": "Table",
-      "label": "Payment",
-      "options": "Payment"
-    },
-    {
-      "fieldname": "activities_tab",
-      "fieldtype": "Tab Break",
-      "label": "Activities Tab"
-    },
-    {
-      "fieldname": "activities",
-      "fieldtype": "Table",
-      "label": "Activities",
-      "options": "Activities"
-    },
-    {
-      "fieldname": "other_organization",
-      "fieldtype": "Table",
-      "label": "Other Organization",
-      "options": "Other Organization"
-    },
-    {
-      "fieldname": "mailing_address",
-      "fieldtype": "Data",
-      "label": "Mailing Address"
-    },
-    {
-      "fieldname": "position",
-      "fieldtype": "Data",
-      "label": "Position",
-      "length": 255
-    },
-    {
-      "fieldname": "nature_of_company",
-      "fieldtype": "Data",
-      "label": "Nature of Company",
-      "length": 255
-    },
-    {
-      "fieldname": "imes_basic_course",
-      "fieldtype": "Data",
-      "label": "IMES Basic Course"
-    },
-    {
-      "fieldname": "imes_immediate_course",
-      "fieldtype": "Data",
-      "label": "IMES Immediate Course"
-    },
-    {
-      "fieldname": "imes_advanced_course",
-      "fieldtype": "Data",
-      "label": "IMES Advanced Course"
-    },
-    {
-      "fieldname": "first_degree_proficiency",
-      "fieldtype": "Date",
-      "label": "1st Degree Proficiency"
-    },
-    {
-      "fieldname": "second_degree_proficiency",
-      "fieldtype": "Date",
-      "label": "2nd Degree Proficiency"
-    },
-    {
-      "fieldname": "third_degree_proficiency",
-      "fieldtype": "Date",
-      "label": "3rd Degree Proficiency"
-    },
-    {
-      "fieldname": "masonic_service_records",
-      "fieldtype": "Table",
-      "label": "Masonic Service Records",
-      "options": "Masonic Service Records"
-    },
-    {
-      "fieldname": "kin_information_section",
-      "fieldtype": "Section Break",
-      "label": "Kin Information"
-    },
-    {
-      "fieldname": "kin_table",
-      "fieldtype": "Table",
-      "label": "Kin",
-      "options": "Kin"
-    },
-    {
-      "fieldname": "children",
-      "fieldtype": "Table",
-      "label": "Children",
-      "options": "Children"
-    },
-    {
-      "fieldname": "region",
-      "fieldtype": "Data",
-      "label": "Region"
-    },
-    {
-      "fieldname": "province",
-      "fieldtype": "Data",
-      "label": "Province"
-    },
-    {
-      "fieldname": "municitiies",
-      "fieldtype": "Data",
-      "label": "Municities"
-    },
-    {
-      "fieldname": "barangay",
-      "fieldtype": "Data",
-      "label": "Barangay"
-    },
-    {
-      "fieldname": "street",
-      "fieldtype": "Data",
-      "label": "Street"
-    },
-    {
-      "fieldname": "mailing_region",
-      "fieldtype": "Data",
-      "label": "Mailing Region"
-    },
-    {
-      "fieldname": "mailing_province",
-      "fieldtype": "Data",
-      "label": "Mailing Province"
-    },
-    {
-      "fieldname": "mailing_municities",
-      "fieldtype": "Data",
-      "label": "Mailing Municities"
-    },
-    {
-      "fieldname": "mailing_barangay",
-      "fieldtype": "Data",
-      "label": "Mailing Barangay"
-    },
-    {
-      "fieldname": "mailing_street",
-      "fieldtype": "Data",
-      "label": "Mailing Street"
-    },
-    {
-      "fieldname": "mailing_zip_code",
-      "fieldtype": "Data",
-      "label": "Mailing Zip code"
-    },
-    {
-      "fieldname": "mailing_short_residence_address",
-      "fieldtype": "Data",
-      "label": "Mailing Short Residence Address"
-    },
-    {
-      "fieldname": "profile_picture",
-      "fieldtype": "Attach Image",
-      "label": "Profile Picture"
-    },
-    {
-      "fieldname": "tab_5_tab",
-      "fieldtype": "Tab Break",
-      "label": "Events Tab"
-    },
-    {
-      "fieldname": "events_table_section",
-      "fieldtype": "Section Break",
-      "label": "Events Table"
-    },
-    {
-      "fieldname": "member_event",
-      "fieldtype": "Table",
-      "label": "Events",
-      "options": "Member Event"
-    },
-    {
-      "fieldname": "past_master",
-      "fieldtype": "Data",
-      "label": "Past Master"
-    },
-    {
-      "fieldname": "past_master_year",
-      "fieldtype": "Data",
-      "label": "Past Master Year"
-    }
-  ],
-  "grid_page_length": 50,
-  "hide_toolbar": 1,
-  "index_web_pages_for_search": 1,
-  "links": [],
-  "modified": "2026-07-06 10:48:48.989309",
-  "modified_by": "Administrator",
-  "module": "Masonic Administration Platform",
-  "name": "Members",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "System Manager",
-      "share": 1,
-      "write": 1
-    },
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "Administrator",
-      "share": 1,
-      "write": 1
-    }
-  ],
-  "row_format": "Dynamic",
-  "rows_threshold_for_grid_search": 20,
-  "show_title_field_in_link": 1,
-  "sort_field": "creation",
-  "sort_order": "DESC",
-  "states": [],
-  "title_field": "full_name"
+ "actions": [],
+ "allow_import": 1,
+ "creation": "2025-09-30 09:41:38.266829",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information_section",
+  "member_information_column",
+  "member_key",
+  "first_name",
+  "middle_name",
+  "last_name",
+  "full_name",
+  "email",
+  "contact_no",
+  "website",
+  "occupation",
+  "position",
+  "education",
+  "school",
+  "overall_status",
+  "death_date",
+  "column_break_keet",
+  "blood_type",
+  "nationality",
+  "civil_status",
+  "socials",
+  "foreigner",
+  "affiliate",
+  "tel_no_1",
+  "tel_no_2",
+  "office_telphone",
+  "fax",
+  "company",
+  "company_address",
+  "cable_tow",
+  "nature_of_company",
+  "column_break_eiub",
+  "date_of_birth",
+  "place_of_birth",
+  "address_1",
+  "address_2",
+  "current_province",
+  "current_country",
+  "permanent_address",
+  "permanent_province",
+  "permanent_country",
+  "mailing_address",
+  "region",
+  "province",
+  "municitiies",
+  "barangay",
+  "street",
+  "zip_code",
+  "short_residence_address",
+  "mailing_region",
+  "mailing_province",
+  "mailing_municities",
+  "mailing_barangay",
+  "mailing_street",
+  "mailing_zip_code",
+  "mailing_short_residence_address",
+  "column_break_mlfg",
+  "kin",
+  "kin_relation",
+  "child_count",
+  "child_names",
+  "profile_picture",
+  "emergency_contact_section",
+  "emergency_contact_name",
+  "column_break_blit",
+  "emergency_contact_relation",
+  "column_break_dicr",
+  "emergency_contact_no",
+  "section_break_ggvq",
+  "documents",
+  "kin_information_section",
+  "kin_table",
+  "children",
+  "masonic_information_tab",
+  "masonic_information_section",
+  "masonic_rank_remarks",
+  "date_initiated",
+  "date_passed",
+  "date_raised",
+  "id_number",
+  "lml",
+  "district",
+  "lodge",
+  "first_degree_proficiency",
+  "second_degree_proficiency",
+  "third_degree_proficiency",
+  "rank_number",
+  "imes_date",
+  "imes_remarks",
+  "imes_graduation_year",
+  "imes_basic_course",
+  "imes_immediate_course",
+  "imes_advanced_course",
+  "past_master",
+  "past_master_year",
+  "column_break_mapn",
+  "masonic_timeline",
+  "other_lodges",
+  "other_organization",
+  "links_section",
+  "affiliation",
+  "recognitions",
+  "masonic_service_records",
+  "financial_status_tab",
+  "dues_status",
+  "column_break_imee",
+  "balance",
+  "column_break_xjcu",
+  "last_payment",
+  "section_break_oora",
+  "payment",
+  "activities_tab",
+  "activities",
+  "tab_5_tab",
+  "events_table_section",
+  "member_event",
+  "meeting_and_attendance_tab_tab",
+  "meeting_and_attendance"
+ ],
+ "fields": [
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "First Name",
+   "length": 255
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name",
+   "length": 255
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name",
+   "length": 255
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "length": 255
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Full Name",
+   "length": 255,
+   "read_only": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Email",
+   "length": 255
+  },
+  {
+   "fieldname": "basic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "column_break_keet",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality",
+   "length": 255
+  },
+  {
+   "fieldname": "place_of_birth",
+   "fieldtype": "Data",
+   "label": "Place of Birth",
+   "length": 255
+  },
+  {
+   "fieldname": "civil_status",
+   "fieldtype": "Select",
+   "label": "Civil Status",
+   "length": 255,
+   "options": "Single\nMarried\nWidowed\nSeparated\nDivorced"
+  },
+  {
+   "fieldname": "socials",
+   "fieldtype": "Data",
+   "label": "Socials",
+   "length": 255
+  },
+  {
+   "fieldname": "emergency_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Emergency Contact"
+  },
+  {
+   "fieldname": "emergency_contact_name",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Name",
+   "length": 255
+  },
+  {
+   "fieldname": "emergency_contact_relation",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Relation",
+   "length": 255
+  },
+  {
+   "fieldname": "emergency_contact_no",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Number",
+   "length": 255
+  },
+  {
+   "fieldname": "masonic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Masonic Information"
+  },
+  {
+   "fieldname": "masonic_timeline",
+   "fieldtype": "Table",
+   "label": "Masonic Timeline",
+   "options": "Masonic Timeline"
+  },
+  {
+   "fieldname": "column_break_blit",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dicr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "affiliation",
+   "fieldtype": "Table",
+   "label": "Affiliation",
+   "options": "Affiliations"
+  },
+  {
+   "fieldname": "recognitions",
+   "fieldtype": "Table",
+   "label": "Recognitions",
+   "options": "Recognitions"
+  },
+  {
+   "fieldname": "lodge",
+   "fieldtype": "Data",
+   "label": "Lodge"
+  },
+  {
+   "fieldname": "rank_number",
+   "fieldtype": "Int",
+   "label": "Rank",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "section_break_ggvq",
+   "fieldtype": "Section Break",
+   "label": "Docs"
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Member Documents",
+   "options": "Member Documents"
+  },
+  {
+   "fieldname": "member_key",
+   "fieldtype": "Data",
+   "label": "Member Key"
+  },
+  {
+   "fieldname": "blood_type",
+   "fieldtype": "Data",
+   "label": "Blood Type",
+   "length": 255
+  },
+  {
+   "fieldname": "foreigner",
+   "fieldtype": "Int",
+   "label": "Foreigner",
+   "length": 255
+  },
+  {
+   "fieldname": "affiliate",
+   "fieldtype": "Int",
+   "label": "Affiliate",
+   "length": 255
+  },
+  {
+   "fieldname": "office_telphone",
+   "fieldtype": "Data",
+   "label": "Office Telephone",
+   "length": 255
+  },
+  {
+   "fieldname": "column_break_eiub",
+   "fieldtype": "Column Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "address_1",
+   "fieldtype": "Small Text",
+   "label": "Address 1",
+   "length": 255
+  },
+  {
+   "fieldname": "address_2",
+   "fieldtype": "Small Text",
+   "label": "Address 2",
+   "length": 255
+  },
+  {
+   "fieldname": "current_province",
+   "fieldtype": "Small Text",
+   "label": "Current Province",
+   "length": 255
+  },
+  {
+   "fieldname": "current_country",
+   "fieldtype": "Small Text",
+   "label": "Current Country",
+   "length": 255
+  },
+  {
+   "fieldname": "permanent_address",
+   "fieldtype": "Small Text",
+   "label": "Permanent Address",
+   "length": 255
+  },
+  {
+   "fieldname": "permanent_province",
+   "fieldtype": "Small Text",
+   "label": "Permanent Province",
+   "length": 255
+  },
+  {
+   "fieldname": "permanent_country",
+   "fieldtype": "Small Text",
+   "label": "Permanent Country",
+   "length": 255
+  },
+  {
+   "fieldname": "zip_code",
+   "fieldtype": "Data",
+   "label": "Zip code",
+   "length": 255
+  },
+  {
+   "fieldname": "short_residence_address",
+   "fieldtype": "Small Text",
+   "label": "Short Residence Address",
+   "length": 255
+  },
+  {
+   "fieldname": "member_information_column",
+   "fieldtype": "Column Break",
+   "label": "Member Information"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website",
+   "length": 255
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation",
+   "length": 255
+  },
+  {
+   "fieldname": "education",
+   "fieldtype": "Data",
+   "label": "Education",
+   "length": 255
+  },
+  {
+   "fieldname": "school",
+   "fieldtype": "Data",
+   "label": "School",
+   "length": 255
+  },
+  {
+   "fieldname": "fax",
+   "fieldtype": "Data",
+   "label": "Fax",
+   "length": 255
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company",
+   "length": 255
+  },
+  {
+   "fieldname": "company_address",
+   "fieldtype": "Data",
+   "label": "Company Address",
+   "length": 255
+  },
+  {
+   "fieldname": "column_break_mlfg",
+   "fieldtype": "Column Break",
+   "label": "Kin Information"
+  },
+  {
+   "fieldname": "kin",
+   "fieldtype": "Text",
+   "label": "Kin",
+   "length": 255
+  },
+  {
+   "fieldname": "kin_relation",
+   "fieldtype": "Data",
+   "label": "Kin Relation",
+   "length": 255
+  },
+  {
+   "fieldname": "child_count",
+   "fieldtype": "Data",
+   "label": "Child Count",
+   "length": 255
+  },
+  {
+   "fieldname": "child_names",
+   "fieldtype": "Text",
+   "label": "Child Names"
+  },
+  {
+   "fieldname": "death_date",
+   "fieldtype": "Date",
+   "label": "Death Date"
+  },
+  {
+   "fieldname": "overall_status",
+   "fieldtype": "Select",
+   "label": "Overall Status",
+   "length": 255,
+   "options": "ACTIVE\nINACTIVE\nRESTORED\nDEMITTED\nSNPD\nSNA\nSUSPENDED FOR A CAUSE\nEXPELLED\nDIED\nDECEASED\nDROPPED\nDROPPED FROM THE ROLL\nOTHER SUSPENSION"
+  },
+  {
+   "fieldname": "column_break_mapn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "links_section",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "fieldname": "tel_no_1",
+   "fieldtype": "Data",
+   "label": "Telephone Number 1",
+   "length": 255
+  },
+  {
+   "fieldname": "tel_no_2",
+   "fieldtype": "Data",
+   "label": "Telephone Number 2",
+   "length": 255
+  },
+  {
+   "fieldname": "cable_tow",
+   "fieldtype": "Data",
+   "label": "Cable Tow",
+   "length": 255
+  },
+  {
+   "fieldname": "date_initiated",
+   "fieldtype": "Date",
+   "label": "Date Initiated"
+  },
+  {
+   "fieldname": "date_passed",
+   "fieldtype": "Date",
+   "label": "Date Passed"
+  },
+  {
+   "fieldname": "id_number",
+   "fieldtype": "Data",
+   "label": "Member ID",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "imes_date",
+   "fieldtype": "Date",
+   "label": "IMES Date"
+  },
+  {
+   "fieldname": "imes_remarks",
+   "fieldtype": "Small Text",
+   "label": "IMES Remarks"
+  },
+  {
+   "fieldname": "imes_graduation_year",
+   "fieldtype": "Data",
+   "label": "IMES Graduation Year"
+  },
+  {
+   "fieldname": "other_lodges",
+   "fieldtype": "Table",
+   "label": "Other Lodges",
+   "options": "Lodges"
+  },
+  {
+   "fieldname": "date_raised",
+   "fieldtype": "Date",
+   "label": "Date Raised"
+  },
+  {
+   "fieldname": "lml",
+   "fieldtype": "Data",
+   "label": "LML"
+  },
+  {
+   "fieldname": "masonic_rank_remarks",
+   "fieldtype": "Small Text",
+   "label": "Masonic Rank Remarks"
+  },
+  {
+   "fieldname": "masonic_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Masonic Information"
+  },
+  {
+   "fieldname": "financial_status_tab",
+   "fieldtype": "Tab Break",
+   "label": "Financial Status"
+  },
+  {
+   "default": "Paid",
+   "fieldname": "dues_status",
+   "fieldtype": "Select",
+   "label": "Dues status",
+   "options": "Paid"
+  },
+  {
+   "fieldname": "column_break_imee",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance",
+   "fieldtype": "Float",
+   "label": "Balance",
+   "precision": "1"
+  },
+  {
+   "fieldname": "column_break_xjcu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_payment",
+   "fieldtype": "Date",
+   "label": "Last Payment"
+  },
+  {
+   "fieldname": "section_break_oora",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment",
+   "fieldtype": "Table",
+   "label": "Payment",
+   "options": "Payment"
+  },
+  {
+   "fieldname": "activities_tab",
+   "fieldtype": "Tab Break",
+   "label": "Activities Tab"
+  },
+  {
+   "fieldname": "activities",
+   "fieldtype": "Table",
+   "label": "Activities",
+   "options": "Activities"
+  },
+  {
+   "fieldname": "other_organization",
+   "fieldtype": "Table",
+   "label": "Other Organization",
+   "options": "Other Organization"
+  },
+  {
+   "fieldname": "mailing_address",
+   "fieldtype": "Small Text",
+   "label": "Mailing Address",
+   "length": 255
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Data",
+   "label": "Position",
+   "length": 255
+  },
+  {
+   "fieldname": "nature_of_company",
+   "fieldtype": "Data",
+   "label": "Nature of Company",
+   "length": 255
+  },
+  {
+   "fieldname": "imes_basic_course",
+   "fieldtype": "Data",
+   "label": "IMES Basic Course"
+  },
+  {
+   "fieldname": "imes_immediate_course",
+   "fieldtype": "Data",
+   "label": "IMES Immediate Course"
+  },
+  {
+   "fieldname": "imes_advanced_course",
+   "fieldtype": "Data",
+   "label": "IMES Advanced Course"
+  },
+  {
+   "fieldname": "first_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "1st Degree Proficiency"
+  },
+  {
+   "fieldname": "second_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "2nd Degree Proficiency"
+  },
+  {
+   "fieldname": "third_degree_proficiency",
+   "fieldtype": "Date",
+   "label": "3rd Degree Proficiency"
+  },
+  {
+   "fieldname": "masonic_service_records",
+   "fieldtype": "Table",
+   "label": "Masonic Service Records",
+   "options": "Masonic Service Records"
+  },
+  {
+   "fieldname": "kin_information_section",
+   "fieldtype": "Section Break",
+   "label": "Kin Information"
+  },
+  {
+   "fieldname": "kin_table",
+   "fieldtype": "Table",
+   "label": "Kin",
+   "options": "Kin"
+  },
+  {
+   "fieldname": "children",
+   "fieldtype": "Table",
+   "label": "Children",
+   "options": "Children"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Small Text",
+   "label": "Region",
+   "length": 255
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Small Text",
+   "label": "Province",
+   "length": 255
+  },
+  {
+   "fieldname": "municitiies",
+   "fieldtype": "Small Text",
+   "label": "Municities",
+   "length": 255
+  },
+  {
+   "fieldname": "barangay",
+   "fieldtype": "Small Text",
+   "label": "Barangay"
+  },
+  {
+   "fieldname": "street",
+   "fieldtype": "Small Text",
+   "label": "Street",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_region",
+   "fieldtype": "Small Text",
+   "label": "Mailing Region",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_province",
+   "fieldtype": "Small Text",
+   "label": "Mailing Province",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_municities",
+   "fieldtype": "Small Text",
+   "label": "Mailing Municities",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_barangay",
+   "fieldtype": "Small Text",
+   "label": "Mailing Barangay",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_street",
+   "fieldtype": "Small Text",
+   "label": "Mailing Street",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_zip_code",
+   "fieldtype": "Data",
+   "label": "Mailing Zip code",
+   "length": 255
+  },
+  {
+   "fieldname": "mailing_short_residence_address",
+   "fieldtype": "Small Text",
+   "label": "Mailing Short Residence Address",
+   "length": 255
+  },
+  {
+   "fieldname": "profile_picture",
+   "fieldtype": "Attach Image",
+   "label": "Profile Picture"
+  },
+  {
+   "fieldname": "tab_5_tab",
+   "fieldtype": "Tab Break",
+   "label": "Events Tab"
+  },
+  {
+   "fieldname": "events_table_section",
+   "fieldtype": "Section Break",
+   "label": "Events Table"
+  },
+  {
+   "fieldname": "member_event",
+   "fieldtype": "Table",
+   "label": "Events",
+   "options": "Member Event"
+  },
+  {
+   "fieldname": "past_master",
+   "fieldtype": "Data",
+   "label": "Past Master"
+  },
+  {
+   "fieldname": "past_master_year",
+   "fieldtype": "Data",
+   "label": "Past Master Year"
+  },
+  {
+   "fieldname": "meeting_and_attendance_tab_tab",
+   "fieldtype": "Tab Break",
+   "label": "Meeting and Attendance Tab"
+  },
+  {
+   "fieldname": "meeting_and_attendance",
+   "fieldtype": "Table",
+   "label": "Meeting and Attendance",
+   "options": "Meeting and Attendance"
+  }
+ ],
+ "grid_page_length": 50,
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-10 15:15:16.247382",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Members",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "full_name"
 }

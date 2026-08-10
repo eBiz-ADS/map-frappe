@@ -311,43 +311,43 @@
   },
   {
    "fieldname": "address_1",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Address 1",
    "length": 255
   },
   {
    "fieldname": "address_2",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Address 2",
    "length": 255
   },
   {
    "fieldname": "current_province",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Current Province",
    "length": 255
   },
   {
    "fieldname": "current_country",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Current Country",
    "length": 255
   },
   {
    "fieldname": "permanent_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Permanent Address",
    "length": 255
   },
   {
    "fieldname": "permanent_province",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Permanent Province",
    "length": 255
   },
   {
    "fieldname": "permanent_country",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Permanent Country",
    "length": 255
   },
@@ -359,7 +359,7 @@
   },
   {
    "fieldname": "short_residence_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Short Residence Address",
    "length": 255
   },
@@ -616,7 +616,7 @@
   },
   {
    "fieldname": "mailing_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Address",
    "length": 255
   },
@@ -689,61 +689,61 @@
   },
   {
    "fieldname": "region",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Region",
    "length": 255
   },
   {
    "fieldname": "province",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Province",
    "length": 255
   },
   {
    "fieldname": "municities",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Municities",
    "length": 255
   },
   {
    "fieldname": "barangay",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Barangay",
    "length": 255
   },
   {
    "fieldname": "street",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Street",
    "length": 255
   },
   {
    "fieldname": "mailing_region",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Region",
    "length": 255
   },
   {
    "fieldname": "mailing_province",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Province",
    "length": 255
   },
   {
    "fieldname": "mailing_municities",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Municities",
    "length": 255
   },
   {
    "fieldname": "mailing_barangay",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Barangay",
    "length": 255
   },
   {
    "fieldname": "mailing_street",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Street",
    "length": 255
   },
@@ -755,7 +755,7 @@
   },
   {
    "fieldname": "mailing_short_residence_address",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Mailing Short Residence Address",
    "length": 255
   },
@@ -775,7 +775,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-29 21:18:33.833511",
+ "modified": "2026-08-10 15:15:30.524693",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioners List",
