@@ -8,6 +8,8 @@ from frappe.utils import getdate
 from collections import defaultdict
 import calendar
 from datetime import date
+import time
+import random
 
 @frappe.whitelist()
 def get_member_files_events(member_id):
@@ -154,35 +156,82 @@ def add_new_masonic_records_petitioner(petitioner, records):
     if not records:
         frappe.throw(_("No records provided"))
 
-    member_doc = frappe.get_doc("Petitioners List", petitioner)
-
     allowed_types = ["Affiliation", "Awards", "Change In Status", "Change In Member Profile", "Officer"]
 
-    for r in records:
-        # skip empty rows
-        if not r.get("record_type"):
-            continue
+    max_retries = 5
+    base_delay = 0.2  # seconds, doubles each retry + jitter
+ 
+    last_error = None
+ 
+    for attempt in range(1, max_retries + 1):
+        try:
 
-        if r.get("record_type") not in allowed_types:
-            frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
+            member_doc = frappe.get_doc("Petitioners List", petitioner)
 
-        member_doc.append("masonic_service_records", {
-            "record_type": r.get("record_type"),
-            "record_value": r.get("record_value"),
-            "additional_info": r.get("additional_info"),
-            "lodge_no": r.get("lodge_no"),
-            "lodge_name": r.get("lodge_name"),
-            "date_encoded": r.get("date_encoded"),
-            "date_official": r.get("date_official"),
-			"record_encoder": r.get("record_encoder")
-        })
 
-    member_doc.save(ignore_permissions=True)
+            for r in records:
+            # skip empty rows
+                if not r.get("record_type"):
+                    continue
 
-    return {
-        "message": "Records added successfully",
-        "count": len(records)
-    }
+                if r.get("record_type") not in allowed_types:
+                    frappe.throw(_("Invalid record type: {0}").format(r.get("record_type")))
+
+                member_doc.append("masonic_service_records", {
+                    "record_type": r.get("record_type"),
+                    "record_value": r.get("record_value"),
+                    "additional_info": r.get("additional_info"),
+                    "lodge_no": r.get("lodge_no"),
+                    "lodge_name": r.get("lodge_name"),
+                    "date_encoded": r.get("date_encoded"),
+                    "date_official": r.get("date_official"),
+                    "record_encoder": r.get("record_encoder")
+                })
+
+            frappe.logger().info(
+                f"Saving petitioner {petitioner} with "
+                f"{len(member_doc.masonic_service_records)} masonic records "
+                f"(attempt {attempt}/{max_retries})"
+            )
+
+            member_doc.save(ignore_permissions=True)
+            frappe.db.commit()
+
+            return {
+                "message": "Records added successfully",
+                "count": len(records)
+            }
+
+        except frappe.ValidationError:
+            # Real validation errors (bad record_type, missing data, etc.)
+            # should never be retried — surface them immediately.
+            frappe.db.rollback()
+            raise
+ 
+        except Exception as e:
+            last_error = e
+            msg = str(e).lower()
+            is_transient = "deadlock" in msg or "lock wait timeout" in msg
+ 
+            frappe.db.rollback()
+ 
+            if not is_transient or attempt == max_retries:
+                frappe.log_error(
+                    title="Masonic record save failed",
+                    message=frappe.get_traceback(),
+                )
+                raise
+ 
+            sleep_for = base_delay * (2 ** (attempt - 1)) + random.uniform(0, 0.1)
+            frappe.logger().warning(
+                f"Deadlock/lock-timeout saving petitioner {petitioner}, "
+                f"retry {attempt}/{max_retries} in {sleep_for:.2f}s"
+            )
+            time.sleep(sleep_for)
+ 
+    # Should be unreachable — the loop either returns or raises.
+    raise last_error
+ 
 
 
 @frappe.whitelist()
@@ -255,7 +304,9 @@ def get_lodge_members(lodge_no):
     excluded_restore_statuses = {
         "active",
         "dropped from the roll",
+        "dropped",
         "deceased",
+        "died",
     }
 
     for row in rows:
