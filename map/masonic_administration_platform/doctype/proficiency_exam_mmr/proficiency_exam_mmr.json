@@ -6,7 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "member",
+  "petitioner",
   "full_name",
   "date"
  ],
@@ -24,17 +24,17 @@
    "label": "Date"
   },
   {
-   "fieldname": "member",
+   "fieldname": "petitioner",
    "fieldtype": "Link",
    "label": "Petitioner",
-   "options": "Members"
+   "options": "Petitioners List"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-06-08 22:18:06.023574",
+ "modified": "2026-08-17 13:33:43.567640",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Proficiency Exam MMR",

@@ -657,17 +657,17 @@
   },
   {
    "fieldname": "first_degree_proficiency",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "1st Degree Proficiency"
   },
   {
    "fieldname": "second_degree_proficiency",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "2nd Degree Proficiency"
   },
   {
    "fieldname": "third_degree_proficiency",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "3rd Degree Proficiency"
   },
   {
@@ -775,7 +775,7 @@
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-10 15:15:30.524693",
+ "modified": "2026-08-14 09:57:10.810833",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitioners List",
