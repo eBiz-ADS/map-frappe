@@ -81,6 +81,8 @@
   "tab_11_tab",
   "unfinished_and_pending_business_section",
   "matters_arising_from_previous_meeting",
+  "other_business_tab",
+  "other_business_table",
   "resolution_and_actions_tab",
   "resolution_and_actions_section",
   "resolution_and_actions_information_table",
@@ -639,12 +641,23 @@
    "fieldname": "resolution_and_actions_tab",
    "fieldtype": "Tab Break",
    "label": "Resolution and Actions"
+  },
+  {
+   "fieldname": "other_business_tab",
+   "fieldtype": "Tab Break",
+   "label": "Other Business"
+  },
+  {
+   "fieldname": "other_business_table",
+   "fieldtype": "Table",
+   "label": "Other Business",
+   "options": "Other Business"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-25 19:34:07.835038",
+ "modified": "2026-08-13 14:36:47.541816",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",
