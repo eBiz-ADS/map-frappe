@@ -10,4 +10,11 @@ class Members(Document):
 		self.set_full_name()
 
 	def set_full_name(self):
-		self.full_name = " ".join(filter(None, [self.first_name, self.last_name]))
+		if not self.full_name:
+			self.full_name = " ".join(
+				filter(None, [
+					self.first_name,
+					# self.middle_name,
+					self.last_name,
+				])
+			)
