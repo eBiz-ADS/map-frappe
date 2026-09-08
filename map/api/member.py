@@ -482,20 +482,38 @@ def submit_minutes_attendance(lodge_no, meeting_title, meeting_date, present_mem
         "restored": restored,
     }
 
-
 @frappe.whitelist()
-def get_lodge_attendance_report(lodge_no, year, from_month, to_month):
+def get_lodge_attendance_report(
+    lodge_no,
+    from_year,
+    from_month,
+    to_year,
+    to_month,
+):
     # ---------------------------------------
-    # Set dates to fetch
+    # Convert parameters
     # ---------------------------------------
-    year = int(year)
+    from_year = int(from_year)
     from_month = int(from_month)
+    to_year = int(to_year)
     to_month = int(to_month)
 
-    from_date = date(year, from_month, 1)
+    # ---------------------------------------
+    # Validate dates
+    # ---------------------------------------
+    if not 1 <= from_month <= 12:
+        frappe.throw("From month must be between 1 and 12.")
 
-    last_day = calendar.monthrange(year, to_month)[1]
-    to_date = date(year, to_month, last_day)
+    if not 1 <= to_month <= 12:
+        frappe.throw("To month must be between 1 and 12.")
+
+    from_date = date(from_year, from_month, 1)
+
+    last_day = calendar.monthrange(to_year, to_month)[1]
+    to_date = date(to_year, to_month, last_day)
+
+    if from_date > to_date:
+        frappe.throw("From date cannot be later than To date.")
 
     # ---------------------------------------
     # Get all eligible lodge members
@@ -508,18 +526,14 @@ def get_lodge_attendance_report(lodge_no, year, from_month, to_month):
             m.member_key,
             m.id_number,
             m.overall_status,
-
             CASE
                 WHEN ol.lodge_type IS NULL THEN 'Regular'
                 ELSE ol.lodge_type
             END AS membership_type
-
         FROM `tabMembers` m
-
         LEFT JOIN `tabLodges` ol
             ON ol.parent = m.name
             AND ol.lodge_no = %(lodge_no)s
-
         WHERE
             (
                 m.overall_status = 'ACTIVE'
@@ -536,7 +550,6 @@ def get_lodge_attendance_report(lodge_no, year, from_month, to_month):
                     'CHARTER'
                 )
             )
-
         ORDER BY m.full_name
         """,
         {"lodge_no": lodge_no},
@@ -545,35 +558,54 @@ def get_lodge_attendance_report(lodge_no, year, from_month, to_month):
 
     member_names = [m["name"] for m in members]
 
-    attendance_rows = frappe.get_all(
-        "Meeting and Attendance",
-        filters={
-            "parent": ["in", member_names],
-            "meeting_date": ["between", [from_date, to_date]],
-            "lodge_no": lodge_no
-        },
-        fields=[
-            "parent",
-            "meeting_date",
-            "attendance",
-            "action",
-        ],
-        order_by="meeting_date asc",
-    )
+    # ---------------------------------------
+    # Get attendance
+    # ---------------------------------------
+    attendance_rows = []
 
+    if member_names:
+        attendance_rows = frappe.get_all(
+            "Meeting and Attendance",
+            filters={
+                "parent": ["in", member_names],
+                "meeting_date": ["between", [from_date, to_date]],
+                "lodge_no": lodge_no,
+            },
+            fields=[
+                "parent",
+                "meeting_date",
+                "attendance",
+                "action",
+            ],
+            order_by="meeting_date asc",
+        )
+
+    # ---------------------------------------
+    # Group attendance by member
+    # ---------------------------------------
     attendance_by_member = {}
 
     for row in attendance_rows:
-        attendance_by_member.setdefault(row.parent, []).append(row)
+        attendance_by_member.setdefault(
+            row.parent,
+            []
+        ).append(row)
 
+    # ---------------------------------------
+    # Return report
+    # ---------------------------------------
     return {
         "from_date": str(from_date),
         "to_date": str(to_date),
         "members": [
             {
                 **member,
-                "attendance": attendance_by_member.get(member["name"], [])
+                "attendance": attendance_by_member.get(
+                    member["name"],
+                    []
+                ),
             }
             for member in members
-        ]
+        ],
     }
+
