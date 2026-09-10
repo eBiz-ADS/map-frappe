@@ -19,252 +19,786 @@ def normalize_date(date_str: str) -> str:
     return date_str  # return unchanged if not matching
 
 @frappe.whitelist()
-def search_members(filters: str = "[]", search: str = "", limit: int = None,
-                   limit_start: int = 0, order_by: str = "full_name asc"):
-    # -------------------------------
-    # Load filters
-    # -------------------------------
+def search_members(
+    filters: str = "[]",
+    search: str = "",
+    limit: int = None,
+    limit_start: int = 0,
+    order_by: str = None,
+):
+    if not order_by:
+        order_by_sql = """
+            CASE
+                WHEN `overall_status` = 'ACTIVE' THEN 0
+                ELSE 1
+            END,
+            `last_name` ASC,
+            `first_name` ASC
+        """
+    else:
+        allowed_sort_fields = {
+            "last_name": "`last_name`",
+            "first_name": "`first_name`",
+            "full_name": "`full_name`",
+            "overall_status": "`overall_status`",
+        }
+
+        # Example: "last_name asc"
+        parts = order_by.strip().split()
+
+        field = parts[0]
+        direction = parts[1].upper() if len(parts) > 1 else "ASC"
+
+        if field not in allowed_sort_fields:
+            frappe.throw("Invalid sort field")
+
+        if direction not in {"ASC", "DESC"}:
+            frappe.throw("Invalid sort direction")
+
+        order_by_sql = f"{allowed_sort_fields[field]} {direction}"
+    # ============================================================
+    # LOAD FILTERS
+    # ============================================================
+
     try:
         filters_list = json.loads(filters)
     except Exception:
         filters_list = []
 
+    if not isinstance(filters_list, list):
+        filters_list = []
+
     where_clauses = []
     params = []
 
-    # -------------------------------
-    # Child Table Field Mapping
-    # -------------------------------
+    # ============================================================
+    # ALLOWED SQL OPERATORS
+    # ============================================================
+
+    allowed_operators = {
+        "=",
+        "!=",
+        "<>",
+        "<",
+        "<=",
+        ">",
+        ">=",
+        "LIKE",
+        "NOT LIKE",
+        "IN",
+        "NOT IN",
+        "IS",
+        "IS NOT",
+    }
+
+    # ============================================================
+    # CHILD TABLE FIELD MAP
+    # ============================================================
+
     child_field_map = {
-        # Payment child table fields
+        # Payment
         "or_number": ("tabPayment", "or_number"),
         "year": ("tabPayment", "year"),
         "amount": ("tabPayment", "amount"),
         "date_of_payment": ("tabPayment", "date_of_payment"),
 
-        # Activities child table fields
-        # (activities_date → date, etc.)
+        # Activities
         "activities_date": ("tabActivities", "date"),
         "activities_type": ("tabActivities", "type"),
         "activities_action": ("tabActivities", "action"),
         "activities_notes": ("tabActivities", "notes"),
+
+        # Other Lodges
+        "other_lodge_no": ("tabLodges", "lodge_no"),
+        "other_lodge_name": ("tabLodges", "lodge_name"),
+        "other_lodge_type": ("tabLodges", "lodge_type"),
+        "other_lodge_status": ("tabLodges", "status"),
     }
 
-    # -------------------------------
-    # Process each filter (AND conditions)
-    # -------------------------------
-    for f in filters_list:
-        if not isinstance(f, list) or len(f) != 3:
-            continue
+    # ============================================================
+    # DATE FIELDS
+    # ============================================================
 
-        field, condition, value = f
-        normalized_field = field.lower().strip()
-        condition_upper = condition.upper()
+    date_fields = {
+        "date_raised",
+        "date_passed",
+        "date_initiated",
+    }
 
-        # -------------------------------
-        # CHILD TABLE FILTER
-        # -------------------------------
-        if normalized_field in child_field_map:
-            child_table, child_col = child_field_map[normalized_field]
+    child_date_fields = {
+        "activities_date",
+        "date_of_payment",
+    }
 
-            # Normalize date if it's a date field
-            if normalized_field in ["activities_date", "date_of_payment"]:
-                value = normalize_date(str(value))
-                
+    # ============================================================
+    # BUILD VALUE CONDITION
+    # ============================================================
 
-            # IN / NOT IN
-            if condition_upper in ["IN", "NOT IN"]:
-                if isinstance(value, list):
-                    placeholders = ", ".join(["%s"] * len(value))
-                    where_clauses.append(f"""
-                        EXISTS (
-                            SELECT 1 FROM `{child_table}`
-                            WHERE parent = `tabMembers`.name
-                            AND `{child_col}` {condition_upper} ({placeholders})
-                        )
-                    """)
-                    params.extend(value)
-                else:
-                    where_clauses.append(f"""
-                        EXISTS (
-                            SELECT 1 FROM `{child_table}`
-                            WHERE parent = `tabMembers`.name
-                            AND `{child_col}` {condition_upper} (%s)
-                        )
-                    """)
-                    params.append(value)
-            else:
-                # normal filter
-                where_clauses.append(f"""
-                    EXISTS (
-                        SELECT 1 FROM `{child_table}`
-                        WHERE parent = `tabMembers`.name
-                        AND {f'`{child_col}`' if normalized_field not in ["activities_date","date_of_payment"] else f'DATE(`{child_col}`)'} {condition} %s
-                    )
-                """)
-                params.append(value)
+    def build_condition(column_sql, condition, value):
+        condition_upper = str(condition).upper().strip()
 
-            continue  # move to next filter
+        if condition_upper not in allowed_operators:
+            raise ValueError(
+                f"Unsupported filter operator: {condition}"
+            )
 
-        # -------------------------------
-        # NORMAL PARENT FILTER
-        # -------------------------------
-        # Special case: overall_status = "Inactive"
-        if field == "overall_status" and str(value).strip().lower() == "%inactive%":
-            inactive_statuses = ["SNPD", "DIED", "EXPELLED", "DROPPED"] 
-            placeholders = ", ".join(["%s"] * len(inactive_statuses))
-            where_clauses.append(f"overall_status IN ({placeholders})")
-            params.extend(inactive_statuses)
-            continue
-
-        # Normalize date fields
-        if field.lower() in ["date_raised", "date_passed", "date_initiated"]:
-            value = normalize_date(str(value))
-            where_clauses.append(f"DATE(`{field}`) {condition} %s")
-            params.append(value)
-            continue
-
+        # -----------------------------------------
         # IN / NOT IN
-        if condition_upper in ["IN", "NOT IN"]:
-            if isinstance(value, list):
-                placeholders = ", ".join(["%s"] * len(value))
-                where_clauses.append(f"`{field}` {condition_upper} ({placeholders})")
-                params.extend(value)
-            else:
-                where_clauses.append(f"`{field}` {condition_upper} (%s)")
-                params.append(value)
-        else:
-            where_clauses.append(f"`{field}` {condition} %s")
-            params.append(value)
+        # -----------------------------------------
 
-    # -------------------------------
-    # OR SEARCH
-    # -------------------------------
+        if condition_upper in {"IN", "NOT IN"}:
+
+            if isinstance(value, list):
+
+                if not value:
+                    return None, []
+
+                placeholders = ", ".join(
+                    ["%s"] * len(value)
+                )
+
+                return (
+                    f"{column_sql} {condition_upper} ({placeholders})",
+                    value
+                )
+
+            return (
+                f"{column_sql} {condition_upper} (%s)",
+                [value]
+            )
+
+        # -----------------------------------------
+        # IS / IS NOT
+        # -----------------------------------------
+
+        if condition_upper in {"IS", "IS NOT"}:
+
+            return (
+                f"{column_sql} {condition_upper} {value}",
+                []
+            )
+
+        # -----------------------------------------
+        # NORMAL
+        # -----------------------------------------
+
+        return (
+            f"{column_sql} {condition} %s",
+            [value]
+        )
+
+    # ============================================================
+    # BUILD CHILD CONDITION
+    # ============================================================
+
+    def build_child_condition(field, condition, value):
+        normalized_field = field.lower().strip()
+
+        child_table, child_col = child_field_map[
+            normalized_field
+        ]
+
+        # Date normalization
+        if normalized_field in child_date_fields:
+            value = normalize_date(str(value))
+
+        column_sql = (
+            f"DATE(`{child_col}`)"
+            if normalized_field in child_date_fields
+            else f"`{child_col}`"
+        )
+
+        condition_sql, condition_params = build_condition(
+            column_sql,
+            condition,
+            value
+        )
+
+        if not condition_sql:
+            return None, []
+
+        sql = f"""
+            EXISTS (
+                SELECT 1
+                FROM `{child_table}`
+                WHERE `{child_table}`.parent = `tabMembers`.name
+                AND {condition_sql}
+            )
+        """
+
+        return sql, condition_params
+
+    # ============================================================
+    # BUILD PARENT CONDITION
+    # ============================================================
+
+    def build_parent_condition(field, condition, value):
+        normalized_field = field.lower().strip()
+
+        # Special inactive handling
+        if (
+            normalized_field == "overall_status"
+            and str(value).strip().lower() == "%inactive%"
+        ):
+            inactive_statuses = [
+                "SNPD",
+                "DIED",
+                "EXPELLED",
+                "DROPPED",
+            ]
+
+            placeholders = ", ".join(
+                ["%s"] * len(inactive_statuses)
+            )
+
+            return (
+                f"`overall_status` IN ({placeholders})",
+                inactive_statuses,
+            )
+
+        # Date fields
+        if normalized_field in date_fields:
+
+            value = normalize_date(str(value))
+
+            return build_condition(
+                f"DATE(`{field}`)",
+                condition,
+                value
+            )
+
+        return build_condition(
+            f"`{field}`",
+            condition,
+            value
+        )
+
+    # ============================================================
+    # SEPARATE NORMAL FILTERS AND GROUPS
+    # ============================================================
+
+    normal_filters = []
+    groups = {}
+
+    for f in filters_list:
+
+        if not isinstance(f, list) or len(f) < 3:
+            continue
+
+        field = f[0]
+        condition = f[1]
+        value = f[2]
+
+        operator = (
+            str(f[3]).upper().strip()
+            if len(f) >= 4
+            else "AND"
+        )
+
+        group_name = (
+            str(f[4]).strip()
+            if len(f) >= 5 and f[4]
+            else None
+        )
+
+        if operator not in {"AND", "OR"}:
+            operator = "AND"
+
+        filter_item = {
+            "field": field,
+            "condition": condition,
+            "value": value,
+            "operator": operator,
+        }
+
+        if group_name:
+            groups.setdefault(
+                group_name,
+                []
+            ).append(filter_item)
+        else:
+            normal_filters.append(filter_item)
+
+    # ============================================================
+    # PROCESS NORMAL FILTERS
+    # ============================================================
+
+    for item in normal_filters:
+
+        field = item["field"]
+        condition = item["condition"]
+        value = item["value"]
+
+        normalized_field = field.lower().strip()
+
+        # -----------------------------------------
+        # CHILD TABLE
+        # -----------------------------------------
+
+        if normalized_field in child_field_map:
+
+            sql, sql_params = build_child_condition(
+                field,
+                condition,
+                value
+            )
+
+            if sql:
+                where_clauses.append(sql)
+                params.extend(sql_params)
+
+            continue
+
+        # -----------------------------------------
+        # PARENT TABLE
+        # -----------------------------------------
+
+        sql, sql_params = build_parent_condition(
+            field,
+            condition,
+            value
+        )
+
+        if sql:
+            where_clauses.append(sql)
+            params.extend(sql_params)
+
+    # ============================================================
+    # PROCESS GROUPS
+    #
+    # Example:
+    #
+    # lodge = X
+    # OR
+    # other_lodge_no = X
+    # AND
+    # other_lodge_type LIKE Y
+    #
+    # becomes:
+    #
+    # (
+    #     lodge = X
+    #     OR
+    #     EXISTS (
+    #         SELECT ...
+    #         FROM tabLodges
+    #         WHERE ...
+    #         AND lodge_no = X
+    #         AND lodge_type LIKE Y
+    #     )
+    # )
+    # ============================================================
+
+    for group_name, group_filters in groups.items():
+
+        parent_filters = []
+        child_filters_by_table = {}
+
+        # -----------------------------------------
+        # Separate parent and child filters
+        # -----------------------------------------
+
+        for item in group_filters:
+
+            field = item["field"]
+            normalized_field = field.lower().strip()
+
+            if normalized_field in child_field_map:
+
+                child_table, child_col = child_field_map[
+                    normalized_field
+                ]
+
+                child_filters_by_table.setdefault(
+                    child_table,
+                    []
+                ).append({
+                    **item,
+                    "child_col": child_col,
+                })
+
+            else:
+
+                parent_filters.append(item)
+
+        group_parts = []
+        group_params = []
+
+        # -----------------------------------------
+        # Parent conditions
+        # -----------------------------------------
+
+        for item in parent_filters:
+
+            sql, sql_params = build_parent_condition(
+                item["field"],
+                item["condition"],
+                item["value"]
+            )
+
+            if sql:
+                group_parts.append(sql)
+                group_params.extend(sql_params)
+
+        # -----------------------------------------
+        # Child conditions
+        #
+        # Each child table gets its own EXISTS.
+        # -----------------------------------------
+
+        for child_table, child_filters in (
+            child_filters_by_table.items()
+        ):
+
+            child_conditions = []
+            child_params = []
+
+            for item in child_filters:
+
+                normalized_field = (
+                    item["field"].lower().strip()
+                )
+
+                child_col = item["child_col"]
+                condition = str(item["condition"]).upper().strip()
+                value = item["value"]
+
+                # -----------------------------------------
+                # Date normalization
+                # -----------------------------------------
+
+                if normalized_field in child_date_fields:
+                    value = normalize_date(str(value))
+
+                column_sql = (
+                    f"DATE(`{child_col}`)"
+                    if normalized_field in child_date_fields
+                    else f"`{child_col}`"
+                )
+
+                # -----------------------------------------
+                # IN / NOT IN
+                # -----------------------------------------
+
+                if condition in {"IN", "NOT IN"}:
+
+                    if isinstance(value, list):
+
+                        # Empty IN list should not produce invalid SQL
+                        if not value:
+                            continue
+
+                        placeholders = ", ".join(
+                            ["%s"] * len(value)
+                        )
+
+                        child_conditions.append(
+                            f"{column_sql} {condition} "
+                            f"({placeholders})"
+                        )
+
+                        child_params.extend(value)
+
+                    else:
+
+                        child_conditions.append(
+                            f"{column_sql} {condition} (%s)"
+                        )
+
+                        child_params.append(value)
+
+                # -----------------------------------------
+                # Normal condition
+                # -----------------------------------------
+
+                else:
+
+                    child_conditions.append(
+                        f"{column_sql} {condition} %s"
+                    )
+
+                    child_params.append(value)
+                    
+            if child_conditions:
+
+                child_exists = f"""
+                    EXISTS (
+                        SELECT 1
+                        FROM `{child_table}`
+                        WHERE `{child_table}`.parent =
+                              `tabMembers`.name
+                        AND {" AND ".join(child_conditions)}
+                    )
+                """
+
+                group_parts.append(
+                    child_exists
+                )
+
+                group_params.extend(
+                    child_params
+                )
+
+        # -----------------------------------------
+        # Combine group
+        #
+        # Parent filters are OR'd with child EXISTS.
+        # Child filters belonging to the same table
+        # are AND'd together.
+        # -----------------------------------------
+
+        if group_parts:
+
+            group_sql = (
+                "("
+                + " OR ".join(group_parts)
+                + ")"
+            )
+
+            where_clauses.append(group_sql)
+            params.extend(group_params)
+
+    # ============================================================
+    # SEARCH
+    # ============================================================
+
     if search:
+
         search_lower = str(search).lower()
         search_param = f"%{search_lower}%"
-        or_parts = [
-            "LOWER(full_name) LIKE %s",
-            "LOWER(position) LIKE %s",
-            "LOWER(overall_status) LIKE %s",
-            "CAST(TIMESTAMPDIFF(YEAR, date_raised, CURDATE()) AS CHAR) LIKE %s"
+
+        search_parts = [
+            "LOWER(`full_name`) LIKE %s",
+            "LOWER(`position`) LIKE %s",
+            "LOWER(`overall_status`) LIKE %s",
+            """
+            CAST(
+                TIMESTAMPDIFF(
+                    YEAR,
+                    `date_raised`,
+                    CURDATE()
+                ) AS CHAR
+            ) LIKE %s
+            """,
         ]
-        where_clauses.append("(" + " OR ".join(or_parts) + ")")
-        params.extend([search_param] * 4)
 
-    # -------------------------------
-    # OR status filter
-    # -------------------------------
-    # where_clauses.append(
-    #     "(LOWER(overall_status) LIKE '%%active%%' OR LOWER(overall_status) LIKE '%%demitted%%')"
-    # )
+        where_clauses.append(
+            "("
+            + " OR ".join(search_parts)
+            + ")"
+        )
 
-    # -------------------------------
-    # Final WHERE SQL
-    # -------------------------------
-    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+        params.extend(
+            [search_param] * 4
+        )
 
-    # -------------------------------
+    # ============================================================
+    # FINAL WHERE
+    # ============================================================
+
+    where_sql = (
+        " AND ".join(where_clauses)
+        if where_clauses
+        else "1=1"
+    )
+
+    # ============================================================
     # COUNT MODE
-    # -------------------------------
+    # ============================================================
+
     if not limit:
-        count = frappe.db.sql(
+
+        count_result = frappe.db.sql(
             f"""
-            SELECT COUNT(*) AS total
+            SELECT COUNT(DISTINCT `tabMembers`.name) AS total
             FROM `tabMembers`
             WHERE {where_sql}
             """,
             params,
-            as_dict=True
+            as_dict=True,
         )
-        return {"count": count[0].total}
 
-    # -------------------------------
-    # PAGINATION MODE
-    # -------------------------------
-    data = frappe.db.sql(
-        f"""
-        SELECT
-            *
-        FROM `tabMembers`
-        WHERE {where_sql}
-        ORDER BY {order_by}
-        LIMIT %s OFFSET %s
-        """,
-        params + [limit, limit_start],
-        as_dict=True
-    )
+        total_count = (
+            count_result[0]["total"]
+            if count_result
+            else 0
+        )
 
-    # Fetch masonic_service_records child rows in one query
+        return {
+            "count": total_count
+        }
+       
+    # ============================================================
+    # DATA
+    # ============================================================
+    
+    if limit is None:
+        data = frappe.db.sql(
+            f"""
+            SELECT *
+            FROM `tabMembers`
+            WHERE {where_sql}
+            ORDER BY {order_by_sql}
+            """,
+            params,
+            as_dict=True,
+        )
+
+    else:
+
+        data = frappe.db.sql(
+            f"""
+            SELECT *
+            FROM `tabMembers`
+            WHERE {where_sql}
+            ORDER BY {order_by_sql}
+            LIMIT %s OFFSET %s
+            """,
+            params + [
+                int(limit),
+                int(limit_start or 0),
+            ],
+            as_dict=True,
+        )
+
+    # ============================================================
+    # FETCH CHILD DATA
+    # ============================================================
+
     if data:
-        names = [r["name"] for r in data]
-        placeholders = ", ".join(["%s"] * len(names))
+
+        names = [
+            row["name"]
+            for row in data
+        ]
+
+        placeholders = ", ".join(
+            ["%s"] * len(names)
+        )
+
+        # -----------------------------------------
+        # Masonic Service Records
+        # -----------------------------------------
+
         records = frappe.db.sql(
             f"""
-            SELECT parent, record_type, record_value, lodge_no, lodge_name, date_encoded, additional_info, date_official, record, record_encoder
+            SELECT
+                parent,
+                record_type,
+                record_value,
+                lodge_no,
+                lodge_name,
+                date_encoded,
+                additional_info,
+                date_official,
+                record,
+                record_encoder
             FROM `tabMasonic Service Records`
             WHERE parent IN ({placeholders})
             ORDER BY creation ASC
             """,
             names,
-            as_dict=True
+            as_dict=True,
         )
 
-        # Group by parent
         records_map = {}
+
         for record in records:
-            records_map.setdefault(record["parent"], []).append(record)
+            records_map.setdefault(
+                record["parent"],
+                []
+            ).append(record)
 
         for row in data:
-            row["masonic_service_records"] = records_map.get(row["name"], [])
+            row["masonic_service_records"] = (
+                records_map.get(
+                    row["name"],
+                    []
+                )
+            )
 
-    # Fetch other_lodges child rows in one query
-    if data:
-        names = [r["name"] for r in data]
-        placeholders = ", ".join(["%s"] * len(names))
+        # -----------------------------------------
+        # Other Lodges
+        # -----------------------------------------
+
         lodges = frappe.db.sql(
             f"""
-            SELECT parent, lodge_name, lodge_no, lodge_type, lodge_date, status
+            SELECT
+                parent,
+                lodge_name,
+                lodge_no,
+                lodge_type,
+                lodge_date,
+                status
             FROM `tabLodges`
             WHERE parent IN ({placeholders})
             ORDER BY creation ASC
             """,
             names,
-            as_dict=True
+            as_dict=True,
         )
 
-        # Group by parent
         lodges_map = {}
+
         for lodge in lodges:
-            lodges_map.setdefault(lodge["parent"], []).append(lodge)
+            lodges_map.setdefault(
+                lodge["parent"],
+                []
+            ).append(lodge)
 
         for row in data:
-            row["lodges"] = lodges_map.get(row["name"], [])
+            row["lodges"] = (
+                lodges_map.get(
+                    row["name"],
+                    []
+                )
+            )
 
-    # Fetch meeting_and_attendance child rows in one query
-    if data:
-        names = [r["name"] for r in data]
-        placeholders = ", ".join(["%s"] * len(names))
+        # -----------------------------------------
+        # Meeting and Attendance
+        # -----------------------------------------
+
         attendances = frappe.db.sql(
             f"""
-            SELECT parent, meeting_title, meeting_date, lodge_name, lodge_no, attendance, action
+            SELECT
+                parent,
+                meeting_title,
+                meeting_date,
+                lodge_name,
+                lodge_no,
+                attendance,
+                action
             FROM `tabMeeting and Attendance`
             WHERE parent IN ({placeholders})
             ORDER BY creation ASC
             """,
             names,
-            as_dict=True
+            as_dict=True,
         )
 
-        # Group by parent
         attendances_map = {}
+
         for attendance in attendances:
-            attendances_map.setdefault(attendance["parent"], []).append(attendance)
+            attendances_map.setdefault(
+                attendance["parent"],
+                []
+            ).append(attendance)
 
         for row in data:
-            row["meeting_and_attendance"] = attendances_map.get(row["name"], [])
+            row["meeting_and_attendance"] = (
+                attendances_map.get(
+                    row["name"],
+                    []
+                )
+            )
 
-    return {"data": data}
+    # ============================================================
+    # RETURN
+    # ============================================================
+
+    return {
+        "data": data,
+    }
 
 @frappe.whitelist()
 def search_petitioners(filters: str = "[]", search: str = "", limit: int = None,
@@ -857,10 +1391,30 @@ def get_date_completed_circular_members():
             FROM `tabHistory Logs` h
             WHERE h.parent = `tabMonthly Member Report`.name
             AND h.action = 'For Publish'
-            AND DATE(h.date_completed)
-                BETWEEN '{start_date}' AND '{end_date}'
+            AND DATE(h.date_completed) <= '{today}'
         )
     """
+
+def get_date_applied_case_circular():
+    today = date.today()
+    year = today.year
+    month = today.month
+    day = today.day
+
+    if 1 <= day <= 10:
+        start_date = date(year, month, 1)
+        end_date = date(year, month, 10)
+
+    elif 11 <= day <= 20:
+        start_date = date(year, month, 11)
+        end_date = date(year, month, 20)
+
+    else:
+        last_day = calendar.monthrange(year, month)[1]
+        start_date = date(year, month, 21)
+        end_date = date(year, month, last_day)
+
+    return f"(date_applied BETWEEN '{start_date}' AND '{end_date}')"
 
 
 @frappe.whitelist()
