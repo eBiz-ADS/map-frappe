@@ -448,3 +448,70 @@ def update_circular_12(circular_12_name, data):
         "success": True,
         "message": "Circular 12 updated successfully"
     }
+
+
+def get_date_completed_circular_pcr():
+    today = date.today()
+
+    return f"""
+        EXISTS (
+            SELECT 1
+            FROM `tabHistory Logs` h
+            WHERE h.parent = `tabPost Conferral Report`.name
+            AND h.action = 'For Publish'
+            AND DATE(h.date_completed) <= '{today}'
+        )
+    """
+
+@frappe.whitelist()
+def search_pcr_circular():
+    where_clauses = []  # only these 2 statuses are relevant for circular
+        
+    # where_clauses.append(
+    #     "status IN ('Completed')"  # only these 2 statuses are relevant for circular
+    # )
+    
+    where_clauses.append(
+        "(circular12_status IS NULL OR circular12_status NOT IN ('DRAFT', 'PUBLISHED'))"
+    )  
+    
+    # where_clauses.append("status != 'Draft'") 
+    where_clauses.append("status = 'For Publish'")
+    
+    # -------------------------------
+    # DATE_COMPLETED + STATUS LOGIC
+    # -------------------------------
+    
+    date_condition = get_date_completed_circular_pcr()
+    if date_condition:
+        where_clauses.append(date_condition)
+    
+    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+    
+    data = frappe.db.sql(
+        f"""
+            SELECT name
+            FROM `tabPost Conferral Report` 
+            WHERE {where_sql}
+            """,
+            as_dict=True
+        )
+
+    result= []
+
+    for p in data:
+        doc = frappe.get_doc("Post Conferral Report", p.name)
+
+        result.append({
+            "name": doc.name,
+            "status": doc.status,
+            "lodge_name": doc.lodge_name,
+            "lodge_no": doc.lodge_no,
+            "date": doc.date,
+            "conferral_of_degrees_table": doc.conferral_of_degrees_table        
+        })
+
+    
+    return {
+        "data": result
+    }
