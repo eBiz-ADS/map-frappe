@@ -297,7 +297,7 @@
    "length": 255
   },
   {
-   "fetch_from": "petitioner.address_1",
+   "fetch_from": "petitioner.short_residence_address",
    "fieldname": "residence_address",
    "fieldtype": "Small Text",
    "label": "Residence Address",
@@ -886,7 +886,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-25 17:58:48.076304",
+ "modified": "2026-09-24 10:49:56.826495",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Petitions",
