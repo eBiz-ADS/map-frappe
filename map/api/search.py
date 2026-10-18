@@ -1377,13 +1377,27 @@ def get_date_completed_circular():
 #     # Return SQL condition
 #     return f"(date BETWEEN '{start_date}' AND '{end_date}')"
 
+# def get_date_completed_circular_members():
+#     today = date.today()
+#     month = today.month
+#     year = today.year
+
+#     start_date = date(year, month, 1)
+#     end_date = date(year, month, calendar.monthrange(year, month)[1])
+
+#     return f"""
+#         EXISTS (
+#             SELECT 1
+#             FROM `tabHistory Logs` h
+#             WHERE h.parent = `tabMonthly Member Report`.name
+#             AND h.action = 'For Publish'
+#             AND DATE(h.date_completed)
+#                 BETWEEN '{start_date}' AND '{end_date}'
+#         )
+#     """
+
 def get_date_completed_circular_members():
     today = date.today()
-    month = today.month
-    year = today.year
-
-    start_date = date(year, month, 1)
-    end_date = date(year, month, calendar.monthrange(year, month)[1])
 
     return f"""
         EXISTS (
@@ -1646,7 +1660,8 @@ def search_petition_circular():
     # DATE_COMPLETED + STATUS LOGIC
     # -------------------------------
 
-    date_condition = get_date_completed_circular()
+    # date_condition = get_date_completed_circular()
+    date_condition = "date_completed <= CURDATE()"
     if date_condition:
         where_clauses.append(date_condition)
 
