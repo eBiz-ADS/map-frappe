@@ -9,6 +9,8 @@
   "petitioners",
   "members",
   "mmr",
+  "pcr_table",
+  "cases_attached",
   "date_created",
   "date_published",
   "member",
@@ -62,12 +64,24 @@
    "fieldname": "date_published",
    "fieldtype": "Date",
    "label": "Date Published"
+  },
+  {
+   "fieldname": "cases_attached",
+   "fieldtype": "Table",
+   "label": "Cases Attached",
+   "options": "Cases Attached To Circular 12"
+  },
+  {
+   "fieldname": "pcr_table",
+   "fieldtype": "Table",
+   "label": "PCR",
+   "options": "PCR for Circular 12"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-27 00:17:55.556157",
+ "modified": "2026-10-04 22:37:07.034537",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Circular 12",
