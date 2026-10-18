@@ -279,6 +279,8 @@ def get_lodge_members(lodge_no):
             m.id_number,
             m.member_key,
             m.overall_status,
+            m.past_master,
+            m.past_master_year,
             ol.lodge_type,
             ol.status AS lodge_status
         FROM `tabMembers` m
@@ -321,6 +323,8 @@ def get_lodge_members(lodge_no):
             "id_number": row.get("id_number") or "",
             "member_key": row.get("member_key"),
             "overall_status": row.get("overall_status"),
+            "past_master": row.get("past_master"),
+            "past_master_year": row.get("past_master_year"),
         }
 
         # Normal active members
