@@ -1,0 +1,325 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:PCR-{#####}",
+ "creation": "2026-09-19 17:27:00.993466",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "lodge_name",
+  "lodge_no",
+  "district",
+  "date",
+  "or_number",
+  "or_date",
+  "transmitted_date",
+  "section_break_gzwg",
+  "signed_pcr_table",
+  "section_break_ptfh",
+  "status",
+  "date_published",
+  "circular12_status",
+  "conferral_of_degrees_tab",
+  "conferral_of_degrees_table",
+  "conferral_team_tab",
+  "conferral_team_table",
+  "violation_tab",
+  "violation",
+  "officers_tab",
+  "section_break_vaac",
+  "worshipful_master",
+  "wm_name",
+  "column_break_pexz",
+  "senior_warden",
+  "sw_name",
+  "column_break_fqgm",
+  "junior_warden",
+  "jw_name",
+  "column_break_uheb",
+  "lodge_secretary",
+  "ls_name",
+  "section_break_dtdv",
+  "district_grand_lecturer",
+  "dgl_name",
+  "column_break_zjal",
+  "district_deputy_grand_master",
+  "ddgm_name",
+  "column_break_poxo",
+  "grand_lodge_inspector",
+  "gli_name",
+  "history_logs_tab",
+  "history_logs_table",
+  "source_tab",
+  "source_table"
+ ],
+ "fields": [
+  {
+   "fetch_from": "lodge_no.lodge_name",
+   "fieldname": "lodge_name",
+   "fieldtype": "Data",
+   "label": "Lodge Name"
+  },
+  {
+   "fieldname": "lodge_no",
+   "fieldtype": "Link",
+   "label": "Lodge Number",
+   "options": "Lodge List"
+  },
+  {
+   "fetch_from": "lodge_no.lodge_district",
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "or_date",
+   "fieldtype": "Date",
+   "label": "OR Date"
+  },
+  {
+   "fieldname": "or_number",
+   "fieldtype": "Data",
+   "label": "OR Number"
+  },
+  {
+   "fieldname": "transmitted_date",
+   "fieldtype": "Date",
+   "label": "Transmitted Date"
+  },
+  {
+   "fieldname": "violation",
+   "fieldtype": "Small Text",
+   "label": "Violation"
+  },
+  {
+   "fieldname": "conferral_team_table",
+   "fieldtype": "Table",
+   "label": "Conferral Team",
+   "options": "Conferral Team"
+  },
+  {
+   "fieldname": "history_logs_table",
+   "fieldtype": "Table",
+   "label": "History Logs",
+   "options": "History Logs"
+  },
+  {
+   "fieldname": "conferral_team_tab",
+   "fieldtype": "Tab Break",
+   "label": "Conferral Team"
+  },
+  {
+   "fieldname": "violation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Violation"
+  },
+  {
+   "fieldname": "history_logs_tab",
+   "fieldtype": "Tab Break",
+   "label": "History Logs"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_vaac",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "worshipful_master",
+   "fieldtype": "Link",
+   "label": "Worshipful Master",
+   "options": "Members"
+  },
+  {
+   "fieldname": "senior_warden",
+   "fieldtype": "Link",
+   "label": "Senior Warden",
+   "options": "Members"
+  },
+  {
+   "fieldname": "junior_warden",
+   "fieldtype": "Link",
+   "label": "Junior Warden",
+   "options": "Members"
+  },
+  {
+   "fieldname": "lodge_secretary",
+   "fieldtype": "Link",
+   "label": "Lodge Secretary",
+   "options": "Members"
+  },
+  {
+   "fieldname": "district_deputy_grand_master",
+   "fieldtype": "Link",
+   "label": "District Deputy Grand Master",
+   "options": "Members"
+  },
+  {
+   "fieldname": "district_grand_lecturer",
+   "fieldtype": "Link",
+   "label": "District Grand Lecturer",
+   "options": "Members"
+  },
+  {
+   "fieldname": "grand_lodge_inspector",
+   "fieldtype": "Link",
+   "label": "Grand Lodge Inspector",
+   "options": "Members"
+  },
+  {
+   "fieldname": "section_break_ptfh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending\nPending For Approval\nApproved\nCompleted\nSubmitted\nReceived\nVerified\nReturned\nFor Publish\nPublished"
+  },
+  {
+   "fieldname": "officers_tab",
+   "fieldtype": "Tab Break",
+   "label": "Officers"
+  },
+  {
+   "fieldname": "section_break_gzwg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "signed_pcr_table",
+   "fieldtype": "Table",
+   "label": "Signed PCR",
+   "options": "Signed PCR"
+  },
+  {
+   "fieldname": "column_break_pexz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_fqgm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_uheb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_dtdv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_zjal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_poxo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "worshipful_master.full_name",
+   "fieldname": "wm_name",
+   "fieldtype": "Data",
+   "label": "Worshipful Master Name"
+  },
+  {
+   "fetch_from": "senior_warden.full_name",
+   "fieldname": "sw_name",
+   "fieldtype": "Data",
+   "label": "Senior Warden Name"
+  },
+  {
+   "fetch_from": "junior_warden.full_name",
+   "fieldname": "jw_name",
+   "fieldtype": "Data",
+   "label": "Junior Warden Name"
+  },
+  {
+   "fetch_from": "lodge_secretary.full_name",
+   "fieldname": "ls_name",
+   "fieldtype": "Data",
+   "label": "Lodge Secretary Name"
+  },
+  {
+   "fetch_from": "district_grand_lecturer.full_name",
+   "fieldname": "dgl_name",
+   "fieldtype": "Data",
+   "label": "District Grand Lecturer Name"
+  },
+  {
+   "fetch_from": "district_deputy_grand_master.full_name",
+   "fieldname": "ddgm_name",
+   "fieldtype": "Data",
+   "label": "District Deputy Grand Master Name"
+  },
+  {
+   "fetch_from": "grand_lodge_inspector.full_name",
+   "fieldname": "gli_name",
+   "fieldtype": "Data",
+   "label": "Grand Lodge Inspector Name"
+  },
+  {
+   "fieldname": "conferral_of_degrees_tab",
+   "fieldtype": "Tab Break",
+   "label": "Conferral of Degrees"
+  },
+  {
+   "fieldname": "conferral_of_degrees_table",
+   "fieldtype": "Table",
+   "label": "Conferral of Degrees",
+   "options": "Conferral of Degrees"
+  },
+  {
+   "fieldname": "source_tab",
+   "fieldtype": "Tab Break",
+   "label": "Source (Not In Use)"
+  },
+  {
+   "fieldname": "source_table",
+   "fieldtype": "Table",
+   "label": "Source",
+   "options": "Conferral Source"
+  },
+  {
+   "fieldname": "date_published",
+   "fieldtype": "Data",
+   "label": "Date Published"
+  },
+  {
+   "fieldname": "circular12_status",
+   "fieldtype": "Select",
+   "label": "Circular 12 Status",
+   "options": "\nDRAFT\nPUBLISHED"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-30 23:24:52.898826",
+ "modified_by": "Administrator",
+ "module": "Masonic Administration Platform",
+ "name": "Post Conferral Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

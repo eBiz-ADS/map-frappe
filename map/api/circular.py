@@ -174,7 +174,6 @@ def create_circular_12(data):
 
     create.insert(ignore_permissions=True)
 
-    #  update attached Petitions' circular 12 statuses 
     # update attached Petitions' circular 12 statuses
 
     updates = {
