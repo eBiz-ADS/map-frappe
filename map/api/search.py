@@ -718,7 +718,7 @@ def search_members(
             )
 
         # -----------------------------------------
-        # Other Lodges
+        # Other Lodges + Matching Type
         # -----------------------------------------
 
         lodges = frappe.db.sql(
@@ -741,19 +741,55 @@ def search_members(
         lodges_map = {}
 
         for lodge in lodges:
-            lodges_map.setdefault(
-                lodge["parent"],
-                []
-            ).append(lodge)
+            lodges_map.setdefault(lodge["parent"], []).append(lodge)
+
+        # Extract the lodge membership filter
+        membership_filters = [
+            f for f in filters_list
+            if isinstance(f, list)
+            and len(f) >= 5
+            and f[4] == "lodge_membership"
+        ]
+
+        allowed_lodge_types = []
+
+        for f in membership_filters:
+            if str(f[0]).lower().strip() == "other_lodge_type":
+                if str(f[1]).upper() == "IN":
+                    allowed_lodge_types.extend(
+                        f[2] if isinstance(f[2], list) else [f[2]]
+                    )
 
         for row in data:
-            row["lodges"] = (
-                lodges_map.get(
-                    row["name"],
-                    []
-                )
+            member_lodges = lodges_map.get(row["name"], [])
+            row["lodges"] = member_lodges
+
+            # Find the matching other lodge type
+            matching_lodge = next(
+                (
+                    lodge for lodge in member_lodges
+                    if lodge.get("lodge_type") in allowed_lodge_types
+                    and lodge.get("lodge_no") == next(
+                        (
+                            f[2] for f in membership_filters
+                            if str(f[0]).lower().strip() == "other_lodge_no"
+                            and str(f[1]).strip() == "="
+                        ),
+                        None,
+                    )
+                ),
+                None,
             )
 
+            if matching_lodge:
+                if matching_lodge["lodge_type"] == "DUAL":
+                    membership_type = "PLURAL"
+                else:
+                    membership_type = matching_lodge["lodge_type"]
+            else:
+                membership_type = "REGULAR"
+
+            row["membership_type"] = membership_type
         # -----------------------------------------
         # Meeting and Attendance
         # -----------------------------------------
