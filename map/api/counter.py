@@ -99,11 +99,22 @@ def count_records(filters_by_doctype=None):
                     params[f"{key}_end"] = val[1][1]
 
                 elif isinstance(val, list) and val[0] == "IN":
-                    placeholders = ", ".join([f"%({key}_{i})s" for i in range(len(val[1]))])
+                    values = val[1]
+
+                    if not values:
+                        child_conditions.append("1=0")
+                        continue
+
+                    placeholders = ", ".join(
+                        f"%({key}_{i})s"
+                        for i in range(len(values))
+                    )
+
                     child_conditions.append(
                         f"{child_table}.`{key}` IN ({placeholders})"
                     )
-                    for i, v in enumerate(val[1]):
+
+                    for i, v in enumerate(values):
                         params[f"{key}_{i}"] = v
 
                 elif isinstance(val, list) and val[0] == "!=":
@@ -121,32 +132,77 @@ def count_records(filters_by_doctype=None):
             child_where = " AND ".join(child_conditions) or "1=1"
 
             # =========================
-            # JOIN OR EXCLUDE CHILD
+            # SPECIAL:
+            # PARENT OR CHILD
             # =========================
-            if not child.get("exclude", False):
+
+            if child.get("or_with_parent", False):
+
+                if child.get("exclude", False):
+                    frappe.throw(
+                        "or_with_parent cannot be used with exclude"
+                    )
 
                 sql = f"""
                     SELECT COUNT(DISTINCT {parent_table}.name) AS count
                     FROM {parent_table}
+                    WHERE
+                        (
+                            {parent_where}
+                            OR
+                            EXISTS (
+                                SELECT 1
+                                FROM {child_table}
+                                WHERE
+                                    {child_table}.parent = {parent_table}.name
+                                    AND {child_where}
+                            )
+                        )
+                """
+
+            # =========================
+            # NORMAL CHILD JOIN
+            # =========================
+
+            elif not child.get("exclude", False):
+
+                sql = f"""
+                    SELECT COUNT(DISTINCT {parent_table}.name) AS count
+                    FROM {parent_table}
+
                     INNER JOIN {child_table}
                         ON {parent_table}.name = {child_table}.parent
-                    WHERE {parent_where} AND {child_where}
+
+                    WHERE
+                        {parent_where}
+                        AND {child_where}
                 """
+
+            # =========================
+            # EXCLUDE CHILD
+            # =========================
 
             else:
 
                 sql = f"""
                     SELECT COUNT(*) AS count
                     FROM {parent_table}
-                    WHERE {parent_where}
-                    AND {parent_table}.name NOT IN (
-                        SELECT DISTINCT parent
-                        FROM {child_table}
-                        WHERE {child_where}
-                    )
+
+                    WHERE
+                        {parent_where}
+
+                        AND {parent_table}.name NOT IN (
+                            SELECT DISTINCT parent
+                            FROM {child_table}
+                            WHERE {child_where}
+                        )
                 """
 
-            results[name] = frappe.db.sql(sql, params, as_dict=True)[0]["count"]
+            results[name] = frappe.db.sql(
+                sql,
+                params,
+                as_dict=True
+            )[0]["count"]
 
     return results
 

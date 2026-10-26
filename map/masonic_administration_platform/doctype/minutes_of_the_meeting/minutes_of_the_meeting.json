@@ -107,7 +107,9 @@
   "table_mzjc",
   "closing_remarks",
   "history_logs_tab",
-  "history_logs_table"
+  "history_logs_table",
+  "dispensation_tab",
+  "dispensation_table"
  ],
  "fields": [
   {
@@ -652,12 +654,23 @@
    "fieldtype": "Table",
    "label": "Other Business",
    "options": "Other Business"
+  },
+  {
+   "fieldname": "dispensation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Dispensation"
+  },
+  {
+   "fieldname": "dispensation_table",
+   "fieldtype": "Table",
+   "label": "Dispensation",
+   "options": "Dispensation"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-13 14:36:47.541816",
+ "modified": "2026-09-27 18:21:35.849951",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
  "name": "Minutes of the Meeting",

@@ -1,36 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-14 16:39:43.858074",
+ "creation": "2026-09-27 18:20:37.004452",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "petitioners_conferral",
-  "full_name"
+  "dispensation"
  ],
  "fields": [
   {
-   "fieldname": "petitioners_conferral",
-   "fieldtype": "Link",
-   "label": "Petitioners Conferral",
-   "options": "Petitioners Conferral"
-  },
-  {
-   "fetch_from": "petitioners_conferral.full_name",
-   "fieldname": "full_name",
-   "fieldtype": "Data",
-   "label": "Full Name"
+   "fieldname": "dispensation",
+   "fieldtype": "Attach",
+   "label": "Dispensation"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-14 21:57:27.315440",
+ "modified": "2026-09-27 18:20:54.640116",
  "modified_by": "Administrator",
  "module": "Masonic Administration Platform",
- "name": "Petitioners Conferral Table",
+ "name": "Dispensation",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

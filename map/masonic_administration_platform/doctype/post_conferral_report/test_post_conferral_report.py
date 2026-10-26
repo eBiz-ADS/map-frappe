@@ -1,4 +1,4 @@
-# Copyright (c) 2025, eBiZolution and Contributors
+# Copyright (c) 2026, eBiZolution and Contributors
 # See license.txt
 
 # import frappe
@@ -13,9 +13,9 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 
-class IntegrationTestPetitionersConferral(IntegrationTestCase):
+class IntegrationTestPostConferralReport(IntegrationTestCase):
 	"""
-	Integration tests for PetitionersConferral.
+	Integration tests for PostConferralReport.
 	Use this class for testing interactions between multiple components.
 	"""
 
