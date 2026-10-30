@@ -41,8 +41,39 @@ def search_members(
             "first_name": "`first_name`",
             "full_name": "`full_name`",
             "overall_status": "`overall_status`",
+            "membership_type": """
+                CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `tabLodges` l
+                        WHERE l.parent = `tabMembers`.name
+                        AND l.lodge_type IN ('DUAL', 'DUAL LODGE')
+                    ) THEN 'PLURAL'
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `tabLodges` l
+                        WHERE l.parent = `tabMembers`.name
+                        AND l.lodge_type IN ('HONORARY', 'HONORARY LODGE')
+                    ) THEN 'HONORARY'
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `tabLodges` l
+                        WHERE l.parent = `tabMembers`.name
+                        AND l.lodge_type IN ('CHARTER', 'CHARTER LODGE')
+                    ) THEN 'CHARTER'
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `tabLodges` l
+                        WHERE l.parent = `tabMembers`.name
+                        AND l.lodge_type IN ('AFFILIATED', 'AFFILIATED LODGE')
+                    ) THEN 'AFFILIATED'
+                    ELSE 'REGULAR'
+                END
+            """,
+            "masonic_years": """
+                TIMESTAMPDIFF(YEAR, `date_raised`, CURDATE())
+            """,
         }
-
         # Example: "last_name asc"
         parts = order_by.strip().split()
 
@@ -128,6 +159,12 @@ def search_members(
     child_date_fields = {
         "activities_date",
         "date_of_payment",
+    }
+
+    calculated_fields = {
+        "masonic_years": """
+            TIMESTAMPDIFF(YEAR, `date_raised`, CURDATE())
+        """
     }
 
     # ============================================================
@@ -247,18 +284,32 @@ def search_members(
                 "DROPPED",
             ]
 
-            placeholders = ", ".join(
-                ["%s"] * len(inactive_statuses)
-            )
+            placeholders = ", ".join(["%s"] * len(inactive_statuses))
 
             return (
                 f"`overall_status` IN ({placeholders})",
                 inactive_statuses,
             )
 
+        # Calculated fields
+        if normalized_field in calculated_fields:
+            return build_condition(
+                calculated_fields[normalized_field],
+                condition,
+                value
+            )
+        
+        # Calculated fields
+        if normalized_field in calculated_fields:
+            return build_condition(
+                calculated_fields[normalized_field],
+                condition,
+                value
+            )
+
+
         # Date fields
         if normalized_field in date_fields:
-
             value = normalize_date(str(value))
 
             return build_condition(
@@ -648,7 +699,13 @@ def search_members(
 
         data = frappe.db.sql(
             f"""
-            SELECT *
+            SELECT 
+                *,
+                TIMESTAMPDIFF(
+                    YEAR,
+                    `date_raised`,
+                    CURDATE()
+                ) AS `masonic_years`
             FROM `tabMembers`
             WHERE {where_sql}
             ORDER BY {order_by_sql}
